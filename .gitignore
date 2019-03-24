@@ -1,0 +1,12 @@
+# Pycharm
+.idea/*
+
+# Virtualenv
+venv/*
+apps/__pycache__/
+rest_api/__pycache__/
+
+book_advisor/__pycache__/
+
+# Db Django ... will be change with mysql or something else.
+db.sqlite3
