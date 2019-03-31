@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BookAdvisor</string>
+
+    <string name="Open">Open</string>
+    <string name="Closed">Closed</string>
+
+</resources>

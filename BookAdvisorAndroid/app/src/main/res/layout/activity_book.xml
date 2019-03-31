@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/book_cover"
+                android:layout_width="match_parent"
+                android:layout_height="295dp"
+        />
+
+
+        <RelativeLayout
+                android:id="@+id/book_about_container"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_below="@id/book_cover"
+                android:background="#FF222823">
+
+
+            <View
+                    android:id="@+id/book_about_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:background="@drawable/separator_gradient">
+
+            </View>
+
+            <TextView
+                    android:id="@+id/book_about_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/book_about_separator"
+
+                    android:layout_marginStart="20dp"
+
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp"
+                    android:text="Naruto Shippuden"
+            />
+
+            <TextView
+                    android:id="@+id/book_about_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@id/book_about_title"
+                    android:layout_alignStart="@id/book_about_title"
+
+                    android:textColor="@color/colorTextDarker"
+                    android:textSize="14sp"
+                    android:text="Mashashi Kishimoto"
+            />
+
+            <RatingBar
+                    android:id="@+id/book_about_ratingbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@id/book_about_author"
+                    android:layout_alignStart="@id/book_about_author"
+
+                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
+            />
+
+            <TextView
+                    android:id="@+id/book_about_rating_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_toEndOf="@id/book_about_ratingbar"
+
+                    android:textColor="#FFA4A7A5"
+                    android:textSize="12sp"
+            />
+
+            <TextView
+                    android:id="@+id/book_about_review_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_toEndOf="@id/book_about_rating_value"
+
+                    android:textColor="#FFA4A7A5"
+                    android:textSize="12sp"
+            />
+
+            <Button
+                android:id="@+id/book_button_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+
+                android:layout_below="@id/book_about_ratingbar"
+
+                android:layout_centerHorizontal="true"
+
+                android:text="Want to read"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/button_layout"
+            />
+
+            <TextView
+                    android:id="@+id/book_about_prologue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@id/book_button_read"
+                    android:layout_alignStart="@id/book_about_title"
+                    android:layout_marginBottom="4dp"
+
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"
+                    android:text="PROLOGUE"
+            />
+
+            <TextView
+                android:id="@+id/book_about_prologue_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@id/book_about_prologue"
+                android:layout_alignStart="@id/book_about_prologue"
+                android:layout_marginEnd="20dp"
+
+                android:textColor="@color/colorText"
+                android:textSize="16sp"
+                android:text="In the ninja world, those who break the rules are regarded as scum. But those who ask students to do a complex project in their last semester are even worse than scum."
+            />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/book_tags_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/book_about_prologue_content"
+            >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/book_reviews_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/book_about_container">
+
+            <TextView
+                android:id="@+id/book_reviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+
+
+                android:textColor="@color/colorBackground"
+                android:textSize="18sp"
+                android:text="REVEIWS"
+            />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/book_reviews_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</ScrollView>

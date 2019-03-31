@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical">
+
+    <TextView
+            android:id="@+id/readinglist_listitem_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+
+            android:textSize="16sp"
+            android:textColor="@color/colorBlack"
+            android:text="Romance"
+    />
+
+    <TextView
+            android:id="@+id/readinglist_listitem_nrbooks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:layout_toEndOf="@id/readinglist_listitem_name"
+            android:layout_marginStart="8dp"
+
+            android:textSize="16sp"
+            android:textColor="@color/colorLightGray"
+            android:text="0 books"
+    />
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="32dp"
+
+            android:src="@drawable/ic_right_arrow"
+            android:tint="@color/colorBlack"
+    />
+
+</RelativeLayout>

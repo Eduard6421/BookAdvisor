@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/login_activity_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+
+    <!-- Background image : start -->
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_background"
+            android:scaleType="fitXY"
+            android:contentDescription="Login Background" />
+    <!-- Background image : end -->
+
+    <!-- Logo image : start -->
+    <ImageView
+            android:id="@+id/login_logo"
+
+            android:layout_width="117dp"
+            android:layout_height="100dp"
+
+            android:layout_marginTop="90dp"
+            android:layout_centerHorizontal="true"
+
+            android:src="@drawable/ic_add_button"
+            android:contentDescription="Login Logo" />
+    <!-- Logo image : end -->
+
+
+    <!-- Login fields container : start -->
+    <RelativeLayout
+            android:id="@+id/login_fields_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_logo"
+            android:visibility="visible">/
+
+        <!-- Username field : start -->
+        <EditText
+                android:id="@+id/login_user_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+
+                android:layout_marginTop="80dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingStart="18.5dp"
+                android:paddingEnd="5dp"
+                android:drawablePadding="17.5dp"
+
+                android:layout_centerHorizontal="true"
+
+                android:hint="Email"
+                android:drawableLeft="@drawable/ic_username"
+                android:drawableStart="@drawable/ic_username"
+
+                android:textCursorDrawable="@null"
+
+                android:background="@color/colorWhite"
+
+                android:textSize="14sp"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="0sp"
+                android:inputType="textEmailAddress"/>
+        <!-- Username field : end -->
+
+        <!-- Password field : start -->
+        <EditText
+                android:id="@+id/login_password_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingStart="18.5dp"
+                android:paddingEnd="5dp"
+
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/login_user_text"
+
+                android:hint="Password"
+                android:drawableLeft="@drawable/ic_password"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="17.5dp"
+
+                android:textCursorDrawable="@null"
+
+                android:background="@color/colorWhite"
+
+                android:textSize="14sp"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="0sp"
+                android:inputType="textPassword" />
+        <!-- Password field : end -->
+
+        <!-- Login Button : start -->
+        <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/login_password_text"
+
+                android:background="@color/colorPrimary"
+
+                android:textSize="15sp"
+                android:lineSpacingExtra="0sp"
+                android:textAllCaps="false"
+                android:text="Sign In"
+        />
+        <!-- Login Button : end -->
+
+        <!-- Incorrect credentials message: start -->
+        <TextView
+                android:id="@+id/invalid_credentials_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/login_button"
+                android:layout_marginTop="25dp"
+
+                android:layout_centerHorizontal="true"
+                android:text="Incorrect Email or Password"
+                android:textColor="@color/colorRed"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+        <!-- Incorrect credentials message: end -->
+
+        <!-- Forgot password Text View : start -->
+        <TextView
+                android:id="@+id/forgot_password_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignEnd="@id/login_button"
+                android:layout_below="@id/invalid_credentials_text"
+                android:layout_marginTop="14dp"
+                android:padding="5dp"
+
+                android:textSize="12sp"
+                android:textColor="@color/colorWhite"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="0sp"
+                android:text="Forgot Password"/>
+        <!-- Forgot password Text View : end -->
+
+        <CheckBox
+                android:id="@+id/remember_me_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignStart="@id/login_button"
+                android:layout_alignTop="@id/forgot_password_text"
+                android:layout_below="@id/invalid_credentials_text"
+                android:padding="5dp"
+
+                android:button="@drawable/checkbox_layout_selector"
+
+                android:textSize="12sp"
+                android:textColor="@color/colorWhite"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="0sp"
+                android:text="Remember me" />
+
+
+    </RelativeLayout>
+    <!-- Login fields container : end -->
+
+    <!-- Recover password container : start -->
+    <RelativeLayout
+            android:id="@+id/recover_email_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_logo"
+            android:visibility="gone">
+
+        <!-- Informative message: start -->
+        <TextView
+                android:id="@+id/informative_password_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="80dp"
+
+                android:layout_centerHorizontal="true"
+                android:text="Request Password Reset"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp" />
+        <!-- Informative message: end -->
+
+        <!-- Email field : start -->
+        <EditText
+                android:id="@+id/recover_email_field"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingStart="18.5dp"
+                android:paddingEnd="5dp"
+
+                android:layout_marginTop="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/informative_password_reset"
+
+                android:hint="Email"
+                android:drawableStart="@drawable/ic_username"
+                android:drawablePadding="17.5dp"
+
+                android:textCursorDrawable="@null"
+
+                android:background="@color/colorWhite"
+
+                android:textSize="14sp"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="0sp"
+                android:inputType="textEmailAddress" />
+        <!-- Email field : end -->
+
+        <!-- Send Button : start -->
+        <Button
+                android:id="@+id/send_email_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/recover_email_field"
+
+                android:background="@color/colorGreen"
+
+                android:textSize="15sp"
+                android:lineSpacingExtra="0sp"
+                android:textAllCaps="false"
+                android:text="Reset Password" />
+        <!-- Send Button : end -->
+
+        <TextView
+                android:id="@+id/email_not_found_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+
+                android:layout_marginTop="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/send_email_button"
+
+                android:text="Email not found"
+                android:textColor="@color/colorRed"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+    </RelativeLayout>
+    <!-- Recover password container : end -->
+
+    <!-- Recover password success container : start -->
+    <RelativeLayout
+            android:id="@+id/recover_email_success_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:layout_below="@id/login_logo"
+            android:visibility="gone">
+
+        <TextView
+                android:id="@+id/email_recover_success_message_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+
+                android:text="An email has been sent to"
+                android:textColor="@color/colorWhite"
+                android:textSize="17sp"/>
+
+        <TextView
+                android:id="@+id/email_recover_success_message_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@id/email_recover_success_message_top"
+                android:layout_centerHorizontal="true"
+
+                android:textColor="@color/colorWhite"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:id="@+id/email_recover_success_message_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@id/email_recover_success_message_address"
+                android:layout_centerHorizontal="true"
+
+                android:text="with further instructions."
+                android:textColor="@color/colorWhite"
+                android:textSize="17sp"/>
+
+    </RelativeLayout>
+    <!-- Recover password success container : end -->
+
+    <!-- Loading bar container: start -->
+    <RelativeLayout
+            android:id="@+id/login_progress_bar_rl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorTransparentWhite"
+            android:visibility="gone"
+            android:clickable="false"
+            android:focusable="false">
+
+        <!-- Loading bar: start -->
+        <ImageView
+                android:id="@+id/login_progress_bar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_loading_gemini_1" />
+        <!-- Loading bar: end -->
+
+    </RelativeLayout>
+    <!-- Loading bar container: end -->
+
+</RelativeLayout>
