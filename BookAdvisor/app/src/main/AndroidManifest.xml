@@ -9,6 +9,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".Activities.FindPeopleActivity">
+        </activity>
+        <activity android:name=".Activities.CategoriesActivity">
+        </activity>
         <activity android:name=".Activities.SettingsActivity">
         </activity>
         <activity android:name=".Activities.ReviewsActivity">
@@ -17,7 +21,7 @@
         </activity>
         <activity android:name=".Activities.ReadingListActivity">
         </activity>
-        <activity android:name=".Activities.MyProfileActivity">
+        <activity android:name=".Activities.ProfileActivity">
         </activity>
         <activity android:name=".Activities.LoginActivity">
         </activity>

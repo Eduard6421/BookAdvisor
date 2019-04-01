@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:background="@color/colorBackground">
 
     <TextView
         android:id="@+id/library_reading_lists_title"
@@ -14,9 +15,11 @@
         android:layout_marginTop="32dp"
 
         android:text="Reading Lists"
-        android:textColor="@color/colorBlack"
+        android:textSize="20sp"
+        android:textColor="@color/colorText"
     />
 
+    <!-- Use readinglist_listitem_layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/library_reading_lists_recyclerview"
         android:layout_width="match_parent"

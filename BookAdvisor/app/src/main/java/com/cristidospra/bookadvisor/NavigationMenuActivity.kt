@@ -83,7 +83,7 @@ open class NavigationMenuActivity : AppCompatActivity() {
                 /*R.id.navigation_calendar -> createIntent(CalendarActivity::class.java)
                 R.id.navigation_employees -> createIntent(EmployeesActivity::class.java)
                 R.id.navigation_clients -> createIntent(ClientsActivity::class.java)
-                R.id.navigation_my_profile -> createIntent(MyProfileActivity::class.java)*/
+                R.id.navigation_my_profile -> createIntent(ProfileActivity::class.java)*/
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
@@ -105,7 +105,7 @@ open class NavigationMenuActivity : AppCompatActivity() {
 
             resetAllMenuItemsColor(navigationView)
             setColorForMenuItem(navigationView.menu.findItem(R.id.navigation_scan_books), R.color.colorNavActive)
-            //createIntent(MyProfileActivity::class.java)
+            //createIntent(ProfileActivity::class.java)
         }
 
         //emailTextView.text = CurrentUser.instance.workEmail

@@ -28,5 +28,7 @@
     <color name="colorBackground">#FF222823</color>
     <color name="colorBarBackground">#FFD8D8D8</color>
     <color name="colorBarText">#FF2C8240</color>
+    <color name="colorLabel">#FF3D5A80</color>
+
 
 </resources>

@@ -86,11 +86,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_below="@id/book_lisitiem_horizontal_ratingbar"
-        android:layout_alignStart="@id/book_lisitiem_horizontal_ratingbar"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@id/book_lisitiem_horizontal_ratingtext"
+        android:layout_alignTop="@id/book_lisitiem_horizontal_ratingtext"
 
         android:textColor="@color/colorBlack"
-        android:text="19929 ratings"
+        android:text="out of 19929 rates"
         android:textSize="16sp"
     />
 
@@ -109,5 +110,19 @@
         android:textSize="16sp"
     />
 
+    <TextView
+        android:id="@+id/book_lisitiem_horizontal_release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/book_lisitiem_horizontal_nrpages"
+        android:layout_alignStart="@id/book_lisitiem_horizontal_ratingbar"
+
+        android:layout_marginTop="4dp"
+
+        android:textColor="@color/colorBlack"
+        android:text="since 15.02.2007"
+        android:textSize="16sp"
+    />
 
 </RelativeLayout>

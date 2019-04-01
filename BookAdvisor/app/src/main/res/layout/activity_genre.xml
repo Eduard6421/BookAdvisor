@@ -29,9 +29,10 @@
 
         android:background="@drawable/button_layout"
         android:textColor="@color/colorWhite"
-        android:text="Add to favourite genres"
+        android:text=" + Add to favourite genres"
     />
 
+    <!-- Use book_listitem_horizontal_layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/genre_activity_books_recyclerview"
         android:layout_width="match_parent"

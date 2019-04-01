@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
                 android:id="@+id/book_cover"
@@ -74,10 +74,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
+                    android:layout_marginStart="6dp"
                     android:layout_toEndOf="@id/book_about_ratingbar"
+                    android:layout_alignTop="@id/book_about_ratingbar"
 
-                    android:textColor="#FFA4A7A5"
+                    android:textColor="@color/colorTextDarker"
                     android:textSize="12sp"
+                    android:text="5.0"
             />
 
             <TextView
@@ -85,10 +88,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
+                    android:layout_marginStart="6dp"
                     android:layout_toEndOf="@id/book_about_rating_value"
+                    android:layout_alignTop="@id/book_about_rating_value"
 
-                    android:textColor="#FFA4A7A5"
+                    android:textColor="@color/colorTextDarker"
                     android:textSize="12sp"
+                    android:text="out of 19937 rates"
             />
 
             <Button
@@ -103,7 +109,7 @@
 
                 android:layout_centerHorizontal="true"
 
-                android:text="Want to read"
+                android:text="Add to reading lists"
                 android:textColor="@color/colorWhite"
                 android:background="@drawable/button_layout"
             />
@@ -136,6 +142,7 @@
                 android:text="In the ninja world, those who break the rules are regarded as scum. But those who ask students to do a complex project in their last semester are even worse than scum."
             />
 
+            <!-- Use small_genre_listitem_layout -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/book_tags_recyclerview"
                 android:layout_width="match_parent"
@@ -171,11 +178,13 @@
                 android:text="REVEIWS"
             />
 
+            <!-- Use review_listitem_layout -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/book_reviews_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_below="@id/book_reviews">
 
             </androidx.recyclerview.widget.RecyclerView>
 

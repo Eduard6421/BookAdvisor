@@ -18,7 +18,7 @@
 
         android:textSize="16sp"
         android:textColor="@color/colorText"
-        android:text="Romance"
+        android:text="ROMANCE"
     />
 
     <androidx.recyclerview.widget.RecyclerView

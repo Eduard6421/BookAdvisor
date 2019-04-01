@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal">
 
-
+    <!-- Use readinglist_listitem_layout -->
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/add_book_recyclerview"
             android:layout_width="match_parent"

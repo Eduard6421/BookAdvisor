@@ -3,14 +3,37 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
 
+    <TextView
+        android:id="@+id/readinglist_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="21dp"
+        android:textColor="@color/colorText"
+        android:textSize="20sp"
+        android:text="ROMANCE"
+
+    />
+
+    <!-- Use genre_layout -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/readinglist_books_recyclerview"
+        android:id="@+id/readinglist_genres_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_below="@id/readinglist_title"/>
 
-    </androidx.recyclerview.widget.RecyclerView>
+
+    <!-- Use book_lisitem_horizontal_layout -->
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/readinglist_books_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="21dp"
+            android:layout_below="@id/readinglist_genres_recyclerview"/>
+
 
 </RelativeLayout>
