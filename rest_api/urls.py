@@ -1,6 +1,6 @@
 
 from django.conf.urls import url
-from .views import logout_user, login_user, register_user, get_recommanded_books, get_books, get_user
+from .views import *
 from django.conf.urls import (
 handler400, handler403, handler404, handler500
 )
@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^get-user$', get_user, name='get_user'),
     url(r'^get-recommanded-books$', get_recommanded_books, name='get_recommanded_books'),
 
+    url(r'^current-user$', current_user, name='current_user'),
 ]

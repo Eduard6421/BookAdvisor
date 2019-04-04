@@ -19,17 +19,20 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.status import (
-    HTTP_400_BAD_REQUEST,
-    HTTP_404_NOT_FOUND,
-    HTTP_200_OK
+	HTTP_400_BAD_REQUEST,
+	HTTP_404_NOT_FOUND,
+	HTTP_200_OK
 )
 from rest_framework.response import Response
+from django.core import serializers
+from django.forms.models import model_to_dict
 
 
 import uuid
 import json
 
 from .models import *
+from .serializers import *
 
 # Create your views here.
 
@@ -41,9 +44,8 @@ def login_user(request):
 	msg = ''
 	if request.user.is_authenticated:
 		msg = 'Session already authenticated'
-		return Response({ 'has_error': 'true', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
-	else: # Not authenticated user
+		return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+	else:  # Not authenticated user
 		username = request.POST.get('username', None)
 		password = request.POST.get('password', None)
 		first_name = request.POST.get('first_name', '')
@@ -51,7 +53,7 @@ def login_user(request):
 		email = request.POST.get('email', '')
 
 		ok_param = True
-	
+
 		# check parameters if exists
 		if username is None:
 			msg += 'username field is required '
@@ -61,30 +63,23 @@ def login_user(request):
 			ok_param = False
 
 		if not ok_param:
-			return Response({ 'has_error': 'true', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
+			return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 
 		user = authenticate(username=username, password=password)
-		if user is not None: # Authenticate user
+		if user is not None:  # Authenticate user
 			login(request, user)
-			if user.is_active: # User active
+			if user.is_active:  # User active
 				token, created = Token.objects.get_or_create(user=user)
-				if token is None: # Check if tocken already exist and return for login
+				if token is None:  # Check if tocken already exist and return for login
 					token = created
 				msg = 'User has been successfully authenticate'
-				return Response({ 'has_error': 'false', 'token': str(token), 
-					'msg': msg,},
-                        status=HTTP_200_OK)
-			else: # Inactiv user
+				return Response({'has_error': 'false', 'token': str(token), 'msg': msg, }, status=HTTP_200_OK)
+			else:  # Inactiv user
 				msg = 'User is set to inactiv'
-				return Response({'has_error': 'true', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
-		else: # Not authenticated after created
+				return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+		else:  # Not authenticated after created
 			msg = 'Error login user'
-			return Response({'has_error': 'false', 'msg': msg,},
-                        status=HTTP_404_NOT_FOUND)
-
-
+			return Response({'has_error': 'false', 'msg': msg, }, status=401)
 
 
 @csrf_exempt
@@ -94,9 +89,8 @@ def register_user(request):
 	msg = ''
 	if request.user.is_authenticated:
 		msg = 'Session already authenticated'
-		return Response({ 'has_error': 'true', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
-	else: # Not authenticated user
+		return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+	else:  # Not authenticated user
 		username = request.POST.get('username', None)
 		password = request.POST.get('password', None)
 		first_name = request.POST.get('first_name', '')
@@ -104,7 +98,7 @@ def register_user(request):
 		email = request.POST.get('email', '')
 
 		ok_param = True
-	
+
 		# check parameters if exists
 		if username is None:
 			msg += 'username field is required '
@@ -114,40 +108,36 @@ def register_user(request):
 			ok_param = False
 
 		if not ok_param:
-			return Response({ 'has_error': 'true', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
+			return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 
 		# check if already exist an user with this username
 		user_already_exist = User.objects.filter(username=username)
 		if user_already_exist.first() is not None:
 			# username already exist ... 
 			msg = 'This user already exist'
-			return Response({ 'has_error': 'true', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
+			return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 		else:
 			user = User(username=username, first_name=first_name, last_name=last_name, email=email)
 			user.set_password(password)
 			user.save()
+			profile_user = Profile(user=user)
+			profile_user.save()
 		user = authenticate(username=username, password=password)
-		if user is not None: # Authenticate user
+		if user is not None:  # Authenticate user
 			login(request, user)
-			if user.is_active: # User active
+			if user.is_active:  # User active
 				token, created = Token.objects.get_or_create(user=user)
-				if token is None: # Check if tocken already exist and return for login
+				if token is None:  # Check if tocken already exist and return for login
 					token = created
 
 				msg = 'User has been created'
-				return Response({ 'has_error': 'false', 'token': str(token), 
-					'msg': msg,},
-                        status=HTTP_200_OK)
-			else: # Inactiv user
+				return Response({'has_error': 'false', 'token': str(token), 'msg': msg, }, status=HTTP_200_OK)
+			else:  # Inactiv user
 				msg = 'User is set to inactiv'
-				return Response({'has_error': 'true', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
-		else: # Not authenticated after created
+				return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+		else:  # Not authenticated after created
 			msg = 'Error creating user'
-			return Response({'has_error': 'false', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
+			return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
@@ -160,24 +150,20 @@ def logout_user(request):
 			request.user.auth_token.delete()
 		except (AttributeError, ObjectDoesNotExist):
 			msg = 'Token does not exist'
-			return Response({'has_error': 'true', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
+			return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 
 		try:
 			logout(request)
 			msg = 'Logout successfully'
 		except Exception as e:
 			msg = 'An error has occur in logout method: ' + str(e)
-			return Response({'has_error': 'true', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
-	
+			return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+
 		# User is logout now but in this session is still auth
-		return Response({'has_error': 'false', 'msg': msg,},
-                        status=HTTP_200_OK)
-	else: # Not authenticated user
+		return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_200_OK)
+	else:  # Not authenticated user
 		msg = 'Session are not authenticated'
-		return Response({'has_error': 'true', 'msg': msg,},
-                        status=HTTP_400_BAD_REQUEST)
+		return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
@@ -185,8 +171,7 @@ def logout_user(request):
 def get_recommanded_books(request):
 	msg = 'maintenance'
 
-	return Response({'has_error': 'false', 'msg': msg,},
-                        status=HTTP_200_OK)
+	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_200_OK)
 
 
 @csrf_exempt
@@ -194,18 +179,162 @@ def get_recommanded_books(request):
 def get_books(request):
 	msg = 'maintenance'
 
-	return Response({'has_error': 'false', 'msg': msg,},
-                        status=HTTP_200_OK)
+	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_200_OK)
 
 
 @csrf_exempt
 @api_view(['GET', ])
 def get_user(request):
 	msg = 'maintenance'
-	
-	return Response({'has_error': 'false', 'msg': msg,},
-                        status=HTTP_200_OK)
+
+	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_200_OK)
 
 
 
+@csrf_exempt
+@api_view(['GET', ])
+def foo(request):
+	msg = 'maintenance'
+	obj = User.objects.all()
+	serialized_obj = serializers.serialize('json', [obj, ])
+	return Response({'has_error': 'false', 'msg': msg, 'serialized_obj': serialized_obj, }, status=HTTP_200_OK)
 
+##########
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def current_user(request):
+	email = request.data.get('email', None)
+	obj_user = Profile.objects.get(user=User.objects.get(email=email))
+	serializer = ProfileSerializer(obj_user)
+	profile_json = serializer.data
+	return Response({'has_error': 'false', 'email': email, 'profile_json': profile_json, }, status=HTTP_200_OK)
+
+
+''' 
+METHOD: POST
+URL: login/
+PARAMS: username, password
+HEADERS:
+RETURN: token
+
+METHOD: POST
+URL: logout/
+PARAMS:
+HEADERS: token
+RETURN:
+
+
+METHOD: POST
+URL: register/
+PARAMS: username, password
+HEADERS:
+RETURN: token 
+
+
+METHOD: GET
+URL: get-user/
+PARAMS: username
+HEADERS: token 
+RETURN: profile_obj_json
+
+
+METHOD: GET
+URL: recommended-books/
+PARAMS: username
+HEADERS: token 
+RETURN: List<Books> json format
+
+
+METHOD: GET
+URL: recommended-books/
+PARAMS: username
+HEADERS: token 
+RETURN: List<Books> json format
+
+
+METHOD: POST
+URL: update_user/
+PARAMS: username fields_user_changed
+HEADERS: token 
+RETURN: 
+
+
+METHOD: GET
+URL: get-followers/
+PARAMS: username
+HEADERS: token 
+RETURN: List<Users> json format
+
+
+METHOD: POST
+URL: follow/
+PARAMS: username_user_current username_user_follow
+HEADERS: token 
+RETURN: 
+
+
+METHOD: POST
+URL: book/
+PARAMS: username img_url_book
+HEADERS: token 
+RETURN: 
+
+
+METHOD: GET
+URL: get-books/
+PARAMS: titlu
+HEADERS: token 
+RETURN: List<Book> json format
+
+
+METHOD: POST
+URL: add-reading-list/
+PARAMS: book_title readinglist_name
+HEADERS: token 
+RETURN:
+
+
+METHOD: GET
+URL: users/
+PARAMS: 
+HEADERS: token 
+RETURN: List<User> json format
+
+
+METHOD: POST
+URL: update-book/
+PARAMS: title_book fields_book_changed
+HEADERS: token 
+RETURN: 
+
+
+METHOD: GET
+URL: get-categories/
+PARAMS: 
+HEADERS: token 
+RETURN: List<Tag> json format
+
+
+METHOD: GET
+URL: get-books-category/
+PARAMS: tag_name
+HEADERS: token 
+RETURN: List<Book> json format
+
+
+METHOD: GET
+URL: get-conversations/
+PARAMS: username_sender username_receiver
+HEADERS: token 
+RETURN: List<Message> json format
+
+
+METHOD: POST
+URL: send-message/
+PARAMS: username_sender username_receiver content date
+HEADERS: token 
+RETURN: 
+
+'''
