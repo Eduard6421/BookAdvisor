@@ -77,6 +77,14 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class FollowersSerializer(serializers.ModelSerializer):
+    followers = UserSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Profile
+        fields = ('followers', )
+
+
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     wishlist = WishlistSerializer()

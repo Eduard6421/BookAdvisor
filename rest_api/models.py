@@ -36,6 +36,7 @@ class Book(models.Model):
     publish_date = models.DateTimeField(default=datetime.datetime.now)
     rating = models.IntegerField(default=0)
     cover = models.CharField(max_length=255, default='')
+    file = models.ImageField(upload_to='images/', blank=True)
     read_status = models.CharField(max_length=255, default='')
     author = models.ManyToManyField(Author, related_name='author', blank=True)
     comments = models.ManyToManyField(Comment, related_name='comments', blank=True)

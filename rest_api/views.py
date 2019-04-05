@@ -10,8 +10,10 @@ from django.template import RequestContext
 from django.contrib.auth import logout, authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-
-
+from django.core.files.storage import default_storage
+import os
+from django.apps import apps
+from django.db.models import Q
 
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
@@ -24,6 +26,7 @@ from rest_framework.status import (
 	HTTP_200_OK
 )
 from rest_framework.response import Response
+
 from django.core import serializers
 from django.forms.models import model_to_dict
 
@@ -36,6 +39,29 @@ from .serializers import *
 
 # Create your views here.
 
+'''
+
+METHOD: POST
+URL: login/
+PARAMS: email, password
+HEADERS:
+RETURN: token
+
+
+METHOD: POST
+URL: logout/
+PARAMS:
+HEADERS: token
+RETURN:
+
+
+METHOD: POST
+URL: register/
+PARAMS: email, password
+HEADERS:
+RETURN: token 
+'''
+
 
 @csrf_exempt
 @api_view(['POST'])
@@ -46,11 +72,11 @@ def login_user(request):
 		msg = 'Session already authenticated'
 		return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 	else:  # Not authenticated user
-		username = request.POST.get('username', None)
+		email = request.POST.get('email', '')
+		username = email
 		password = request.POST.get('password', None)
 		first_name = request.POST.get('first_name', '')
 		last_name = request.POST.get('last_name', '')
-		email = request.POST.get('email', '')
 
 		ok_param = True
 
@@ -91,11 +117,11 @@ def register_user(request):
 		msg = 'Session already authenticated'
 		return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 	else:  # Not authenticated user
-		username = request.POST.get('username', None)
+		email = request.POST.get('email', '')
+		username = email
 		password = request.POST.get('password', None)
 		first_name = request.POST.get('first_name', '')
 		last_name = request.POST.get('last_name', '')
-		email = request.POST.get('email', '')
 
 		ok_param = True
 
@@ -166,136 +192,204 @@ def logout_user(request):
 		return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 
 
-@csrf_exempt
-@api_view(['GET', ])
-def get_recommanded_books(request):
-	msg = 'maintenance'
-
-	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_200_OK)
-
-
-@csrf_exempt
-@api_view(['GET', ])
-def get_books(request):
-	msg = 'maintenance'
-
-	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_200_OK)
-
-
-@csrf_exempt
-@api_view(['GET', ])
-def get_user(request):
-	msg = 'maintenance'
-
-	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_200_OK)
-
-
-
-@csrf_exempt
-@api_view(['GET', ])
-def foo(request):
-	msg = 'maintenance'
-	obj = User.objects.all()
-	serialized_obj = serializers.serialize('json', [obj, ])
-	return Response({'has_error': 'false', 'msg': msg, 'serialized_obj': serialized_obj, }, status=HTTP_200_OK)
-
-##########
-
-
-@csrf_exempt
-@api_view(['GET', ])
-def current_user(request):
-	email = request.data.get('email', None)
-	obj_user = Profile.objects.get(user=User.objects.get(email=email))
-	serializer = ProfileSerializer(obj_user)
-	profile_json = serializer.data
-	return Response({'has_error': 'false', 'email': email, 'profile_json': profile_json, }, status=HTTP_200_OK)
-
-
-''' 
-METHOD: POST
-URL: login/
-PARAMS: username, password
-HEADERS:
-RETURN: token
-
-METHOD: POST
-URL: logout/
-PARAMS:
-HEADERS: token
-RETURN:
-
-
-METHOD: POST
-URL: register/
-PARAMS: username, password
-HEADERS:
-RETURN: token 
-
+'''
 
 METHOD: GET
-URL: get-user/
-PARAMS: username
+URL: get-user/{email}
+PARAMS: email
 HEADERS: token 
 RETURN: profile_obj_json
 
 
 METHOD: GET
 URL: recommended-books/
-PARAMS: username
+PARAMS: (deduci email din token)
 HEADERS: token 
 RETURN: List<Books> json format
 
 
-METHOD: GET
-URL: recommended-books/
-PARAMS: username
-HEADERS: token 
-RETURN: List<Books> json format
-
-
-METHOD: POST
-URL: update_user/
-PARAMS: username fields_user_changed
+METHOD: PUT
+URL: update-user/{email}
+PARAMS: email, fields_user_changed (iti trimit un obiect nou de tip User si copiezi toate campurile lui, chiar daca unele au ramas la fel)
 HEADERS: token 
 RETURN: 
+'''
 
 
+@csrf_exempt
+@api_view(['GET', ])
+def get_user(request, email):
+	try:
+		user = User.objects.get(email=email)
+	except User.DoesNotExist:
+		return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+	try:
+		obj_user = Profile.objects.get(user=user)
+		serializer = ProfileSerializer(obj_user)
+		profile_json = serializer.data
+		return Response({'has_error': 'false', 'email': email, 'profile_json': profile_json, }, status=HTTP_200_OK)
+	except User.DoesNotExist:
+		return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def recommended_books(request):
+	email = request.user.email
+	# AI Edu
+	return Response({'has_error': 'false', 'email': email, }, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(['PUT', ])
+def update_user(request, email):
+	msg = 'maintenance'
+
+	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_200_OK)
+
+
+'''
 METHOD: GET
-URL: get-followers/
-PARAMS: username
+URL: get-followers/{email}
+PARAMS: email
 HEADERS: token 
 RETURN: List<Users> json format
 
 
 METHOD: POST
 URL: follow/
-PARAMS: username_user_current username_user_follow
+PARAMS: email_to_follow (cel care a solicitat follow il deduci din token)
 HEADERS: token 
 RETURN: 
 
 
-METHOD: POST
+METHOD: PUT
 URL: book/
-PARAMS: username img_url_book
+PARAMS: imagine_coperta (trimit poza, vezi daca ai ceva ce se numeste "Multipart")
 HEADERS: token 
-RETURN: 
+RETURN: Book json format
+
+'''
 
 
+@csrf_exempt
+@api_view(['GET', ])
+def get_followers(request, email):
+	msg = 'maintenance'
+	try:
+		user = User.objects.get(email=email)
+	except User.DoesNotExist:
+		return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+	try:
+		obj_user = Profile.objects.get(user=user)
+		serializer = FollowersSerializer(obj_user)
+		profile_json = serializer.data
+		return Response({'has_error': 'false', 'followers': profile_json, }, status=HTTP_200_OK)
+	except User.DoesNotExist:
+		return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+
+@csrf_exempt
+@api_view(['POST', ])
+def follow(request):
+	msg = 'maintenance'
+	email_to_follow = request.POST.get('email_to_follow', None)
+	if email_to_follow:
+		try:
+			user = User.objects.get(email=request.user.email)
+		except User.DoesNotExist:
+			return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+		try:
+			obj_user = Profile.objects.get(user=user)
+			obj_user.followers.add(User.objects.get(email=email_to_follow))
+			return Response({'has_error': 'false', }, status=HTTP_200_OK)
+		except User.DoesNotExist:
+			return Response({'has_error': 'true', }, status=HTTP_400_BAD_REQUEST)
+
+	return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@api_view(['PUT', ])
+def book(request):
+	msg = 'maintenance'
+	image_cover = request.data.get('image_cover')
+
+	# APP_ROOT = apps.get_app_config('rest_api').path
+	# ROOT_IMG = os.path.join(APP_ROOT, "images")
+
+	# path = os.path.join(ROOT_IMG, str(image_cover))
+
+	book = Book(file=image_cover)
+	# Send AI Edu
+	book.title = 'test'
+	book.save()
+
+	print(book.file)
+	return Response({'has_error': 'false', 'book_path': str(book.file), }, status=HTTP_200_OK)
+
+
+'''
 METHOD: GET
-URL: get-books/
+URL: get-books/{titlu}
 PARAMS: titlu
 HEADERS: token 
 RETURN: List<Book> json format
 
 
-METHOD: POST
+METHOD: PUT
 URL: add-reading-list/
-PARAMS: book_title readinglist_name
+PARAMS: readinglist_object (deduci din token cine adauga)
 HEADERS: token 
 RETURN:
 
 
+METHOD: PUT
+URL: update-reading-list/{reading_list_name}
+PARAMS:  reading_list_name, readinglist_object (deduci cine a facut request-ul din token)
+HEADERS: token 
+RETURN:
+
+'''
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def get_books(request, title):
+	msg = 'maintenance'
+	books = Book.objects.filter(title=title)
+	print(books)
+	if books:
+		try:
+			serializer = BookSerializer(books, many=True)
+			books_json = serializer.data
+			return Response({'has_error': 'false', 'books': books_json, }, status=HTTP_200_OK)
+		except User.DoesNotExist:
+			return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+	return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_404_NOT_FOUND)
+
+
+@csrf_exempt
+@api_view(['PUT', ])
+def add_reading_list(request):
+	msg = 'maintenance'
+	email = request.user.email
+	return Response({'has_error': 'false', 'email': email, }, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(['PUT', ])
+def update_reading_list(request, reading_list_name):
+	msg = 'maintenance'
+	email = request.user.email
+	return Response({'has_error': 'false', 'reading_list_name': reading_list_name, 'email': email, }, status=HTTP_200_OK)
+
+
+'''
 METHOD: GET
 URL: users/
 PARAMS: 
@@ -303,9 +397,9 @@ HEADERS: token
 RETURN: List<User> json format
 
 
-METHOD: POST
-URL: update-book/
-PARAMS: title_book fields_book_changed
+METHOD: PUT
+URL: update-book/{title_book}
+PARAMS: title_book, fields_book_changed (iti trimit un obiect nou de tip Book si copiezi toate campurile lui, chiar daca unele au ramas la fel)
 HEADERS: token 
 RETURN: 
 
@@ -316,9 +410,53 @@ PARAMS:
 HEADERS: token 
 RETURN: List<Tag> json format
 
+'''
+
+@csrf_exempt
+@api_view(['GET', ])
+def users(request):
+	msg = 'maintenance'
+	users = User.objects.all()
+	if users:
+		try:
+			serializer = UserSerializer(users, many=True)
+			users_json = serializer.data
+			return Response({'has_error': 'false', 'users': users_json, }, status=HTTP_200_OK)
+		except User.DoesNotExist:
+			return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@api_view(['PUT', ])
+def update_book(request, title_book):
+	msg = 'maintenance'
+	email = request.user.email
+	return Response({'has_error': 'false', 'title_book': title_book, 'email': email, }, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def get_categories(request):
+	msg = 'maintenance'
+	tags = Tag.objects.all()
+	if users:
+		try:
+			serializer = TagSerializer(tags, many=True)
+			tags_json = serializer.data
+			return Response({'has_error': 'false', 'categories': tags_json, }, status=HTTP_200_OK)
+		except User.DoesNotExist:
+			return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+
+
+
+'''
 
 METHOD: GET
-URL: get-books-category/
+URL: get-books-category/{tag_name}
 PARAMS: tag_name
 HEADERS: token 
 RETURN: List<Book> json format
@@ -326,15 +464,111 @@ RETURN: List<Book> json format
 
 METHOD: GET
 URL: get-conversations/
-PARAMS: username_sender username_receiver
+PARAMS: (deduci cine face cererea din token)
 HEADERS: token 
-RETURN: List<Message> json format
+RETURN: List<Conversation> json format
+
+
+METHOD: GET
+URL: get-conversation/{email_destinatar}
+PARAMS: email_destinatar (deduci cine face cererea din token)
+HEADERS: token 
+RETURN: Conversation json format
 
 
 METHOD: POST
 URL: send-message/
-PARAMS: username_sender username_receiver content date
-HEADERS: token 
-RETURN: 
+PARAMS: email_destinatar content date (deduci cine a trimis din token)
 
+
+METHOD: GET
+URL: current-user/
+PARAMS: 
+RETURN: Return object of current user
 '''
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def get_books_category(request, tag_name):
+	msg = 'maintenance'
+	try:
+		tag = Tag.objects.get(name=tag_name)
+	except Tag.DoesNotExist:
+		return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+	books = Book.objects.filter(books_tags=tag)
+	if books:
+		try:
+			serializer = BookSerializer(books, many=True)
+			books_json = serializer.data
+			return Response({'has_error': 'false', 'books': books_json, }, status=HTTP_200_OK)
+		except User.DoesNotExist:
+			return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def get_conversations(request, email):
+	msg = 'maintenance'
+	print(email)
+
+	messages = Message.objects.filter(Q(user_sender=request.user) | Q(user_receiver=request.user))
+	if messages:
+		try:
+			serializer = MessageSerializer(messages, many=True)
+			conversations_json = serializer.data
+			return Response({'has_error': 'false', 'conversations': conversations_json, }, status=HTTP_200_OK)
+		except Message.DoesNotExist:
+			return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def get_all_conversations(request):
+	msg = 'maintenance'
+	print("ALL")
+	messages = Message.objects.filter(Q(user_sender=request.user) | Q(user_receiver=request.user))
+	if messages:
+		try:
+			serializer = MessageSerializer(messages, many=True)
+			conversations_json = serializer.data
+			return Response({'has_error': 'false', 'conversations': conversations_json, }, status=HTTP_200_OK)
+		except Message.DoesNotExist:
+			return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@api_view(['POST', ])
+def send_message(request):
+	content = request.POST.get('content', '')
+	email_destinatar = request.POST.get('email_destinatar', '')
+	user_destinatar = User.objects.get(email=email_destinatar)
+	if user_destinatar:
+		msg = Message(user_sender=request.user, user_receiver=user_destinatar, content=content)
+		msg.save()
+		return Response({'has_error': 'false', }, status=HTTP_200_OK)
+	else:
+		return Response({'has_error': 'false', }, status=HTTP_400_BAD_REQUEST)
+
+
+##########
+
+@csrf_exempt
+@api_view(['GET', ])
+def current_user(request):
+	email = request.data.get('email', None)
+	obj_user = Profile.objects.get(user=User.objects.get(email=email))
+	serializer = ProfileSerializer(obj_user)
+	profile_json = serializer.data
+	return Response({'has_error': 'false', 'email': email, 'profile_json': profile_json, }, status=HTTP_200_OK)
+
+##########
+
+
