@@ -37,8 +37,7 @@ import json
 from .models import *
 from .serializers import *
 
-
-from .tests import *
+# from .tests import *
 
 # Create your views here.
 
@@ -78,8 +77,6 @@ def login_user(request):
 		email = request.POST.get('email', '')
 		username = email
 		password = request.POST.get('password', None)
-		first_name = request.POST.get('first_name', '')
-		last_name = request.POST.get('last_name', '')
 
 		ok_param = True
 
@@ -162,11 +159,12 @@ def register_user(request):
 			wish_to_read_list.save()
 			already_read_list.save()
 
+			profile_user.save()
+
 			profile_user.reading_lists.add(reading_list)
 			profile_user.reading_lists.add(wish_to_read_list)
 			profile_user.reading_lists.add(already_read_list)
 
-			profile_user.save()
 		user = authenticate(username=username, password=password)
 		if user is not None:  # Authenticate user
 			login(request, user)
@@ -247,7 +245,13 @@ def get_user(request, email):
 		obj_user = Profile.objects.get(user=user)
 		serializer = ProfileSerializer(obj_user)
 		profile_json = serializer.data
-		return Response({'has_error': 'false', 'email': email, 'profile_json': profile_json, }, status=HTTP_200_OK)
+
+		for key, element in serializer.data['user'].items():
+			profile_json[key] = element
+
+		del profile_json['user']
+
+		return Response({'has_error': 'false', 'profile_json': profile_json, }, status=HTTP_200_OK)
 	except User.DoesNotExist:
 		return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 
@@ -264,7 +268,7 @@ def recommended_books(request):
 @api_view(['PUT', ])
 def update_user(request, email):
 	msg = 'maintenance'
-
+	print(request.body)
 	return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_200_OK)
 
 
@@ -305,7 +309,50 @@ def get_followers(request):
 		obj_user = Profile.objects.get(user=user)
 		serializer = FollowersSerializer(obj_user)
 		profile_json = serializer.data
-		return Response({'has_error': 'false', 'followers': profile_json, }, status=HTTP_200_OK)
+		profile_json['has_error'] = 'false'
+
+		return Response(profile_json, status=HTTP_200_OK)
+	except User.DoesNotExist:
+		return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def get_following(request):
+	msg = 'maintenance'
+	try:
+		user = User.objects.get(email=request.user.email)
+	except User.DoesNotExist:
+		return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+	try:
+		obj_user = Profile.objects.get(user=user)
+		serializer = FollowingSerializer(obj_user)
+		profile_json = serializer.data
+		profile_json['has_error'] = 'false'
+
+		return Response(profile_json, status=HTTP_200_OK)
+	except User.DoesNotExist:
+		return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def get_users_notfollowing(request):
+	msg = 'maintenance'
+
+	try:
+		obj_user = Profile.objects.get(user=request.user)
+		follow = Profile.objects.get(user=request.user).followers.all()
+		follow_name = [obj.email for obj in follow]
+		follow_name += [request.user.email]
+		print(follow_name)
+		notfollowing = User.objects.exclude(email__in=follow_name)
+		print(notfollowing)
+		serializer = UserSerializer(notfollowing, many=True)
+		profile_json = serializer.data
+
+		return Response(profile_json, status=HTTP_200_OK)
 	except User.DoesNotExist:
 		return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 
@@ -342,7 +389,7 @@ def book(request):
 
 	# path = os.path.join(ROOT_IMG, str(image_cover))
 
-	book = Book(file=image_cover)
+	book = Book(cover=image_cover)
 	# Send AI Edu
 	book.title = 'test'
 	book.save()
@@ -427,6 +474,8 @@ def get_reading_list(request):
 		try:
 			serializer = Reading_list_booksSerializer(reading_lists, many=True)
 			reading_lists_json = serializer.data
+			#profile_json = serializer.data
+			#profile_json['has_error'] = 'false'
 			return Response({'has_error': 'false', 'reading_lists_current_user': reading_lists_json, }, status=HTTP_200_OK)
 		except User.DoesNotExist:
 			return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
@@ -482,16 +531,18 @@ RETURN: List<Tag> json format
 
 '''
 
+
 @csrf_exempt
 @api_view(['GET', ])
 def users(request):
 	msg = 'maintenance'
-	users = User.objects.all()
+	users = Profile.objects.all()
 	if users:
 		try:
-			serializer = UserSerializer(users, many=True)
-			users_json = serializer.data
-			return Response({'has_error': 'false', 'users': users_json, }, status=HTTP_200_OK)
+			serializer = ProfileSerializer(users, many=True)
+			profile_json = serializer.data
+			profile_json = {'users': profile_json, 'has_error': 'false'}
+			return Response(profile_json, status=HTTP_200_OK)
 		except User.DoesNotExist:
 			return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 
@@ -572,7 +623,7 @@ def get_books_category(request, tag_name):
 		try:
 			serializer = BookSerializer(books, many=True)
 			books_json = serializer.data
-			return Response({'has_error': 'false', 'books': books_json, }, status=HTTP_200_OK)
+			return Response(books_json, status=HTTP_200_OK)
 		except User.DoesNotExist:
 			return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 

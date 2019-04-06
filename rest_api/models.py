@@ -13,12 +13,6 @@ class Tag(models.Model):
     name = models.CharField(max_length=255, default='')
 
 
-class Comment(models.Model):
-    content = models.CharField(max_length=255, default='')
-    date = models.DateTimeField(default=datetime.datetime.now)
-    user_comment = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comment', blank=True, null=True)
-
-
 class Author(models.Model):
     name = models.CharField(max_length=255, default='')
 
@@ -35,10 +29,9 @@ class Book(models.Model):
     description = models.CharField(max_length=255, default='')
     publish_date = models.DateTimeField(default=datetime.datetime.now)
     rating = models.IntegerField(default=0)
-    cover = models.CharField(max_length=255, default='')
-    file = models.ImageField(upload_to='images/', blank=True)
-    author = models.ManyToManyField(Author, related_name='author', blank=True)
-    comments = models.ManyToManyField(Comment, related_name='comments', blank=True)
+    no_pages = models.IntegerField(default=0)
+    cover = models.ImageField(upload_to='images/', default='images/default_cover.png')
+    authors = models.ManyToManyField(Author, related_name='authors', blank=True)
     reviews = models.ManyToManyField(Review, related_name='reviews', blank=True)
     books_tags = models.ManyToManyField(Tag, related_name='books_tags', blank=True)
 

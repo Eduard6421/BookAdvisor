@@ -41,7 +41,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(read_only=True, many=True)
+    authors = AuthorSerializer(read_only=True, many=True)
     comments = CommentSerializer(read_only=True, many=True)
     reviews = ReviewSerializer(read_only=True, many=True)
     books_tags = TagSerializer(read_only=True, many=True)
@@ -75,6 +75,14 @@ class FollowersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('followers', )
+
+
+class FollowingSerializer(serializers.ModelSerializer):
+    following = UserSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Profile
+        fields = ('following', )
 
 
 class ProfileSerializer(serializers.ModelSerializer):

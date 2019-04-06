@@ -18,6 +18,9 @@ urlpatterns = [
         r'[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)$', update_user, name='update_user'),
 
     url(r'^get-followers/$', get_followers, name='get_followers'),
+    url(r'^get-following/$', get_following, name='get_following'),
+    url(r'^get-users-notfollowing/$', get_users_notfollowing, name='get_users_notfollowing'),
+
     url(r'^follow/$', follow, name='follow'),
     url(r'^book/$', book, name='book'),
 

@@ -17,7 +17,24 @@ if POPULATE_DB:
         user1.set_password('eduard')
         user1.save()
         profile_user1 = Profile(user=user1)
+
+        reading_list = Reading_list_books()
+        reading_list.title = 'Already Read'
+        wish_to_read_list = Reading_list_books()
+        wish_to_read_list.title = 'Wish to read'
+        already_read_list = Reading_list_books()
+        already_read_list.title = 'Reading Now'
+
+        reading_list.save()
+        wish_to_read_list.save()
+        already_read_list.save()
+
         profile_user1.save()
+
+        profile_user1.reading_lists.add(reading_list)
+        profile_user1.reading_lists.add(wish_to_read_list)
+        profile_user1.reading_lists.add(already_read_list)
+
     else:
         user1 = find_user.first()
 
@@ -28,7 +45,24 @@ if POPULATE_DB:
         user2.set_password('cristi')
         user2.save()
         profile_user2 = Profile(user=user2)
+
+        reading_list = Reading_list_books()
+        reading_list.title = 'Already Read'
+        wish_to_read_list = Reading_list_books()
+        wish_to_read_list.title = 'Wish to read'
+        already_read_list = Reading_list_books()
+        already_read_list.title = 'Reading Now'
+
+        reading_list.save()
+        wish_to_read_list.save()
+        already_read_list.save()
+
         profile_user2.save()
+
+        profile_user2.reading_lists.add(reading_list)
+        profile_user2.reading_lists.add(wish_to_read_list)
+        profile_user2.reading_lists.add(already_read_list)
+
     else:
         user2 = find_user.first()
 
@@ -39,7 +73,24 @@ if POPULATE_DB:
         user3.set_password('madalin')
         user3.save()
         profile_user3 = Profile(user=user3)
+
+        reading_list = Reading_list_books()
+        reading_list.title = 'Already Read'
+        wish_to_read_list = Reading_list_books()
+        wish_to_read_list.title = 'Wish to read'
+        already_read_list = Reading_list_books()
+        already_read_list.title = 'Reading Now'
+
+        reading_list.save()
+        wish_to_read_list.save()
+        already_read_list.save()
+
         profile_user3.save()
+
+        profile_user3.reading_lists.add(reading_list)
+        profile_user3.reading_lists.add(wish_to_read_list)
+        profile_user3.reading_lists.add(already_read_list)
+
     else:
         user3 = find_user.first()
 
@@ -53,8 +104,11 @@ if POPULATE_DB:
                    ['The Decameron']]
 
     reviews_content = ['Good book', 'Bad book', 'Try better next time', 'luati la muie cu toate aceste date de test']
-    comments_content = ['Good in free time', 'Well', 'Something that must be read by everyone', 'Try another book']
-    tags = ['Classic', 'Fairy tail', 'Drama', 'Unknown']
+    tags = ['Art', 'Biography', 'Buisness', 'Check-lit', "Children's", 'Christian', 'Classics', 'Comics',
+            'Contemporary', 'Cookbooks', 'Crime', 'Fantasy', 'Fiction', 'Graphic Novels', 'Historical Fiction',
+            'History', 'Horror', 'Humour', 'LGBTQ', 'Manga', 'Memoir', 'Music', 'Mystery', 'Non-fiction', 'Pranormal',
+            'Philosophy', 'Poetry', 'Psychology', 'Religion', 'Romance', 'Science', 'Science Fiction', 'Self-Help',
+            'Spiritually', 'Sports', 'Suspense', 'Thriller', 'Travel', 'Young Adult']
 
     for i in range(0, len(authors_list)):
         print(authors_list[i])
@@ -65,7 +119,8 @@ if POPULATE_DB:
             book = Book(title=title)
             book.save()
 
-            book.author.add(author)
+            book.authors.add(author)
+            book.save()
 
     for tag_content in tags:
         tag = Tag(name=tag_content)
@@ -83,9 +138,6 @@ if POPULATE_DB:
         review = Review(content=reviews_content[i], score=randint(0, 9), user_review=user)
         review.save()
 
-        comment = Comment(content=comments_content[i], user_comment=user)
-        comment.save()
-
         # Add review and a tag to a random book
         books = Book.objects.all()
         tags = Tag.objects.all()
@@ -94,7 +146,6 @@ if POPULATE_DB:
 
         books[random_book].reviews.add(review)
         books[random_book].books_tags.add(tags[random_tag])
-        books[random_book].comments.add(comment)
 
         books[random_book].save()
 
