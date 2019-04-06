@@ -37,7 +37,6 @@ class Book(models.Model):
     rating = models.IntegerField(default=0)
     cover = models.CharField(max_length=255, default='')
     file = models.ImageField(upload_to='images/', blank=True)
-    read_status = models.CharField(max_length=255, default='')
     author = models.ManyToManyField(Author, related_name='author', blank=True)
     comments = models.ManyToManyField(Comment, related_name='comments', blank=True)
     reviews = models.ManyToManyField(Review, related_name='reviews', blank=True)
@@ -48,11 +47,7 @@ class Reading_list_books(models.Model):
     title = models.CharField(max_length=255, default='')
     books = models.ManyToManyField(Book, related_name='books', blank=True)
     tags = models.ManyToManyField(Tag, related_name='tags', blank=True)
-
-
-class Wishlist(models.Model):
-    name = models.CharField(max_length=255, default='')
-    books = models.ManyToManyField(Book, related_name='books_wishlist', blank=True)
+    read_status = models.CharField(max_length=255, default='nothing')
 
 
 class Message(models.Model):
@@ -64,11 +59,8 @@ class Message(models.Model):
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user', blank=True)
-    first_name = models.CharField(max_length=255, default='')
-    last_name = models.CharField(max_length=255, default='')
     profile_picture = models.CharField(max_length=255, default='')
     # profile_picture = models.FileField(blank=True, null=True)
-    wishlist = models.ForeignKey(Wishlist, on_delete=models.CASCADE, related_name='wishlist', blank=True, null=True)
     # users_books = models.ManyToManyField(Book, related_name='users_books', blank=True)
     reading_lists = models.ManyToManyField(Reading_list_books, related_name='reading_lists', blank=True)
     followers = models.ManyToManyField(User, related_name='followers', blank=True)

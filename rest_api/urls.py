@@ -17,10 +17,12 @@ urlpatterns = [
     url(r'^update-user/(?P<email>[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.'
         r'[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)$', update_user, name='update_user'),
 
-    url(r'^get-followers/(?P<email>[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])'
-        r'?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)/$', get_followers, name='get_followers'),
+    url(r'^get-followers/$', get_followers, name='get_followers'),
     url(r'^follow/$', follow, name='follow'),
     url(r'^book/$', book, name='book'),
+
+    url(r'^get-reading-list$', get_reading_list, name='get_reading_list'),
+    url(r'^get-books$', get_all_books, name='get_all_books'),
 
     url(r'^get-books/(?P<title>.+)$', get_books, name='get_books'),
     url(r'^add-reading-list/$', add_reading_list, name='add_reading_list'),

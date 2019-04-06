@@ -60,14 +60,6 @@ class Reading_list_booksSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class WishlistSerializer(serializers.ModelSerializer):
-    books = BookSerializer(read_only=True, many=True)
-
-    class Meta:
-        model = Wishlist
-        fields = '__all__'
-
-
 class MessageSerializer(serializers.ModelSerializer):
     user_sender = UserSerializer()
     user_receiver = UserSerializer()
@@ -87,7 +79,6 @@ class FollowersSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    wishlist = WishlistSerializer()
     reading_lists = Reading_list_booksSerializer(read_only=True, many=True)
     followers = UserSerializer(read_only=True, many=True)
     following = UserSerializer(read_only=True, many=True)
