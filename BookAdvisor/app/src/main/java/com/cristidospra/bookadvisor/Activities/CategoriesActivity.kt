@@ -3,9 +3,10 @@ package com.cristidospra.bookadvisor.Activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
 
-class CategoriesActivity : AppCompatActivity() {
+class CategoriesActivity : NavigationMenuActivity() {
 
     lateinit var categoriesRecyclerView: RecyclerView
 

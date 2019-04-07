@@ -30,12 +30,12 @@ class HorizontalBookAdapter(private val books: ArrayList<Book>): RecyclerView.Ad
         //holder.coverImageView -- cu glide
 
         holder.titleTextView.text = book.title
-        holder.authorTextView.text = book.author
+        holder.authorTextView.text = book.authorsToString()
         holder.ratingBar.rating = book.rating
         holder.ratingValueTextView.text = book.rating.toString()
-        holder.nrRatesTextView.text = ("out of ${book.nrRates} rates")
+        holder.nrRatesTextView.text = ("out of ${book.nrRates()} rates")
         holder.nrPagesTextView.text = ("${book.nrPages} pages")
-        holder.releaseDateTextView.text = ("since ${book.releaseDateAsString()}")
+        holder.releaseDateTextView.text = ("since ${book.releaseDateString}")
     }
 
 

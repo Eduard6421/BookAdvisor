@@ -7,9 +7,10 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
 
-class BookActivity : AppCompatActivity() {
+class BookActivity : NavigationMenuActivity() {
 
     lateinit var bookCoverImageView: ImageView
     lateinit var bookTitleTextView: TextView

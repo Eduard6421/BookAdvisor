@@ -144,12 +144,12 @@
 
             <!-- Use small_genre_listitem_layout -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/book_tags_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="12dp"
-                android:layout_below="@id/book_about_prologue_content"
+                    android:id="@+id/book_tags_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    android:layout_below="@id/book_about_prologue_content"
             >
 
             </androidx.recyclerview.widget.RecyclerView>

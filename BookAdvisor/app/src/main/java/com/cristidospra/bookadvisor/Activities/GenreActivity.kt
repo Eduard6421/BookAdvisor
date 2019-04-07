@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
 
-class GenreActivity : AppCompatActivity() {
+class GenreActivity : NavigationMenuActivity() {
 
     lateinit var genreTitleTextView: TextView
     lateinit var addToFavouriteButton: Button

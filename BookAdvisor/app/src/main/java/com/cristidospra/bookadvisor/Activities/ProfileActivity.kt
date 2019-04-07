@@ -6,9 +6,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : NavigationMenuActivity() {
 
     lateinit var profilePictureImageView: ImageView
     lateinit var profileNameTextView: TextView

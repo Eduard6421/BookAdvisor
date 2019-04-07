@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/person_following_listitem_profile_pic"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="21dp"
+
+        android:src="@drawable/ic_default_profile"
+    />
+
+    <TextView
+        android:id="@+id/person_following_listitem_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_toEndOf="@id/person_following_listitem_profile_pic"
+        android:layout_marginStart="16dp"
+        android:layout_alignTop="@id/person_following_listitem_profile_pic"
+        android:layout_marginTop="3dp"
+
+        android:text="Masashi Kishimoto"
+        android:textColor="@color/colorNavInactive"
+        android:textSize="16sp"
+    />
+
+    <TextView
+        android:id="@+id/person_following_listitem_reading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignStart="@id/person_following_listitem_name"
+        android:layout_alignBottom="@id/person_following_listitem_profile_pic"
+        android:layout_marginBottom="7dp"
+
+        android:text="reading Naruto Shippuden"
+        android:textColor="@color/colorAccent"
+        android:textSize="12sp"
+    />
+
+    <ImageView
+        android:id="@+id/person_following_listitem_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+
+        android:src="@drawable/ic_message"
+        android:tint="@color/colorTextDarker"
+    />
+
+</RelativeLayout>

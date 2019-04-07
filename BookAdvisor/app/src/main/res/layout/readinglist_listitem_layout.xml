@@ -36,16 +36,17 @@
             android:text="0 books"
     />
 
-    <ImageView
+
+    <CheckBox
+            android:id="@+id/add_to_readin_lists_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
 
+            android:button="@drawable/checkbox_layout_selector"
+
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="32dp"
-
-            android:src="@drawable/ic_right_arrow"
-            android:tint="@color/colorText"
     />
 
 </RelativeLayout>

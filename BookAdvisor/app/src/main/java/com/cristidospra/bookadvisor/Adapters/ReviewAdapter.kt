@@ -29,7 +29,7 @@ class ReviewAdapter(val reviews: ArrayList<Review>): RecyclerView.Adapter<Review
 
         //holder.profilePicImageView -- use glide
         holder.userNameTextView.text = review.user.fullName()
-        holder.postedDateTextView.text = review.dateAsString()
+        holder.postedDateTextView.text = review.dateString
         holder.ratingBar.rating = review.givenRating
         holder.contentTextView.text = review.text
     }

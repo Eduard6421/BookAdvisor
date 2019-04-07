@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.cristidospra.bookadvisor.Activities.*
 import com.google.android.material.navigation.NavigationView
 
 
@@ -34,10 +35,12 @@ open class NavigationMenuActivity : AppCompatActivity() {
 
         var currentActivity: Int = R.id.navigation_my_library
 
-        private const val CALENDAR_ITEM = Menu.FIRST
-        private const val EMPLOYEES_ITEM = Menu.FIRST + 1
-        private const val CLIENTS_ITEM = Menu.FIRST + 2
-        private const val MY_PROFILE_ITEM = Menu.FIRST + 3
+        private const val LIBRARY_ITEM = Menu.FIRST
+        private const val CATEGORIES_ITEM = Menu.FIRST + 1
+        private const val RECOMMENDED_ITEM = Menu.FIRST + 2
+        private const val SCAN_ITEM = Menu.FIRST + 3
+        private const val PEOPLE_ITEM = Menu.FIRST + 4
+        private const val SETTINGS_ITEM = Menu.FIRST + 5
     }
 
     //Force app to be in portrait orientation
@@ -80,10 +83,12 @@ open class NavigationMenuActivity : AppCompatActivity() {
 
             // Start the specific activity for the selected item
             when (it.itemId) {
-                /*R.id.navigation_calendar -> createIntent(CalendarActivity::class.java)
-                R.id.navigation_employees -> createIntent(EmployeesActivity::class.java)
-                R.id.navigation_clients -> createIntent(ClientsActivity::class.java)
-                R.id.navigation_my_profile -> createIntent(ProfileActivity::class.java)*/
+                R.id.navigation_my_library -> createIntent(LibraryActivity::class.java)
+                R.id.navigation_explore_categories -> createIntent(CategoriesActivity::class.java)
+                R.id.navigation_recommended_books -> createIntent(RecommendedActivity::class.java)
+                R.id.navigation_scan_books -> createIntent(ScanBookActivity::class.java)
+                R.id.navigation_find_people -> createIntent(FindPeopleActivity::class.java)
+                R.id.navigation_settings -> createIntent(SettingsActivity::class.java)
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
@@ -91,7 +96,7 @@ open class NavigationMenuActivity : AppCompatActivity() {
 
         navigationHeaderView = navigationView.getHeaderView(0)
         val profilePic = navigationHeaderView.findViewById<ImageView>(R.id.navigation_profile_pic)
-        val emailTextView = navigationHeaderView.findViewById<TextView>(R.id.navigation_name)
+        val nameTextView = navigationHeaderView.findViewById<TextView>(R.id.navigation_name)
 
         // Add profile picture
        /* Glide.with(this)
@@ -105,10 +110,10 @@ open class NavigationMenuActivity : AppCompatActivity() {
 
             resetAllMenuItemsColor(navigationView)
             setColorForMenuItem(navigationView.menu.findItem(R.id.navigation_scan_books), R.color.colorNavActive)
-            //createIntent(ProfileActivity::class.java)
+            createIntent(ProfileActivity::class.java)
         }
 
-        //emailTextView.text = CurrentUser.instance.workEmail
+        nameTextView.text = CurrentUser.instance.fullName()
 
         if (navigationView.menu.findItem(currentActivity) != null) {
             setColorForMenuItem(navigationView.menu.findItem(currentActivity), R.color.colorNavActive)

@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center_horizontal"
+android:background="@color/colorBackground">
+
+<TextView
+        android:id="@+id/add_to_reading_lists_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+
+        android:text="Add to My Reading Lists"
+        android:textSize="20sp"
+        android:textColor="@color/colorText"
+/>
+
+<!-- Use readinglist_listitem_layout -->
+<androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/add_to_reading_lists_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/add_to_reading_lists_title"
+        android:layout_marginTop="16dp"
+>
 
-    <!-- Use readinglist_listitem_layout -->
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/add_book_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="16dp"
-    >
+</androidx.recyclerview.widget.RecyclerView>
 
-    </androidx.recyclerview.widget.RecyclerView>
-
+<Button
+        android:id="@+id/add_to_readin_lists_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_to_reading_lists_recyclerview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_layout"
+        android:textColor="@color/colorWhite"
+        android:text="Submit"
+/>
 
 </RelativeLayout>

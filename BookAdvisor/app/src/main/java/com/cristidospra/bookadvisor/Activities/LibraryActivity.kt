@@ -4,9 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
 
-class LibraryActivity : AppCompatActivity() {
+class LibraryActivity : NavigationMenuActivity() {
 
     lateinit var readingListsRecyclerView: RecyclerView
     lateinit var addReadingListButton: Button
