@@ -94,12 +94,13 @@ if POPULATE_DB:
     else:
         user3 = find_user.first()
 
-    authors_list = ['Chinua Achebe', 'Hans Christian Andersen', 'Dante Alighieri', 'Jane Austen', 'Honoré de Balzac', 'Samuel Beckett', 'Giovanni Boccaccio']
+    authors_list = ['Chinua Achebe', 'Hans Christian Andersen', 'Dante Alighieri', 'Jane Austen', 'Honoré de Balzac',
+                    'Samuel Beckett', 'Giovanni Boccaccio']
     titles_list = [['Things Fall Apart'],
                    ['Fairy tales'],
                    ['The Divine Comedy'],
                    ['Pride and Prejudice'],
-                   ['Le Père Goriot'],
+                   ['Le Pere Goriot'],
                    ['Molloy', 'Malone Dies', 'The Unnamable', 'the trilogy'],
                    ['The Decameron']]
 
