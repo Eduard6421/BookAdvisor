@@ -14,14 +14,13 @@ urlpatterns = [
     url(r'^get-user/(?P<email>[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.'
         r'[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)/$', get_user, name='get_user'),
     url(r'^recommended-books/$', recommended_books, name='recommended_books'),
-    url(r'^update-user/(?P<email>[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.'
-        r'[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)$', update_user, name='update_user'),
+    url(r'^update-user/$', update_user, name='update_user'),
 
     url(r'^get-followers/$', get_followers, name='get_followers'),
     url(r'^get-following/$', get_following, name='get_following'),
     url(r'^get-users-notfollowing/$', get_users_notfollowing, name='get_users_notfollowing'),
 
-    url(r'^follow/$', follow, name='follow'),
+    url(r'^follow$', follow, name='follow'),
     url(r'^book/$', book, name='book'),
 
     url(r'^get-reading-list$', get_reading_list, name='get_reading_list'),
@@ -29,10 +28,10 @@ urlpatterns = [
 
     url(r'^get-books/(?P<title>.+)$', get_books, name='get_books'),
     url(r'^add-reading-list/$', add_reading_list, name='add_reading_list'),
-    url(r'^update-reading-list/(?P<reading_list_name>.+)/$', update_reading_list, name='update_reading_list'),
+    url(r'^update-reading-list/(?P<reading_list_name>.+)$', update_reading_list, name='update_reading_list'),
 
     url(r'^users/$', users, name='users'),
-    url(r'^update-book/(?P<title_book>.+)$', update_book, name='update_book'),
+    url(r'^update-book/(\d+)$', update_book, name='update_book'),
     url(r'^get-categories/$', get_categories, name='get_categories'),
 
     url(r'^get-books-category/(?P<tag_name>.+)$', get_books_category, name='get_books_category'),

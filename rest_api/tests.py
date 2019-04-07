@@ -38,10 +38,10 @@ if POPULATE_DB:
     else:
         user1 = find_user.first()
 
-    find_user = User.objects.filter(username='cristi_dospa@yahoo.com')
+    find_user = User.objects.filter(username='cristi_dospra@yahoo.com')
     if not find_user:
-        user2 = User(username='cristi_dospa@yahoo.com', first_name='cristi', last_name='dospra',
-                     email='cristi_dospa@yahoo.com')
+        user2 = User(username='cristi_dospra@yahoo.com', first_name='cristi', last_name='dospra',
+                     email='cristi_dospra@yahoo.com')
         user2.set_password('cristi')
         user2.save()
         profile_user2 = Profile(user=user2)
@@ -105,7 +105,7 @@ if POPULATE_DB:
                    ['The Decameron']]
 
     reviews_content = ['Good book', 'Bad book', 'Try better next time', 'luati la muie cu toate aceste date de test']
-    tags = ['Art', 'Biography', 'Buisness', 'Check-lit', "Children's", 'Christian', 'Classics', 'Comics',
+    tags = ['Art', 'Biography', 'Business', 'Check-lit', "Children's", 'Christian', 'Classics', 'Comics',
             'Contemporary', 'Cookbooks', 'Crime', 'Fantasy', 'Fiction', 'Graphic Novels', 'Historical Fiction',
             'History', 'Horror', 'Humour', 'LGBTQ', 'Manga', 'Memoir', 'Music', 'Mystery', 'Non-fiction', 'Pranormal',
             'Philosophy', 'Poetry', 'Psychology', 'Religion', 'Romance', 'Science', 'Science Fiction', 'Self-Help',
