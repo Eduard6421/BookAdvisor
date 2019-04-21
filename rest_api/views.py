@@ -836,29 +836,22 @@ def get_reviews(request, title):
 def add_review(request, book_id):
     msg = 'maintenance'
     reviews_json = request.data
-    print("ID " + book_id)
-    print(reviews_json)
-    return Response({'has_error': 'false'}, status=HTTP_200_OK)
 
-    '''
-    book = Book.objects.filter(id=reviews_json['id_book'])
+    book = Book.objects.filter(id=book_id)
 
     if book.first() is None:
         return Response({'has_error': 'true', }, status=HTTP_400_BAD_REQUEST)
     else:
         book = book.first()
 
-        user_review = User.objects.filter(Q(username=reviews_json['user_review']) | Q(email=reviews_json['user_review']))
-        if user_review.first() is None:
-            return Response({'has_error': 'true', }, status=HTTP_400_BAD_REQUEST)
-        else:
-            user_review = user_review.first()
-            review = Review(content=reviews_json['content'], score=int(reviews_json['score']),
-                            user_review=user_review)
-            book.reviews.add(review)
+        review = Review(content=reviews_json['content'], score=float(reviews_json['score']),
+                        user_review=request.user)
+        book.reviews.add(review)
+        book.rating = sum([review.score for review in book.reviews.all()]) / len(book.reviews.all())
+        book.save()
 
-            return Response({'has_error': 'false'}, status=HTTP_200_OK)
-'''
+        return Response({'has_error': 'false'}, status=HTTP_200_OK)
+
 
 ##########
 

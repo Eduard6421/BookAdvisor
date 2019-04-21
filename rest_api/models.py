@@ -19,7 +19,7 @@ class Author(models.Model):
 
 class Review(models.Model):
     content = models.CharField(max_length=255, default='')
-    score = models.IntegerField(default=0)
+    score = models.FloatField(default=0)
     date = models.DateTimeField(default=datetime.datetime.now)
     user_review = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_review', blank=True, null=True)
 
@@ -28,7 +28,7 @@ class Book(models.Model):
     title = models.CharField(max_length=255, default='')
     description = models.CharField(max_length=255, default='')
     publish_date = models.DateTimeField(default=datetime.datetime.now)
-    rating = models.IntegerField(default=0)
+    rating = models.FloatField(default=0.0)
     no_pages = models.IntegerField(default=0)
     cover = models.ImageField(upload_to='images/', default='images/default_cover.png')
     authors = models.ManyToManyField(Author, related_name='authors', blank=True)
