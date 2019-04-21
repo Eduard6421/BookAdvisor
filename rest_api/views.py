@@ -832,7 +832,7 @@ def get_reviews(request, title):
 
 
 @csrf_exempt
-@api_view(['GET', ])
+@api_view(['POST', ])
 def add_review(request, book_id):
     msg = 'maintenance'
     reviews_json = request.data
