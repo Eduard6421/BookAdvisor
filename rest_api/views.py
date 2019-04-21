@@ -837,6 +837,8 @@ def add_review(request, title):
     msg = 'maintenance'
     reviews_json = request.data
 
+    print(reviews_json)
+    '''
     book = Book.objects.filter(id=reviews_json['id_book'])
 
     if book.first() is None:
@@ -854,7 +856,7 @@ def add_review(request, title):
             book.reviews.add(review)
 
             return Response({'has_error': 'false'}, status=HTTP_200_OK)
-
+'''
 
 ##########
 
