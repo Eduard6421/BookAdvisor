@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^send-message/$', send_message, name='send_message'),
 
     url(r'^get-reviews/(?P<title>.+)$', get_reviews, name='get_reviews'),
+    url(r'^add-review/(\d+)$', add_review, name='add_review'),
 
 
     url(r'^current-user$', current_user, name='current_user'),

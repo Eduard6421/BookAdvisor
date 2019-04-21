@@ -833,10 +833,10 @@ def get_reviews(request, title):
 
 @csrf_exempt
 @api_view(['GET', ])
-def add_review(request, title):
+def add_review(request, book_id):
     msg = 'maintenance'
     reviews_json = request.data
-
+    print("ID " + book_id)
     print(reviews_json)
     '''
     book = Book.objects.filter(id=reviews_json['id_book'])
