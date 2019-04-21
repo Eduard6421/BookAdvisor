@@ -6,7 +6,7 @@ import com.cristidospra.bookadvisor.Models.User
 
 class CurrentUser private constructor() : User() {
 
-    var authToken: String = "d5758876839e656636eb7d43d2e651658402b982"
+    var authToken: String = "d16ba700967c4bc6422a6b73d21c97c3893ea521"
 
     // Singleton design pattern
     companion object {

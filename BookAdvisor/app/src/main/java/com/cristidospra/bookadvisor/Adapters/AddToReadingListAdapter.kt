@@ -33,8 +33,8 @@ class AddToReadingListAdapter(val readingLists: ArrayList<ReadingList>) : Recycl
 
     class ReadingListViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
-        val title: TextView = view.findViewById(R.id.readinglist_listitem_name)
-        val nrBooks: TextView = view.findViewById(R.id.readinglist_listitem_nrbooks)
-        val checkBox: CheckBox = view.findViewById(R.id.readinglist_listitem_checkbox)
+        val title: TextView = view.findViewById(R.id.add_to_readinglist_listitem_name)
+        val nrBooks: TextView = view.findViewById(R.id.add_to_readinglist_listitem_nrbooks)
+        val checkBox: CheckBox = view.findViewById(R.id.add_to_readinglist_listitem_checkbox)
     }
 }

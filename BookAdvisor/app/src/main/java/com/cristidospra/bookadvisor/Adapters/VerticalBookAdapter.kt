@@ -1,14 +1,12 @@
 package com.cristidospra.bookadvisor.Adapters
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.Models.ReadStatus
@@ -17,9 +15,12 @@ import com.cristidospra.bookadvisor.Utils.Utils
 
 class VerticalBookAdapter(private val books: ArrayList<Book>): RecyclerView.Adapter<VerticalBookAdapter.BookViewHolder>() {
 
+    private lateinit var usedContext: Context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.book_lisitem_vertical_layout, parent, false)
+        this.usedContext = parent.context
 
         return BookViewHolder(itemView)
     }
@@ -32,13 +33,13 @@ class VerticalBookAdapter(private val books: ArrayList<Book>): RecyclerView.Adap
 
         val book = books[position]
 
-        //holder.coverImageView -- cu glide
+        Utils.loadImage(usedContext, holder.coverImageView, book.coverURL)
 
         when(book.readStatus) {
 
             ReadStatus.READ -> {
                 holder.wantToReadButton.text = "Already read"
-                holder.wantToReadButton.setBackgroundTintList(ColorStateList.valueOf(Utils.getColor(R.color.colorTransparentWhite)))
+                holder.wantToReadButton.backgroundTintList = ColorStateList.valueOf(Utils.getColor(R.color.colorTransparentWhite))
             }
             ReadStatus.WANT_TO_READ -> {
                 holder.wantToReadButton.text = "Read"

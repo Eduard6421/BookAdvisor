@@ -1,5 +1,6 @@
 package com.cristidospra.bookadvisor.Adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +10,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.R
+import com.cristidospra.bookadvisor.Utils.Utils
 
 class HorizontalBookAdapter(private val books: ArrayList<Book>): RecyclerView.Adapter<HorizontalBookAdapter.BookViewHolder>() {
+
+    private lateinit var usedContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.book_listitem_horizontal_layout, parent, false)
+        this.usedContext = parent.context
 
         return BookViewHolder(itemView)
     }
@@ -27,8 +32,7 @@ class HorizontalBookAdapter(private val books: ArrayList<Book>): RecyclerView.Ad
 
         val book = books[position]
 
-        //holder.coverImageView -- cu glide
-
+        Utils.loadImage(usedContext, holder.coverImageView, book.coverURL)
         holder.titleTextView.text = book.title
         holder.authorTextView.text = book.authorsToString()
         holder.ratingBar.rating = book.rating

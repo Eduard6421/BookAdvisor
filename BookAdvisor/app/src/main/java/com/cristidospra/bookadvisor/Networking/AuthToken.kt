@@ -9,4 +9,9 @@ class AuthToken(
     var token: String = ""
 
 ) : Serializable {
+
+    fun isValid() : Boolean {
+
+        return token.isNotEmpty()
+    }
 }

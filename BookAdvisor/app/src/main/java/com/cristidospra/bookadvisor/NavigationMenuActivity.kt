@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.cristidospra.bookadvisor.Activities.*
+import com.cristidospra.bookadvisor.Utils.Utils
 import com.google.android.material.navigation.NavigationView
 
 
@@ -98,12 +99,8 @@ open class NavigationMenuActivity : AppCompatActivity() {
         val profilePic = navigationHeaderView.findViewById<ImageView>(R.id.navigation_profile_pic)
         val nameTextView = navigationHeaderView.findViewById<TextView>(R.id.navigation_name)
 
-        // Add profile picture
-       /* Glide.with(this)
-            .load(CurrentUser.instance.profilePic())
-            .apply(RequestOptions().placeholder(R.drawable.ic_default_profile))
-            .apply(RequestOptions().transforms(CenterInside(), CircleCrop()))
-            .into(profilePic)*/
+
+        Utils.loadImage(this, profilePic, CurrentUser.instance.profilePicURL)
 
         // Click on profile picture sends you to "my profile"
         profilePic.setOnClickListener {

@@ -39,11 +39,46 @@ open class User(
         return "$firstName  $lastName"
     }
 
+    fun nrOfBooks() : Int {
+
+        return nrOfReadBooks() + nrOfWantToReadBooks()
+    }
+
+    fun nrOfReadBooks() : Int {
+
+        return readingLists[ReadingList.ALREADY_READ].nrOfBooks()
+    }
+
+    fun nrOfWantToReadBooks() : Int {
+
+        return readingLists[ReadingList.WANT_TO_READ].nrOfBooks()
+    }
+
+    fun getReadBooks(): ArrayList<Book> {
+
+        return readingLists[ReadingList.ALREADY_READ].books
+    }
+
+    fun getWantToReadBooks() : ArrayList<Book> {
+
+        return readingLists[ReadingList.WANT_TO_READ].books
+    }
+
     fun nrFollowers() : Int {
         return followers.count()
     }
 
     fun nrFollowing() : Int {
         return following.count()
+    }
+
+    fun isFollowing(user: User) : Boolean {
+
+        return following.contains(user)
+    }
+
+    fun profilePic() : String {
+
+        return ""
     }
 }

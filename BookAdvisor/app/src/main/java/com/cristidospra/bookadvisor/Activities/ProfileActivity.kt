@@ -1,13 +1,21 @@
 package com.cristidospra.bookadvisor.Activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.Adapters.GenreAdapter
+import com.cristidospra.bookadvisor.Adapters.HorizontalBookAdapter
+import com.cristidospra.bookadvisor.CurrentUser
+import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.NavigationMenuActivity
+import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
+import com.cristidospra.bookadvisor.Utils.Utils
 
 class ProfileActivity : NavigationMenuActivity() {
 
@@ -25,11 +33,69 @@ class ProfileActivity : NavigationMenuActivity() {
     lateinit var profileWantToReadRecyclerView: RecyclerView
     lateinit var profileFavouriteGenresRecyclerView: RecyclerView
 
+    private var currentProfileUser: User = CurrentUser.instance
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
         inflateViews()
+
+        if (intent.hasExtra("user")) {
+
+            currentProfileUser = intent.getSerializableExtra("user") as User
+        }
+
+        Utils.loadImage(this, profilePictureImageView, currentProfileUser.profilePicURL)
+        profileNameTextView.text = currentProfileUser.fullName()
+        profileNrBooksSmallTextView.text = currentProfileUser.nrOfBooks().toString()
+        profileNrFollowersTextView.text = currentProfileUser.nrFollowers().toString()
+        profileNrFollowingTextView.text = currentProfileUser.nrFollowing().toString()
+        profileNrBooksBigTextView.text = currentProfileUser.nrOfBooks().toString()
+        profileNrReadBooksTextView.text = currentProfileUser.nrOfReadBooks().toString()
+        profileNrWantToReadTextView.text = currentProfileUser.nrOfWantToReadBooks().toString()
+
+        profileReadingListsButton.setOnClickListener {
+
+            val intent = Intent(this, LibraryActivity::class.java)
+            intent.putExtra("user", currentProfileUser)
+            this.startActivity(intent)
+        }
+
+        if (currentProfileUser.email == CurrentUser.instance.email) {
+
+            profileEditSettingsButton.setOnClickListener {
+
+                val intent = Intent(this, SettingsActivity::class.java)
+                this.startActivity(intent)
+            }
+        }
+        else {
+
+            profileEditSettingsButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_nav_people, 0, 0, 0)
+            if (CurrentUser.instance.isFollowing(currentProfileUser)) {
+                profileEditSettingsButton.text = "Following"
+                profileEditSettingsButton.setTextColor(Utils.getColor(R.color.colorAccent))
+            }
+            else {
+                profileEditSettingsButton.text = "Follow"
+                profileEditSettingsButton.setOnClickListener {
+
+                    UserApiManager.follow(currentProfileUser) {
+                        this.recreate()
+                    }
+                }
+            }
+        }
+
+        profileAlreadyReadRecyclerView.layoutManager = LinearLayoutManager(this)
+        profileAlreadyReadRecyclerView.adapter = HorizontalBookAdapter(currentProfileUser.getReadBooks())
+
+        profileWantToReadRecyclerView.layoutManager = LinearLayoutManager(this)
+        profileWantToReadRecyclerView.adapter = HorizontalBookAdapter(currentProfileUser.getWantToReadBooks())
+
+        profileFavouriteGenresRecyclerView.layoutManager = LinearLayoutManager(this)
+        profileFavouriteGenresRecyclerView.adapter = GenreAdapter(currentProfileUser.favouriteGenres)
     }
 
     private fun inflateViews() {

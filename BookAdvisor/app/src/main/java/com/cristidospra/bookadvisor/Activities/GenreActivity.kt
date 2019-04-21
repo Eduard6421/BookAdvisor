@@ -1,11 +1,15 @@
 package com.cristidospra.bookadvisor.Activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.Adapters.HorizontalBookAdapter
+import com.cristidospra.bookadvisor.Models.Genre
 import com.cristidospra.bookadvisor.NavigationMenuActivity
+import com.cristidospra.bookadvisor.Networking.BookApiManager
+import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
 
 class GenreActivity : NavigationMenuActivity() {
@@ -14,11 +18,28 @@ class GenreActivity : NavigationMenuActivity() {
     lateinit var addToFavouriteButton: Button
     lateinit var genreBooksRecyclerView: RecyclerView
 
+    private lateinit var currentGenre: Genre
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_genre)
 
         inflateViews()
+
+        currentGenre = intent.getSerializableExtra("genre") as Genre
+
+        genreTitleTextView.text = currentGenre.name
+
+        addToFavouriteButton.setOnClickListener {
+
+            /* TODO: add this to favourites */
+        }
+
+        BookApiManager.getBooksByGenre(currentGenre, onSuccess = {
+
+            genreBooksRecyclerView.layoutManager = LinearLayoutManager(this)
+            genreBooksRecyclerView.adapter = HorizontalBookAdapter(it)
+        })
     }
 
     private fun inflateViews() {

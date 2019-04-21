@@ -3,7 +3,10 @@ package com.cristidospra.bookadvisor.Activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.Adapters.AddToReadingListAdapter
+import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
 import kotlinx.android.synthetic.main.activity_add_to_library.*
@@ -18,6 +21,14 @@ class AddToLibraryActivity : NavigationMenuActivity() {
         setContentView(R.layout.activity_add_to_library)
 
         inflateViews()
+
+        readingListsRecyclerView.layoutManager = LinearLayoutManager(this)
+        readingListsRecyclerView.adapter = AddToReadingListAdapter(CurrentUser.instance.readingLists)
+
+        submitButton.setOnClickListener {
+
+            /*TODO: this */
+        }
     }
 
     private fun inflateViews() {

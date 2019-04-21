@@ -1,24 +1,30 @@
 package com.cristidospra.bookadvisor.Activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ListView
+import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.Adapters.ConversationAdapter
 import com.cristidospra.bookadvisor.NavigationMenuActivity
+import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
 
 class InboxActivity : NavigationMenuActivity() {
 
-    lateinit var messagesListView: ListView
+    lateinit var messagesRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inbox)
 
         inflateViews()
+
+        UserApiManager.getConversations {
+
+            messagesRecyclerView.adapter = ConversationAdapter(it)
+        }
     }
 
     private fun inflateViews() {
 
-        messagesListView = findViewById(R.id.inbox_convo_list)
+        messagesRecyclerView = findViewById(R.id.inbox_convo_list)
     }
 }

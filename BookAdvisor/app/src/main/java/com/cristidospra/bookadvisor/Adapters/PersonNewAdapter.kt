@@ -1,5 +1,6 @@
 package com.cristidospra.bookadvisor.Adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +9,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.R
+import com.cristidospra.bookadvisor.Utils.Utils
 
 class PersonNewAdapter(private val people: ArrayList<User>) : RecyclerView.Adapter<PersonNewAdapter.PersonViewHolder>() {
+
+    private lateinit var usedContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.person_new_listitem_layout, parent, false)
+        this.usedContext = parent.context
 
         return PersonViewHolder(itemView)
     }
@@ -27,8 +32,7 @@ class PersonNewAdapter(private val people: ArrayList<User>) : RecyclerView.Adapt
 
         val person = people[position]
 
-        //holder.profilePictureImageView -- cu glide
-
+        Utils.loadImage(usedContext, holder.profilePictureImageView, person.profilePicURL)
         holder.nameTextView.text = person.fullName()
     }
 

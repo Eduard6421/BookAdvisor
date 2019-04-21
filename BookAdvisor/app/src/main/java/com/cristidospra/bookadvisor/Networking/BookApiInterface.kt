@@ -32,8 +32,7 @@ interface BookApiInterface {
     fun getBooksByGenre(@Path("tag_name") genreName: String) : Call<ArrayList<Book>>
 
 
-    @FormUrlEncoded
-    @POST("add-book-review")
-    fun addReview(@Field("") bookId: Int,
+    @POST("add-review/{id}")
+    fun addReview(@Path("id") bookId: Int,
                   @Body review: Review) : Call<Unit>
 }

@@ -10,5 +10,12 @@ class RecommendedActivity : NavigationMenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recommended)
+
+        inflateViews()
+    }
+
+    private fun inflateViews() {
+
+
     }
 }

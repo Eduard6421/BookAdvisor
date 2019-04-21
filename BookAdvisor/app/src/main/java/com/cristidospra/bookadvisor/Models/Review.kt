@@ -8,12 +8,14 @@ import java.util.*
 class Review(
 
     @SerializedName("user_review")
+    @Transient
     var user: User = User(),
 
     @SerializedName("score")
     var givenRating: Float = 0.0f,
 
     @SerializedName("date")
+    @Transient
     var dateString: String = String(),
 
     @SerializedName("content")

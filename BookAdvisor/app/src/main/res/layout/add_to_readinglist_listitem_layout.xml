@@ -9,7 +9,7 @@
         android:gravity="center_vertical">
 
     <TextView
-            android:id="@+id/readinglist_listitem_name"
+            android:id="@+id/add_to_readinglist_listitem_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -23,12 +23,12 @@
     />
 
     <TextView
-            android:id="@+id/readinglist_listitem_nrbooks"
+            android:id="@+id/add_to_readinglist_listitem_nrbooks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
 
-            android:layout_toEndOf="@id/readinglist_listitem_name"
+            android:layout_toEndOf="@id/add_to_readinglist_listitem_name"
             android:layout_marginStart="8dp"
 
             android:textSize="16sp"
@@ -37,15 +37,15 @@
     />
 
     <CheckBox
-            android:id="@+id/readinglist_listitem_checkbox"
+            android:id="@+id/add_to_readinglist_listitem_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
 
+            android:button="@drawable/checkbox_layout_selector"
+
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="32dp"
-
-            android:src="@drawable/checkbox_layout_selector"
     />
 
 </RelativeLayout>

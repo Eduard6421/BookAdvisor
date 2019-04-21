@@ -1,14 +1,18 @@
 package com.cristidospra.bookadvisor.Activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.Adapters.GenreAdapter
+import com.cristidospra.bookadvisor.Adapters.ReviewAdapter
+import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
+import com.cristidospra.bookadvisor.Utils.Utils
 
 class BookActivity : NavigationMenuActivity() {
 
@@ -24,11 +28,35 @@ class BookActivity : NavigationMenuActivity() {
     lateinit var bookReviewsRecyclerView: RecyclerView
 
 
+    private lateinit var currentBook: Book
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book)
 
         inflateViews()
+
+        currentBook = intent.getSerializableExtra("current_book") as Book
+
+        Utils.loadImage(this, bookCoverImageView, currentBook.coverURL)
+        bookTitleTextView.text = currentBook.title
+        bookAuthorTextView.text = currentBook.authorsToString()
+        bookRatingBar.rating = currentBook.rating
+        bookRatingValueTextView.text = currentBook.rating.toString()
+        bookNrRatesTextView.text = currentBook.nrRates().toString()
+        bookPrologueTextView.text = currentBook.prologue
+
+        wantToReadButton.setOnClickListener {
+
+            /*TODO: here */
+
+        }
+
+        bookGenresRecyclerView.layoutManager = LinearLayoutManager(this)
+        bookGenresRecyclerView.adapter = GenreAdapter(currentBook.genres)
+
+        bookReviewsRecyclerView.layoutManager = LinearLayoutManager(this)
+        bookReviewsRecyclerView.adapter = ReviewAdapter(currentBook.reviews)
     }
 
     private fun inflateViews() {

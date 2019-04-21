@@ -16,6 +16,12 @@ class ReadingList(
 
 ) : Serializable {
 
+    companion object {
+
+        const val ALREADY_READ = 0
+        const val WANT_TO_READ = 1
+    }
+
     fun nrOfBooks(): Int {
 
         return books.count()

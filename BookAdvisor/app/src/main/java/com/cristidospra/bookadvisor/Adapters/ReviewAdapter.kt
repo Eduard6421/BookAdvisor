@@ -1,5 +1,6 @@
 package com.cristidospra.bookadvisor.Adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +10,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Models.Review
 import com.cristidospra.bookadvisor.R
+import com.cristidospra.bookadvisor.Utils.Utils
 
 class ReviewAdapter(val reviews: ArrayList<Review>): RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
+
+    private lateinit var usedContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.review_listitem_layout, parent, false)
+        this.usedContext = parent.context
 
         return ReviewViewHolder(itemView)
     }
@@ -27,7 +32,7 @@ class ReviewAdapter(val reviews: ArrayList<Review>): RecyclerView.Adapter<Review
 
         val review = reviews[position]
 
-        //holder.profilePicImageView -- use glide
+        Utils.loadImage(usedContext, holder.profilePicImageView, review.user.profilePicURL)
         holder.userNameTextView.text = review.user.fullName()
         holder.postedDateTextView.text = review.dateString
         holder.ratingBar.rating = review.givenRating

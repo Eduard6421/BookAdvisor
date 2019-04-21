@@ -23,7 +23,7 @@ interface LoginApiInterface {
     @POST("register")
     fun register(@Field("email") email: String,
                  @Field("password") password: String)
-        : Call<String>
+        : Call<AuthToken>
 
 
 }

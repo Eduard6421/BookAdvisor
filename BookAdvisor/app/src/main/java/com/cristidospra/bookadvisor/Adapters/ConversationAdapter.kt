@@ -1,21 +1,24 @@
 package com.cristidospra.bookadvisor.Adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.Models.Conversation
 import com.cristidospra.bookadvisor.R
+import com.cristidospra.bookadvisor.Utils.Utils
 
 class ConversationAdapter(private val conversations: ArrayList<Conversation>): RecyclerView.Adapter<ConversationAdapter.ConversationHolder>() {
+
+    private lateinit var usedContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConversationHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.inbox_listitem_layout, parent, false)
+        this.usedContext = parent.context
 
         return ConversationHolder(itemView)
     }
@@ -28,9 +31,11 @@ class ConversationAdapter(private val conversations: ArrayList<Conversation>): R
 
         val conversation = conversations[position]
 
-        //holder.profilePicImageView -- cu glide
+        Utils.loadImage(usedContext, holder.profilePicImageView, conversation.user.profilePicURL)
         holder.nameTextView.text = conversation.user.fullName()
         holder.dateTextView.text = conversation.lastMessage.sentDate.toString()
+
+        /*TODO: la click pe conversatie du-te pe pagina conversatiei */
     }
 
 
