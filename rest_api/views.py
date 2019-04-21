@@ -838,6 +838,8 @@ def add_review(request, book_id):
     reviews_json = request.data
     print("ID " + book_id)
     print(reviews_json)
+    return Response({'has_error': 'false'}, status=HTTP_200_OK)
+
     '''
     book = Book.objects.filter(id=reviews_json['id_book'])
 
