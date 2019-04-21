@@ -846,6 +846,7 @@ def add_review(request, book_id):
 
         review = Review(content=reviews_json['content'], score=float(reviews_json['score']),
                         user_review=request.user)
+        review.save()
         book.reviews.add(review)
         book.rating = sum([review.score for review in book.reviews.all()]) / len(book.reviews.all())
         book.save()
