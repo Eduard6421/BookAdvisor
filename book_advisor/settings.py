@@ -25,7 +25,7 @@ SECRET_KEY = '891b((s9fae+cl@5-eguaq51zb^o2pp9uucq*^$pgr4)(dmco-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.106', '192.168.0.105', '86.121.192.11']
+ALLOWED_HOSTS = ['192.168.0.106', '192.168.0.105', '86.121.192.11', '192.168.0.109']
 
 
 # Application definition
