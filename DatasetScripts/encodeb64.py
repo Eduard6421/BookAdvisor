@@ -33,7 +33,7 @@ def pretty_print_POST(req):
     ))
 
 
-#pretty_print_POST(prepared)
+pretty_print_POST(prepared)
 resp = sess.send(prepared)
 print(resp.json())
 
