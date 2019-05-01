@@ -1,10 +1,7 @@
 package com.cristidospra.bookadvisor.Networking
 
 import com.cristidospra.bookadvisor.CurrentUser
-import com.cristidospra.bookadvisor.Models.Book
-import com.cristidospra.bookadvisor.Models.Conversation
-import com.cristidospra.bookadvisor.Models.ReadingList
-import com.cristidospra.bookadvisor.Models.User
+import com.cristidospra.bookadvisor.Models.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,21 +28,22 @@ object UserApiManager {
         })
     }
 
-     fun getRecommendedBooks(onSucces: (ArrayList<Book>) -> Unit) {
+     fun getRecommendedBooks(onSuccess: (ArrayList<Recommendation>) -> Unit) {
 
         val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
 
-        val call: Call<ArrayList<Book>> = userApiInterface.getRecommended()
+        val call: Call<ArrayList<Recommendation>> = userApiInterface.getRecommended()
 
-        call.enqueue(object : Callback<ArrayList<Book>> {
+        call.enqueue(object : Callback<ArrayList<Recommendation>> {
 
-            override fun onFailure(call: Call<ArrayList<Book>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Recommendation>>, t: Throwable) {
 
             }
 
-            override fun onResponse(call: Call<ArrayList<Book>>, response: Response<ArrayList<Book>>) {
+            override fun onResponse(call: Call<ArrayList<Recommendation>>, response: Response<ArrayList<Recommendation>>) {
+
                 print("")
-                onSucces(response.body()!!)
+                onSuccess(response.body()!!)
             }
 
         })
@@ -94,7 +92,7 @@ object UserApiManager {
 
     }
 
-     fun getFollowing(onSucces: (ArrayList<User>) -> Unit) {
+     fun getFollowing(onSuccess: (ArrayList<User>) -> Unit) {
 
         val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
 
@@ -108,7 +106,7 @@ object UserApiManager {
 
             override fun onResponse(call: Call<ArrayList<User>>, response: Response<ArrayList<User>>) {
                 print("")
-                onSucces(response.body()!!)
+                onSuccess(response.body()!!)
             }
 
         })

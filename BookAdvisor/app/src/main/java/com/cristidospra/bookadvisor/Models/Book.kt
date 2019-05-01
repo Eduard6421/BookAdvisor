@@ -1,5 +1,6 @@
 package com.cristidospra.bookadvisor.Models
 
+import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.Utils.Utils
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -61,5 +62,19 @@ class Book(
 
     fun releaseDate() : Date {
         return Utils.stringToDate(releaseDateString)
+    }
+
+    fun getContainedByReadingLists() : ArrayList<ReadingList> {
+
+        val readingLists: ArrayList<ReadingList> = ArrayList()
+
+        for (readingList in CurrentUser.instance.readingLists) {
+
+            if (readingList.contains(this)) {
+                readingLists.add(readingList)
+            }
+        }
+
+        return readingLists
     }
 }

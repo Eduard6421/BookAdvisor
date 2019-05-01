@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Models.ReadingList
 import com.cristidospra.bookadvisor.R
 
-class AddToReadingListAdapter(val readingLists: ArrayList<ReadingList>) : RecyclerView.Adapter<AddToReadingListAdapter.ReadingListViewHolder>() {
+class AddToReadingListAdapter(private val readingLists: ArrayList<ReadingList>, private val onCheckedChangeListener: OnCheckedChangeListener) :
+    RecyclerView.Adapter<AddToReadingListAdapter.ReadingListViewHolder>() {
+
+    private var checkedPositions: ArrayList<Int> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReadingListViewHolder {
 
@@ -28,6 +31,13 @@ class AddToReadingListAdapter(val readingLists: ArrayList<ReadingList>) : Recycl
 
         holder.title.text = readingList.title
         holder.nrBooks.text = (readingList.nrOfBooks().toString() + " books")
+
+        holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+
+           onCheckedChangeListener.onCheckChange(readingList, isChecked)
+        }
+
+        holder.checkBox.isChecked = checkedPositions.contains(position)
     }
 
 
@@ -36,5 +46,9 @@ class AddToReadingListAdapter(val readingLists: ArrayList<ReadingList>) : Recycl
         val title: TextView = view.findViewById(R.id.add_to_readinglist_listitem_name)
         val nrBooks: TextView = view.findViewById(R.id.add_to_readinglist_listitem_nrbooks)
         val checkBox: CheckBox = view.findViewById(R.id.add_to_readinglist_listitem_checkbox)
+    }
+
+    interface OnCheckedChangeListener {
+        fun onCheckChange(readingList: ReadingList, isChecked: Boolean)
     }
 }

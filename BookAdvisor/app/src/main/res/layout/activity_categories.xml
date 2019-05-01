@@ -20,7 +20,7 @@
     />
 
     <View
-            android:id="@+id/categories_separator"
+            android:id="@+id/recommendations_separator"
             android:layout_width="match_parent"
             android:layout_height="7dp"
             android:layout_marginTop="35dp"
@@ -32,12 +32,12 @@
 
     <!-- Use readinglist_listitem_layout without nr books -->
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categories_genres_recyclerview"
+            android:id="@+id/recommendations_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/categories_separator">
+            android:layout_below="@id/recommendations_separator">
 
     </androidx.recyclerview.widget.RecyclerView>
 

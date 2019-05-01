@@ -18,12 +18,14 @@ object LoginApiManager {
 
             override fun onFailure(call: Call<AuthToken>, t: Throwable) {
 
-                print("")
+                t.printStackTrace()
             }
 
             override fun onResponse(call: Call<AuthToken>, response: Response<AuthToken>) {
 
-                onSuccess(response.body()!!)
+                if (response.body() != null) {
+                    onSuccess(response.body()!!)
+                }
             }
 
         })
@@ -39,12 +41,15 @@ object LoginApiManager {
         call.enqueue(object : Callback<AuthToken> {
 
             override fun onFailure(call: Call<AuthToken>, t: Throwable) {
-                print("")
+
+                t.printStackTrace()
             }
 
             override fun onResponse(call: Call<AuthToken>, response: Response<AuthToken>) {
 
-                onSuccess(response.body()!!)
+                if (response.body() != null) {
+                    onSuccess(response.body()!!)
+                }
             }
 
         })
@@ -59,6 +64,8 @@ object LoginApiManager {
         call.enqueue(object : Callback<Unit> {
 
             override fun onFailure(call: Call<Unit>, t: Throwable) {
+
+                t.printStackTrace()
             }
 
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {

@@ -1,5 +1,7 @@
 package com.cristidospra.bookadvisor.Activities
 
+import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.GenreAdapter
 import com.cristidospra.bookadvisor.Adapters.ReviewAdapter
 import com.cristidospra.bookadvisor.Models.Book
+import com.cristidospra.bookadvisor.Models.ReadStatus
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
@@ -22,7 +25,7 @@ class BookActivity : NavigationMenuActivity() {
     lateinit var bookRatingBar: RatingBar
     lateinit var bookRatingValueTextView: TextView
     lateinit var bookNrRatesTextView: TextView
-    lateinit var wantToReadButton: Button
+    lateinit var addToReadingListsButton: Button
     lateinit var bookPrologueTextView: TextView
     lateinit var bookGenresRecyclerView: RecyclerView
     lateinit var bookReviewsRecyclerView: RecyclerView
@@ -46,10 +49,12 @@ class BookActivity : NavigationMenuActivity() {
         bookNrRatesTextView.text = currentBook.nrRates().toString()
         bookPrologueTextView.text = currentBook.prologue
 
-        wantToReadButton.setOnClickListener {
 
-            /*TODO: here */
+        addToReadingListsButton.setOnClickListener {
 
+            val intent = Intent(this, AddToLibraryActivity::class.java)
+            intent.putExtra("book", currentBook)
+            startActivity(intent)
         }
 
         bookGenresRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -67,7 +72,7 @@ class BookActivity : NavigationMenuActivity() {
         bookRatingBar = findViewById(R.id.book_about_ratingbar)
         bookRatingValueTextView = findViewById(R.id.book_about_rating_value)
         bookNrRatesTextView = findViewById(R.id.book_about_review_count)
-        wantToReadButton = findViewById(R.id.book_button_read)
+        addToReadingListsButton = findViewById(R.id.book_button_read)
         bookPrologueTextView = findViewById(R.id.book_about_prologue_content)
         bookGenresRecyclerView = findViewById(R.id.book_tags_recyclerview)
         bookReviewsRecyclerView = findViewById(R.id.book_reviews_recyclerview)

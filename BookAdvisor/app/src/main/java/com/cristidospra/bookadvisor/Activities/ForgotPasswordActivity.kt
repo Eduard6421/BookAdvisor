@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.cristidospra.bookadvisor.Networking.LoginApiManager
+import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
 
 class ForgotPasswordActivity : AppCompatActivity() {
@@ -22,7 +24,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         inflateViews()
 
+        sendEmailButton.setOnClickListener {
 
+            /*TODO: this */
+        }
     }
 
     private fun inflateViews() {
@@ -30,7 +35,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.recover_email_field)
         sendEmailButton = findViewById(R.id.send_email_button)
         wrongEmailTextView = findViewById(R.id.email_not_found_text)
-        successContainer = findViewById(R.id.email_recover_succes_container)
+        successContainer = findViewById(R.id.email_recover_success_container)
         successEmailTextView = findViewById(R.id.email_recover_success_message_address)
     }
 }

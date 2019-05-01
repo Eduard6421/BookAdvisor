@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Models.ReadingList
 import com.cristidospra.bookadvisor.R
 
-class ReadingListAdapter(val readingLists: ArrayList<ReadingList>) : RecyclerView.Adapter<ReadingListAdapter.ReadingListViewHolder>() {
+class ReadingListAdapter(private val readingLists: ArrayList<ReadingList>) : RecyclerView.Adapter<ReadingListAdapter.ReadingListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReadingListViewHolder {
 

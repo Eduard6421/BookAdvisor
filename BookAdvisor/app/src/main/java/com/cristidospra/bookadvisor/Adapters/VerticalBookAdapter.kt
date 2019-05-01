@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.Models.ReadStatus
 import com.cristidospra.bookadvisor.R
@@ -42,13 +43,29 @@ class VerticalBookAdapter(private val books: ArrayList<Book>): RecyclerView.Adap
                 holder.wantToReadButton.backgroundTintList = ColorStateList.valueOf(Utils.getColor(R.color.colorTransparentWhite))
             }
             ReadStatus.WANT_TO_READ -> {
-                holder.wantToReadButton.text = "Read"
+                holder.wantToReadButton.text = "Read now"
             }
             ReadStatus.NOTHING -> {
                 holder.wantToReadButton.text = "Want to read"
             }
         }
 
+        holder.wantToReadButton.setOnClickListener {
+
+            when(book.readStatus) {
+
+                ReadStatus.READ -> {
+
+                }
+                ReadStatus.WANT_TO_READ -> {
+                    /*TODO: this */
+                }
+                ReadStatus.NOTHING -> {
+
+                    /*TODO: this */
+                }
+            }
+        }
     }
 
 

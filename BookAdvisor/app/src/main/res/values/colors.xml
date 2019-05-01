@@ -9,7 +9,6 @@
     <color name="colorDarkGreen">#8080C441</color>
     <color name="colorRed">#ff3f3f</color>
     <color name="colorBlack">#DE000000</color>
-    <color name="colorLightGray">#FFB2B2B2</color>
     <color name="colorDarkGray">#FF727273</color>
     <color name="colorOrange">#ff9318</color>
     <color name="colorBlue">#FF4EB0E6</color>
@@ -24,6 +23,7 @@
     <color name="colorNavActive">#FF2C8240</color>
     <color name="colorNavInactive">#FF49504B</color>
     <color name="colorText">#FFFBFBFB</color>
+    <color name="colorLightGray">#FFB2B2B2</color>
     <color name="colorTextDarker">#FFA4A7A5</color>
     <color name="colorBackground">#FF222823</color>
     <color name="colorBarBackground">#FFD8D8D8</color>

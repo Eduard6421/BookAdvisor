@@ -12,7 +12,7 @@ interface BookApiInterface {
 
     @Multipart
     @PUT("book/")
-    fun sendScannedBook(@Part image: MultipartBody.Part) : Call<Book>
+    fun sendScannedBook(@Part image: MultipartBody.Part) : Call<ArrayList<Book>>
 
 
     @GET("get-books/{title}")

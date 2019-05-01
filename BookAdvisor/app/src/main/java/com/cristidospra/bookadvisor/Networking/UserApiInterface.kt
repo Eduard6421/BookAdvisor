@@ -12,7 +12,7 @@ interface UserApiInterface {
 
 
     @GET("recommended-books/")
-    fun getRecommended() : Call<ArrayList<Book>>
+    fun getRecommended() : Call<ArrayList<Recommendation>>
 
 
     @PUT("update-user/")

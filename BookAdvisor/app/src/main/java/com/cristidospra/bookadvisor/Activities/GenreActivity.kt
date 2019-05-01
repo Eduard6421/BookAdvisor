@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.HorizontalBookAdapter
+import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.Models.Genre
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.Networking.BookApiManager
@@ -32,7 +33,8 @@ class GenreActivity : NavigationMenuActivity() {
 
         addToFavouriteButton.setOnClickListener {
 
-            /* TODO: add this to favourites */
+            CurrentUser.instance.addGenreToFavourites(currentGenre)
+            UserApiManager.updateUser(CurrentUser.instance)
         }
 
         BookApiManager.getBooksByGenre(currentGenre, onSuccess = {

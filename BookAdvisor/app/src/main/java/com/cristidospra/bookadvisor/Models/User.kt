@@ -79,6 +79,14 @@ open class User(
 
     fun profilePic() : String {
 
+        /*TODO: need to add any prefix? */
         return ""
+    }
+
+    fun addGenreToFavourites(genre: Genre) {
+
+        if (!this.favouriteGenres.contains(genre)) {
+            this.favouriteGenres.add(genre)
+        }
     }
 }

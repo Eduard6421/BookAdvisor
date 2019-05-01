@@ -1,6 +1,5 @@
 package com.cristidospra.bookadvisor.Activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -33,7 +32,6 @@ class FindPeopleActivity : NavigationMenuActivity() {
         following = CurrentUser.instance.following
         /* TODO: endpoint to get new people */
 
-
         followingSearchEditText.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable?) {
@@ -43,7 +41,7 @@ class FindPeopleActivity : NavigationMenuActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                /*TODO: update adapter */
+                followingPeopleRecyclerView.swapAdapter(PersonFollowingAdapter(filteredUsers(following, s.toString())), true)
             }
 
         })
@@ -59,7 +57,7 @@ class FindPeopleActivity : NavigationMenuActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                /*TODO: update adapter */
+                newPeopleRecyclerView.swapAdapter(PersonNewAdapter(filteredUsers(newPeople, s.toString())), true)
             }
 
         })
