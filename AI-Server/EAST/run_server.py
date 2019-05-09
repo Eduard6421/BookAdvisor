@@ -38,9 +38,9 @@ AOCRModelAPI = 'http://localhost:9001/v1/models/aocr:predict'
 east_model = {}
 
 def dict_compare(first,second):
-	if(int(first['x0']) == int(second['xo'])):
-		return int(first['y0']) < int(second['yo'])
-	return int(first['x0']) == int(second['yo'])
+    if(int(first['x0']) == int(second['xo'])):
+        return int(first['y0']) < int(second['yo'])
+    return int(first['x0']) == int(second['yo'])
 
 
 @functools.lru_cache(maxsize=1)
@@ -222,7 +222,7 @@ def save_result(img, rst):
         top_left_y = min([int(element['y0']),int(element['y1']),int(element['y2']),int(element['y3'])])
         bot_right_x = max([int(element['x0']),int(element['x1']),int(element['x2']),int(element['x3'])])
         bot_right_y = max([int(element['y0']),int(element['y1']),int(element['y2']),int(element['y3'])])
-		
+        
         newimage = img[top_left_y:bot_right_y,top_left_x:bot_right_x]
         ocrImg = newimage
 
