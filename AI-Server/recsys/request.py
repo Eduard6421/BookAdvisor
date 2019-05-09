@@ -3,7 +3,7 @@ import requests
 print('fuckyeah')
 
 
-RecModelAPI = 'http://localhost:9001/v1/models/recom:predict'
+RecModelAPI = 'http://localhost:9001/v1/models/recsys:predict'
 
 headers = {'cache-control':'no-cache','content-type': 'application/json',}
 senddata =  { 'signature-name': 'serving_default',
@@ -18,4 +18,4 @@ prepared = req.prepare()
 sess = requests.Session()
 resp = sess.send(prepared)
 
-print(resp.text)
+print(resp.text)	

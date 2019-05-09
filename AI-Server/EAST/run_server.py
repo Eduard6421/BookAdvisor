@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
+#Python
 import os
-
 import time
 import datetime
 import cv2
@@ -13,14 +13,27 @@ import base64
 import functools
 import logging
 import collections
+import argparse
+
+#Tensorflow
+import pytesseract
+import tensorflow as tf
+import model
+import lanms
+from icdar import restore_rectangle
+from eval import resize_image, sort_poly, detect
+
+#Flask
 from flask import jsonify
+from PIL import Image
+from flask import Flask, request, render_template
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
 #Change this
-checkpoint_path = '/home/eduard/Private/AI/EAST/models/trainedmodel'
+checkpoint_path = '/home/eduard/Private/AI/EAST/tmp/east_icdar2015_resnet_v1_50_rbox'
 AOCRModelAPI = 'http://localhost:9001/v1/models/aocr:predict'
 east_model = {}
 
@@ -48,11 +61,6 @@ def get_host_info():
 @functools.lru_cache(maxsize=100)
 def get_predictor(checkpoint_path):
     logger.info('loading model')
-    import tensorflow as tf
-    import model
-    from icdar import restore_rectangle
-    import lanms
-    from eval import resize_image, sort_poly, detect
 
     input_images = tf.placeholder(tf.float32, shape=[None, None, None, 3], name='input_images')
     global_step = tf.get_variable('global_step', [], initializer=tf.constant_initializer(0), trainable=False)
@@ -127,11 +135,6 @@ def get_predictor(checkpoint_path):
     return predictor
 
 
-### the webserver
-from flask import Flask, request, render_template
-import argparse
-
-
 class Config:
     SAVE_DIR = 'static/results'
 
@@ -155,6 +158,36 @@ def draw_illu(illu, rst):
     return illu
 
 
+def OCR_Model(newimage,ocrImg):
+
+
+    #Write request header and content
+    headers = {'cache-control':'no-cache','content-type': 'application/json',}
+    senddata =  { 'signature-name': 'serving_default',
+            'inputs' : {
+                'input' :
+                {
+                    'b64' : newimage
+                }
+            } 
+    }
+
+    #Send request
+    req = requests.Request('POST',AOCRModelAPI,headers=headers,json=senddata)
+    prepared = req.prepare()
+    sess = requests.Session()
+    resp = sess.send(prepared)
+
+    newobj = {
+       'probability' : resp.json()['outputs']['probability'],
+        'word' : resp.json()['outputs']['output'],
+    }
+
+    if resp.json()['outputs']['probability'] < 0.8 and pytesseract.image_to_string(ocrImg) != '':
+        newobj['word'] = str(pytesseract.image_to_string(ocrImg))
+
+    return resp.json()
+
 def save_result(img, rst):
     session_id = str(uuid.uuid1())
     dirpath = os.path.join(config.SAVE_DIR, session_id)
@@ -173,64 +206,48 @@ def save_result(img, rst):
     result = sorted(result,key= lambda k: (k['y0'],k['x0']) )
 
     cnt=0
-
     output_path = os.path.join(dirpath,'')
-
 
     ocr_result = {}
 
     for element in result:
 
+
+        # Write textboxes in file
         output_path = os.path.join(dirpath,'rectangle-' + str(cnt) + '.png')
 
+
+        #Crop the image for each textbox
         top_left_x = min([int(element['x0']),int(element['x1']),int(element['x2']),int(element['x3'])])
         top_left_y = min([int(element['y0']),int(element['y1']),int(element['y2']),int(element['y3'])])
         bot_right_x = max([int(element['x0']),int(element['x1']),int(element['x2']),int(element['x3'])])
         bot_right_y = max([int(element['y0']),int(element['y1']),int(element['y2']),int(element['y3'])])
 		
         newimage = img[top_left_y:bot_right_y,top_left_x:bot_right_x]
+        ocrImg = newimage
 
+
+        #Calculate scaling factor for images larger than maxwidth/maxheight
         height, width = newimage.shape[:2]
-        max_height = 200
-        max_width = 200
 
+        max_height = 80
+        max_width = 130
 
-        scaling_factor=1
+        scaling_factor = 1
 
         if max_height < height or max_width < width:
             scaling_factor = max_height / float(height)
         if max_width/float(width) < scaling_factor:
             scaling_factor = max_width / float(width)
+
         newimage = cv2.resize(newimage, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
-
-
-
 
         cv2.imwrite(output_path,newimage)
             
         retval, buff = cv2.imencode('.jpg', newimage)
         newimage = base64.b64encode(buff)
 
-        headers = {'cache-control':'no-cache','content-type': 'application/json',}
-        senddata =  { 'signature-name': 'serving_default',
-                'inputs' : {
-                    'input' :
-                    {
-                        'b64' : newimage
-                    }
-            } 
-        }
-
-
-        req = requests.Request('POST',AOCRModelAPI,headers=headers,json=senddata)
-        prepared = req.prepare()
-        sess = requests.Session()
-        resp = sess.send(prepared)
-
-        newobj = {
-            'probability' : resp.json()['outputs']['probability'],
-            'word' : resp.json()['outputs']['output'],
-        }
+        newobj = OCR_Model(newimage,ocrImg)
 
         ocr_result["textbox"+str(cnt)]  = newobj
         cnt +=1
@@ -238,12 +255,11 @@ def save_result(img, rst):
     ocr_result["num"] = cnt
 
 
-    # save json data
+    #Save Output Data
     output_path = os.path.join(dirpath, 'result.json')
 
     with open(output_path, 'w') as f:
         json.dump(ocr_result, f)
-
 
     return ocr_result
 
@@ -259,8 +275,8 @@ def index_post():
 
 
     height, width = img.shape[:2]
-    max_height = 400
-    max_width = 700
+    max_height = 500
+    max_width = 850
 
 
     scaling_factor=1
@@ -274,6 +290,7 @@ def index_post():
 
     response = save_result(img,rst)
     print(response)
+
 
     return jsonify(response)
 
