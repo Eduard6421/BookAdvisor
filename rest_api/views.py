@@ -878,6 +878,44 @@ def add_review(request, book_id):
 # return obiect user ca la get_user
 
 
+@csrf_exempt
+@api_view(['POST', ])
+def get_user_by_firebase(request, firebaseUID):
+    msg = 'maintenance'
+    try:
+        obj_user = Profile.objects.get(firebaseUID=firebaseUID)
+        serializer = ProfileSerializer(obj_user)
+        profile_json = serializer.data
+        for key, element in serializer.data['user'].items():
+            profile_json[key] = element
+        del profile_json['user']
+        for reading_list in profile_json['reading_lists']:
+            for books in reading_list['books']:
+                if books:
+                    for book in reading_list['books']:
+                        authors = []
+                        for author in book['authors']:
+                            for key, element in author.items():
+                                if key == 'name':
+                                    authors.append(element)
+
+                        for review in book['reviews']:
+                            for key, element in review['user_review'].items():
+                                if key == 'id':
+                                    pass
+                                else:
+                                    review[key] = element
+
+                            del review['user_review']
+                        del book['authors']
+                        book['authors'] = []
+                        for author in authors:
+                            book['authors'].append(author)
+
+        return Response(profile_json, status=HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
 ##########
 
 @csrf_exempt
@@ -886,6 +924,7 @@ def current_user(request):
     email = request.data.get('email', None)
     obj_user = Profile.objects.get(user=User.objects.get(email=email))
     serializer = ProfileSerializer(obj_user)
+
     profile_json = serializer.data
     return Response({'has_error': 'false', 'email': email, 'profile_json': profile_json, }, status=HTTP_200_OK)
 

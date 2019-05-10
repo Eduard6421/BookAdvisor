@@ -68,6 +68,46 @@ POPULATE_DB = False
 # load_from_csv()
 load_from_csv('/data/datasets/books.csv')
 
+if POPULATE_DB:
+    # Users and profiles test case
+    find_user = User.objects.filter(username='test_user@yahoo.com')
+    if not find_user:
+        user1 = User(username='test_user@yahoo.com', first_name='test_user_first_name', last_name='test_user_last_name',
+                     email='test_user@yahoo.com')
+        user1.set_password('test_user')
+        user1.save()
+        profile_user1 = Profile(user=user1)
+
+        reading_list = Reading_list_books()
+        reading_list.title = 'Already Read'
+        wish_to_read_list = Reading_list_books()
+        wish_to_read_list.title = 'Wish to read'
+        already_read_list = Reading_list_books()
+        already_read_list.title = 'Reading Now'
+
+        reading_list.save()
+        wish_to_read_list.save()
+        already_read_list.save()
+
+        profile_user1.save()
+
+        profile_user1.reading_lists.add(reading_list)
+        profile_user1.reading_lists.add(wish_to_read_list)
+        profile_user1.reading_lists.add(already_read_list)
+
+    else:
+        user1 = find_user.first()
+
+    tags = ['Art', 'Biography', 'Business', 'Check-lit', "Children's", 'Christian', 'Classics', 'Comics',
+            'Contemporary', 'Cookbooks', 'Crime', 'Fantasy', 'Fiction', 'Graphic Novels', 'Historical Fiction',
+            'History', 'Horror', 'Humour', 'Hentai', 'Manga', 'Memoir', 'Music', 'Mystery', 'Non-fiction', 'Pranormal',
+            'Philosophy', 'Poetry', 'Psychology', 'Religion', 'Romance', 'Science', 'Science Fiction', 'Self-Help',
+            'Spiritually', 'Sports', 'Suspense', 'Thriller', 'Travel', 'Young Adult']
+
+    for tag_content in tags:
+        tag = Tag(name=tag_content)
+        tag.save()
+
 
 '''
 if POPULATE_DB:

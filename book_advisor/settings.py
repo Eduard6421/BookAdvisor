@@ -26,7 +26,7 @@ SECRET_KEY = '891b((s9fae+cl@5-eguaq51zb^o2pp9uucq*^$pgr4)(dmco-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.106', '192.168.0.105', '86.121.192.11', '99.81.189.116', 'book-advisor.aws.bitrack.biz']
+ALLOWED_HOSTS = ['192.168.0.106', '99.81.189.116', 'book-advisor.aws.bitrack.biz']
 
 
 # Application definition
@@ -77,13 +77,25 @@ WSGI_APPLICATION = 'book_advisor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'book_advisor_db_production',
+        'USER': 'book_advisor_user',
+        'PASSWORD': '7fRnJmnZ',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
