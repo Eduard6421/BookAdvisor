@@ -1,12 +1,75 @@
 # from django.test import TestCase
 
+import pandas
+import csv
+import sys
 from random import randint
 from .models import *
 
 # Create your tests here.
 
-POPULATE_DB = True
 
+def load_from_csv(filename='/data/datasets/ratingsnew.csv'):
+
+    f = open(filename, 'r')
+    reader = csv.reader(f)
+    headers = next(reader)
+    f.close()
+
+    print(headers)
+    data = pandas.read_csv(filename, names=headers)
+
+    migrate_authors = True
+    migrate_books = True
+
+    if migrate_authors and data['authors'] is not None:
+        for author_row in data['authors']:
+            list_authors = author_row.split(', ')
+            for author in list_authors:
+                filter = Author.objects.filter(name=author)
+                if filter.first() is None:
+                    author_obj = Author(name=author)
+                    author_obj.save()
+                    print('Inserted author' + str(author_obj))
+
+    if migrate_books and data['original_title'] is not None:
+
+        for idx, row in data.iterrows():
+            if idx == 0:
+                continue
+            else:
+                # title ... data ... authors
+                book_id = row['book_id']
+                authors = row['authors']
+                title = row['original_title']
+                try:
+                    date_year = row['original_publication_year'][:-2]
+
+                    year = int(date_year)
+                    if year < 0:
+                        year *= -1
+                    datetime_book = datetime.datetime(year, 1, 1, 1, 0)
+                    book = Book(title=title, id=int(book_id), publish_date=datetime_book)
+                    book.save()
+                    for author in authors.split(', '):
+                        author_obj = Author.objects.filter(name=author)
+                        if author_obj.first() is not None:
+                            book.authors.add(author_obj.first())
+                    print('Inserted in db book with ' + str(book))
+                except:
+                    print('Something wrong with book_id ' + book_id)
+                    with open('error_book_id.txt', 'a') as f:
+                        f.write('Something wrong with book_id ' + book_id + '\n')
+                    pass
+
+
+POPULATE_DB = False
+
+# load_from_csv()
+load_from_csv('/data/datasets/books.csv')
+
+
+'''
 if POPULATE_DB:
 
     # Users and profiles test case
@@ -179,5 +242,4 @@ if POPULATE_DB:
     msg3 = Message(content='Ba bulangiule da-mi atentie', user_sender=user3, user_receiver=user1)
     msg3.save()
 
-
-
+'''

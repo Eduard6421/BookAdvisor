@@ -25,9 +25,9 @@ class Review(models.Model):
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=255, default='')
+    title = models.CharField(max_length=255, default='')  # title
     description = models.CharField(max_length=255, default='')
-    publish_date = models.DateTimeField(default=datetime.datetime.now)
+    publish_date = models.DateTimeField(default=datetime.datetime.now)  # original_publication_year
     rating = models.FloatField(default=0.0)
     no_pages = models.IntegerField(default=0)
     cover = models.ImageField(upload_to='images/', default='images/default_cover.png')
@@ -59,4 +59,12 @@ class Profile(models.Model):
     followers = models.ManyToManyField(User, related_name='followers', blank=True)
     following = models.ManyToManyField(User, related_name='following', blank=True)
     favorite_tags = models.ManyToManyField(Tag, related_name='favorite_tags', blank=True)
+    firebaseUID = models.CharField(max_length=255, default='')
+
+
+class FakeUserPreferences(models.Model):
+    user_id = models.IntegerField(default=0)
+    book_id = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book_id', blank=True)
+    rating = models.IntegerField(default=0)
+
 

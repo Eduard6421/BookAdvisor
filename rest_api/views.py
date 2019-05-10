@@ -33,11 +33,12 @@ from django.forms.models import model_to_dict
 
 import uuid
 import json
+import requests
 
 from .models import *
 from .serializers import *
 
-# from .tests import *
+from .tests import *
 
 # Create your views here.
 
@@ -131,6 +132,7 @@ def register_user(request):
         password = request.POST.get('password', None)
         first_name = request.POST.get('first_name', '')
         last_name = request.POST.get('last_name', '')
+        firebaseUID = request.POST.get('firebaseUID', '')
 
         ok_param = True
 
@@ -156,6 +158,7 @@ def register_user(request):
             user.set_password(password)
             user.save()
             profile_user = Profile(user=user)
+            profile_user.firebaseUID = firebaseUID
 
             reading_list = Reading_list_books()
             reading_list.title = 'Already Read'
@@ -280,7 +283,6 @@ def get_user(request, email):
                         for author in authors:
                             book['authors'].append(author)
 
-
         return Response(profile_json, status=HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
@@ -290,6 +292,23 @@ def get_user(request, email):
 @api_view(['GET', ])
 def recommended_books(request):
     # AI Edu
+
+    api_ModelAI = 'http://localhost:9001/v1/models/recom:predict'
+
+    headers = {'cache-control': 'no-cache', 'content-type': 'application/json', }
+    senddata = {'signature-name': 'serving_default',
+                'inputs': {
+                    'Book-Input': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    'User-Input': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                }
+                }
+
+    req = requests.Request('POST', api_ModelAI, headers=headers, json=senddata)
+    prepared = req.prepare()
+    sess = requests.Session()
+    resp = sess.send(prepared)
+
+    print(resp.text)
 
     books = Book.objects.all()
     if books:
@@ -453,10 +472,11 @@ def book(request):
 
     book = Book(cover=image_cover)
     # Send AI Edu
+
     book.title = 'test'
     book.save()
 
-    return Response({'has_error': 'false', 'book_path': str(book.file), }, status=HTTP_200_OK)
+    return Response({'has_error': 'false', 'book_path': str(book.cover), }, status=HTTP_200_OK)
 
 
 '''
@@ -852,6 +872,10 @@ def add_review(request, book_id):
         book.save()
 
         return Response({'has_error': 'false'}, status=HTTP_200_OK)
+
+
+# /get_user_by_firebase/{firebaseUID}
+# return obiect user ca la get_user
 
 
 ##########
