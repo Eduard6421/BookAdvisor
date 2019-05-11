@@ -14,6 +14,8 @@ import functools
 import logging
 import collections
 import argparse
+import random
+
 
 #Tensorflow
 import pytesseract
@@ -28,13 +30,22 @@ from flask import jsonify
 from PIL import Image
 from flask import Flask, request, render_template
 
+#MongoDB
+from pymongo import MongoClient
+
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-#Change this
+#Change this to the EAST Model
 checkpoint_path = '/home/eduard/Private/AI/EAST/tmp/east_icdar2015_resnet_v1_50_rbox'
+
+#Change APIs according to the machine
+#VEZI CA AM SCHIMBAT PORT-UL
+
 AOCRModelAPI = 'http://localhost:9001/v1/models/aocr:predict'
+RecModelAPI = 'http://localhost:9005/v1/models/recsys:predict'
 east_model = {}
 
 def dict_compare(first,second):
@@ -56,7 +67,6 @@ def get_host_info():
         ret['loadavg'] = f.read()
 
     return ret
-
 
 @functools.lru_cache(maxsize=100)
 def get_predictor(checkpoint_path):
@@ -264,9 +274,71 @@ def save_result(img, rst):
     return ocr_result
 
 
+@app.route('/api/recsys', methods=['POST'])
+def recomandation_request():
 
-@app.route('/', methods=['POST'])
-def index_post():
+    newuser = request.json
+
+    Client = MongoClient()
+
+    db = Client["recsysdb"]
+    collection = db["Users"]
+
+
+    current_loss = 100000.0
+    similar_user = {}
+
+    #pune .find().limit(numar de useri)
+
+    for user_preference in collection.find().limit(20000):
+        similar = False
+        loss = 0.0
+
+        for book_id in newuser:
+            if(book_id in user_preference):
+                similar= True
+                loss += (float(user_preference[book_id]) - float(newuser[book_id]))**2
+
+        if(similar and current_loss > loss):
+            current_loss = loss
+            similar_user = user_preference['user_id']
+
+    similar_user = int(similar_user)
+
+    book_input = list(set(random.sample(range(1,10000),1000)))
+    user_input = [similar_user]*len(book_input)
+
+    headers = {'cache-control':'no-cache','content-type': 'application/json',}
+    senddata =  { 'signature-name': 'serving_default',
+                'inputs' : {
+                    'Book-Input' : book_input,
+                    'User-Input' : user_input,
+                } 
+            }
+
+    req = requests.Request('POST',RecModelAPI,headers=headers,json=senddata)
+    prepared = req.prepare()
+    sess = requests.Session()
+    resp = sess.send(prepared)
+
+    outputs = resp.json()['outputs']
+    outputs = [item for sublist in outputs for item in sublist]
+
+    recommended_books = zip(book_input,outputs)
+    recommended_books = sorted(recommended_books, key=lambda x: x[1] , reverse=True)
+    
+    print(list(recommended_books))
+
+
+    recommended_books = {
+    'recommandations' : list(recommended_books)[:20],
+    }
+
+    return jsonify(recommended_books)
+
+
+@app.route('/api/east', methods=['POST'])
+def east():
     global predictor
     import io
     bio = io.BytesIO()
@@ -310,7 +382,7 @@ def main():
 
     app.debug = False  # change this to True if you want to debug
     east_model = get_predictor(checkpoint_path)
-    app.run('0.0.0.0', args.port)
+    app.run('localhost', args.port)
 
 if __name__ == '__main__':
     main()
