@@ -61,14 +61,32 @@ object BookApiManager {
 
             override fun onResponse(call: Call<ArrayList<Book>>, response: Response<ArrayList<Book>>) {
 
-                if (response.body() != null) {
-                    onSuccess(response.body()!!)
-                }
+                response.body()?.let { onSuccess(it) }
             }
 
         })
     }
 
+    fun getBooksFromSearch(searchString: String, onSuccess: (ArrayList<Book>) -> Unit) {
+
+        val bookApiInterface: BookApiInterface = ApiClient.getClient()?.create(BookApiInterface::class.java)!!
+
+        val call: Call<ArrayList<Book>> = bookApiInterface.getBooksFromSearch(searchString)
+
+        call.enqueue(object : Callback<ArrayList<Book>> {
+
+            override fun onFailure(call: Call<ArrayList<Book>>, t: Throwable) {
+
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<ArrayList<Book>>, response: Response<ArrayList<Book>>) {
+
+                response.body()?.let { onSuccess(it) }
+            }
+
+        })
+    }
 
      fun updateBook(book: Book) {
 
@@ -104,9 +122,7 @@ object BookApiManager {
 
             override fun onResponse(call: Call<ArrayList<Genre>>, response: Response<ArrayList<Genre>>) {
 
-                if (response.body() != null) {
-                    onSuccess(response.body()!!)
-                }
+                response.body()?.let { onSuccess(it) }
             }
 
         })
@@ -127,7 +143,7 @@ object BookApiManager {
 
             override fun onResponse(call: Call<ArrayList<Book>>, response: Response<ArrayList<Book>>) {
                 print("")
-                onSuccess(response.body()!!)
+                response.body()?.let { onSuccess(it) }
             }
         })
 

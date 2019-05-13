@@ -1,13 +1,15 @@
 package com.cristidospra.bookadvisor.Networking
 
 import com.cristidospra.bookadvisor.CurrentUser
+import com.cristidospra.bookadvisor.FirebaseManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.HTTP
 
 object LoginApiManager {
 
-     fun login(email: String, password: String, onSuccess: (AuthToken) -> Unit) {
+     fun login(email: String, password: String, onSuccess: (AuthToken) -> Unit, onFailure: () -> Unit) {
 
         //Send request to server to get vacations for the current month
         val loginApiInterface: LoginApiInterface = ApiClient.getClient()?.create(LoginApiInterface::class.java)!!
@@ -26,17 +28,21 @@ object LoginApiManager {
                 if (response.body() != null) {
                     onSuccess(response.body()!!)
                 }
+                else if (response.code() == 401) {
+
+                    onFailure()
+                }
             }
 
         })
     }
 
-     fun register(email: String, password: String, onSuccess: (AuthToken) -> Unit) {
+     fun register(email: String, password: String, firebaseUID: String, firstName: String, lastName: String, onSuccess: (AuthToken) -> Unit) {
 
         //Send request to server to get vacations for the current month
         val loginApiInterface: LoginApiInterface = ApiClient.getClient()?.create(LoginApiInterface::class.java)!!
 
-        val call: Call<AuthToken> = loginApiInterface.register(email, password)
+        val call: Call<AuthToken> = loginApiInterface.register(email, password, firebaseUID, firstName, lastName)
 
         call.enqueue(object : Callback<AuthToken> {
 
@@ -47,9 +53,7 @@ object LoginApiManager {
 
             override fun onResponse(call: Call<AuthToken>, response: Response<AuthToken>) {
 
-                if (response.body() != null) {
-                    onSuccess(response.body()!!)
-                }
+                response.body()?.let { onSuccess(it) }
             }
 
         })

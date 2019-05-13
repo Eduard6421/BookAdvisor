@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.cristidospra.bookadvisor.Adapters.VerticalBookAdapter
+import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.Networking.BookApiManager
 import com.cristidospra.bookadvisor.Networking.LoginApiManager
@@ -52,7 +53,7 @@ class ScanBookActivity : NavigationMenuActivity() {
         CropImage.activity()
             .setGuidelines(CropImageView.Guidelines.ON)
             .setCropShape(CropImageView.CropShape.RECTANGLE)
-            .start(this)
+            .start(this@ScanBookActivity)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -99,7 +100,7 @@ class ScanBookActivity : NavigationMenuActivity() {
                 Glide.with(this)
                     .load(photo)
                     .apply(RequestOptions().placeholder(R.drawable.cover_placeholder))
-                    .apply(RequestOptions().transforms(CenterInside(), CircleCrop()))
+                    .apply(RequestOptions().transforms(CenterInside()))
                     .into(photoImageView)
 
             }
@@ -121,8 +122,15 @@ class ScanBookActivity : NavigationMenuActivity() {
 
             BookApiManager.sendScannedBook(photo) {
 
-                booksRecyclerView.layoutManager = LinearLayoutManager(this@ScanBookActivity)
-                booksRecyclerView.adapter = VerticalBookAdapter(it)
+                booksRecyclerView.layoutManager = LinearLayoutManager(this@ScanBookActivity, LinearLayoutManager.HORIZONTAL, false)
+                booksRecyclerView.adapter = VerticalBookAdapter(it, object : VerticalBookAdapter.OnBookClickListener {
+                    override fun onBookClick(book: Book) {
+
+                        val intent = Intent(this@ScanBookActivity, Book::class.java)
+                        intent.putExtra("book", book)
+                        this@ScanBookActivity.startActivity(intent)
+                    }
+                })
             }
         }
 

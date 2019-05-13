@@ -23,10 +23,11 @@ interface BookApiInterface {
     fun updateBook(@Path("id") id: Int,
                    @Body book: Book) : Call<Unit>
 
-
     @GET("get-categories/")
     fun getGenres() : Call<ArrayList<Genre>>
 
+    @GET("get-filtered-books/{search}")
+    fun getBooksFromSearch(@Path("search") searchedString: String) : Call<ArrayList<Book>>
 
     @GET("get-books-category/{tag_name}")
     fun getBooksByGenre(@Path("tag_name") genreName: String) : Call<ArrayList<Book>>

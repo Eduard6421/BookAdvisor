@@ -1,5 +1,6 @@
 package com.cristidospra.bookadvisor.Activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -41,12 +42,28 @@ class FindPeopleActivity : NavigationMenuActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                followingPeopleRecyclerView.swapAdapter(PersonFollowingAdapter(filteredUsers(following, s.toString())), true)
+                followingPeopleRecyclerView.swapAdapter(PersonFollowingAdapter(filteredUsers(following, s.toString()), object : PersonFollowingAdapter.OnPersonClickListener {
+                    override fun onPersonClick(user: User) {
+
+                        val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
+                        intent.putExtra("user", user)
+                        this@FindPeopleActivity.startActivity(intent)
+                    }
+
+
+                }), true)
             }
 
         })
         followingPeopleRecyclerView.layoutManager = LinearLayoutManager(this)
-        followingPeopleRecyclerView.adapter = PersonFollowingAdapter(following)
+        followingPeopleRecyclerView.adapter = PersonFollowingAdapter(following, object : PersonFollowingAdapter.OnPersonClickListener {
+            override fun onPersonClick(user: User) {
+
+                val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
+                intent.putExtra("user", user)
+                this@FindPeopleActivity.startActivity(intent)
+            }
+        })
 
         newPeopleSearchEditText.addTextChangedListener(object : TextWatcher {
 
@@ -57,12 +74,27 @@ class FindPeopleActivity : NavigationMenuActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                newPeopleRecyclerView.swapAdapter(PersonNewAdapter(filteredUsers(newPeople, s.toString())), true)
+                newPeopleRecyclerView.swapAdapter(PersonNewAdapter(filteredUsers(newPeople, s.toString()), object : PersonNewAdapter.OnPersonClickListener {
+                    override fun onPersonClick(user: User) {
+
+                        val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
+                        intent.putExtra("user", user)
+                        this@FindPeopleActivity.startActivity(intent)
+                    }
+
+                }), true)
             }
 
         })
         newPeopleRecyclerView.layoutManager = LinearLayoutManager(this)
-        newPeopleRecyclerView.adapter = PersonNewAdapter(newPeople)
+        newPeopleRecyclerView.adapter = PersonNewAdapter(newPeople, object: PersonNewAdapter.OnPersonClickListener {
+            override fun onPersonClick(user: User) {
+
+                val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
+                intent.putExtra("user", user)
+                this@FindPeopleActivity.startActivity(intent)            }
+
+        })
     }
 
     private fun inflateViews() {

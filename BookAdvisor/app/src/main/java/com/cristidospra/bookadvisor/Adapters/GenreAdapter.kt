@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Models.Genre
 import com.cristidospra.bookadvisor.R
 
-class GenreAdapter(private val genres: ArrayList<Genre>): RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
+class GenreAdapter(private val genres: ArrayList<Genre>, private val onGenreClickListener: OnGenreClickListener): RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
 
@@ -26,10 +26,18 @@ class GenreAdapter(private val genres: ArrayList<Genre>): RecyclerView.Adapter<G
         val genre = genres[position]
 
         holder.name.text = genre.name
+
+        holder.itemView.setOnClickListener {
+            onGenreClickListener.onGenreClick(genre)
+        }
     }
 
     class GenreViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val name: TextView = view.findViewById(R.id.small_genre_name)
+    }
+
+    interface OnGenreClickListener {
+        fun onGenreClick(genre: Genre)
     }
 }

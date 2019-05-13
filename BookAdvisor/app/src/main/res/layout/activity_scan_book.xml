@@ -3,7 +3,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
         android:background="@color/colorBackground">
 
         <ImageView
@@ -14,7 +13,7 @@
             android:layout_margin="21dp"
             android:layout_above="@id/scan_book_possible_books"
             android:layout_alignParentTop="true"
-            android:src="@drawable/cover_placeholder"
+            android:src="@drawable/scan_placeholder"
         />
 
         <androidx.recyclerview.widget.RecyclerView

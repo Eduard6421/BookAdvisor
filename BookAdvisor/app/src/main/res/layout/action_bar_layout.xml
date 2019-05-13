@@ -14,13 +14,29 @@
             android:gravity="center_vertical"
             android:visibility="visible">
 
-        <TextView
-                android:layout_width="wrap_content"
+
+        <EditText
+                android:id="@+id/actionbar_search_field"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Random Title"
+                android:background="@color/colorWhite"
+
                 android:layout_centerVertical="true"
-                android:textColor="@color/colorBarText"
-                android:textSize="18sp"/>
+                android:layout_toStartOf="@id/actionbar_search_icon"
+
+                android:layout_marginEnd="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="4dp"
+
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorLightGray"
+                android:textSize="16sp"
+                android:cursorVisible="true"
+                android:textCursorDrawable="@null"
+                android:hint="Search books by title or author"
+
+                android:visibility="gone"
+        />
 
         <ImageView
                 android:id="@+id/actionbar_search_icon"
@@ -48,54 +64,6 @@
 
 
     </RelativeLayout>
-
-    <RelativeLayout
-            android:id="@+id/actionbar_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingEnd="16dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:gravity="center_vertical"
-            android:visibility="gone">
-
-
-        <ImageView
-                android:id="@+id/actionbar_back_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="32dp"
-                android:layout_centerVertical="true"
-
-                android:src="@drawable/ic_back"
-                android:tint="@color/colorBarText"/>
-
-
-        <EditText
-            android:id="@+id/actionbar_search_field"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite"
-
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/actionbar_back_icon"
-
-            android:paddingStart="8dp"
-            android:paddingEnd="4dp"
-
-            android:textColor="@color/colorBlack"
-            android:textColorHint="@color/colorLightGray"
-            android:cursorVisible="true"
-            android:textCursorDrawable="@null"
-            android:hint="Search for books by title or author"
-        />
-
-    </RelativeLayout>
-
 
 
 </RelativeLayout>

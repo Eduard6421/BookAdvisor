@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.RecommendationAdapter
-import com.cristidospra.bookadvisor.Models.Recommendation
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
@@ -22,7 +21,7 @@ class RecommendedActivity : NavigationMenuActivity() {
         UserApiManager.getRecommendedBooks {
 
             recommendationsRecyclerView.layoutManager = LinearLayoutManager(this)
-            recommendationsRecyclerView.adapter = RecommendationAdapter(it)
+            recommendationsRecyclerView.adapter = RecommendationAdapter(it, this)
         }
     }
 

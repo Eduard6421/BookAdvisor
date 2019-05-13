@@ -1,15 +1,19 @@
 package com.cristidospra.bookadvisor.Networking
 
 import com.cristidospra.bookadvisor.Models.*
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 interface UserApiInterface {
 
     @GET("get-user/{email}")
     fun getUser(@Path("email") email: String) : Call<User>
 
+    @GET("get-user-firebase/{id}")
+    fun getUserByFirebaseUID(@Path("id") firebaseUID: String) : Call<User>
 
     @GET("recommended-books/")
     fun getRecommended() : Call<ArrayList<Recommendation>>
@@ -38,8 +42,12 @@ interface UserApiInterface {
 
     @PUT("update-reading-list/{name}")
     fun updateReadingList(@Path("name") name: String,
-                          @Body readingList: ReadingList) : Call<Unit>
+                          @Body readingList: ReadingList) : Call<ReadingList>
 
+
+    @Multipart
+    @PUT("update-user-pic/")
+    fun changeProfilePic(@Part image: MultipartBody.Part) : Call<User>
 
     @GET("users")
     fun getUsers() : Call<ArrayList<User>>
@@ -52,6 +60,9 @@ interface UserApiInterface {
     @GET("get-conversation/{email_destinatar")
     fun getConversation(@Path("email_destinatar") email: String) : Call<Conversation>
 
+
+    @GET("")
+    fun getRecommendedPeople() : Call<ArrayList<User>>
 
     @FormUrlEncoded
     @POST("send-message")

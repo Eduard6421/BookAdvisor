@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.Models.Message
 import com.cristidospra.bookadvisor.R
 
@@ -29,7 +30,7 @@ class MessageListAdapter(var currentContext: Context, var messages: ArrayList<Me
 
         var convertView = convertView
 
-        if (message.belongsToCurrentUser) { // this message was sent by us
+        if (message.sender.email == CurrentUser.instance.email) { // this message was sent by us
 
             convertView = messageInflater.inflate(R.layout.my_message_listitem_layout, null)
             holder.messageContent = convertView.findViewById(R.id.message_body)
@@ -58,6 +59,14 @@ class MessageListAdapter(var currentContext: Context, var messages: ArrayList<Me
 
     override fun getCount(): Int {
         return messages.count()
+    }
+
+    override fun notifyDataSetChanged() {
+        super.notifyDataSetChanged()
+
+        messages.sortBy {
+            it.sentDate
+        }
     }
 
     class MessageViewHolder {

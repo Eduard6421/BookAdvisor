@@ -1,22 +1,28 @@
 package com.cristidospra.bookadvisor.Utils
 
 import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
+import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.MyApplication
 import com.cristidospra.bookadvisor.R
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 object Utils {
 
-    private const val DATE_FORMAT = "DD.MM.YYYY"
+    private const val DATE_FORMAT = "DD.MM.yyyy HH:mm"
     private val dateFormatter = SimpleDateFormat(DATE_FORMAT)
 
-    val SHARED_PREF = "PREFERENCES"
-    val SHARED_PREF_EMAIL = "EmailKey"
-    val SHARED_PREF_PASSWORD = "PasswordKey"
+    const val SHARED_PREF = "PREFERENCES"
+    const val SHARED_PREF_EMAIL = "EmailKey"
+    const val SHARED_PREF_PASSWORD = "PasswordKey"
 
     fun stringToDate(date: String) : Date {
 
@@ -33,8 +39,26 @@ object Utils {
         return ContextCompat.getColor(MyApplication.appContext!!, resourceID)
     }
 
-    fun loadImage(currentContext: Context, imageView: ImageView, source: String) {
+    fun loadBookImage(currentContext: Context, imageView: ImageView, source: String) {
 
         Glide.with(currentContext).load(source).placeholder(R.drawable.cover_placeholder).into(imageView)
+    }
+
+    fun loadPersonImage(currentContext: Context, imageView: ImageView, source: String) {
+
+        val glideUrl = GlideUrl(
+            source,
+            LazyHeaders.Builder()
+                .addHeader("Authorization", "Token ${CurrentUser.instance.authToken}")
+                .build()
+        )
+
+        Glide.with(currentContext).load(glideUrl).placeholder(R.drawable.ic_default_profile).into(imageView)
+    }
+
+    fun closeKeyboard(context: Context, view: View) {
+
+        val manager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        manager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

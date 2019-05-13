@@ -6,16 +6,17 @@ import com.cristidospra.bookadvisor.Models.User
 
 class CurrentUser private constructor() : User() {
 
-    var authToken: String = "d16ba700967c4bc6422a6b73d21c97c3893ea521"
+    var authToken: String = ""
 
     // Singleton design pattern
     companion object {
         var instance: CurrentUser = CurrentUser()
     }
 
-    private fun fromUser(user: User) {
+     fun fromUser(user: User) {
 
         instance.email = user.email
+        instance.firebasUID = user.firebasUID
         instance.profilePicURL = user.profilePicURL
         instance.firstName = user.firstName
         instance.lastName = user.lastName
@@ -25,5 +26,5 @@ class CurrentUser private constructor() : User() {
         instance.isFollowed = user.isFollowed
         instance.favouriteGenres = user.favouriteGenres
 
-    }
+     }
 }

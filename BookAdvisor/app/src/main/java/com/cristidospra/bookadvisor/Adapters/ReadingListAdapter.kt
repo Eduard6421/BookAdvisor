@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Models.ReadingList
 import com.cristidospra.bookadvisor.R
 
-class ReadingListAdapter(private val readingLists: ArrayList<ReadingList>) : RecyclerView.Adapter<ReadingListAdapter.ReadingListViewHolder>() {
+class ReadingListAdapter(private val readingLists: ArrayList<ReadingList>, private val onReadingListClickListener: OnReadingListClickListener) : RecyclerView.Adapter<ReadingListAdapter.ReadingListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReadingListViewHolder {
 
@@ -27,12 +27,26 @@ class ReadingListAdapter(private val readingLists: ArrayList<ReadingList>) : Rec
 
         holder.title.text = readingList.title
         holder.nrBooks.text = (readingList.nrOfBooks().toString() + " books")
+
+        holder.itemView.setOnClickListener {
+            onReadingListClickListener.onReadingListClick(readingList)
+        }
     }
 
+    fun addItem(rl: ReadingList) {
+
+        this.readingLists.add(rl)
+
+        notifyDataSetChanged()
+    }
 
     class ReadingListViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         val title: TextView = view.findViewById(R.id.readinglist_listitem_name)
         val nrBooks: TextView = view.findViewById(R.id.readinglist_listitem_nrbooks)
+    }
+
+    interface OnReadingListClickListener {
+        fun onReadingListClick(rl: ReadingList)
     }
 }

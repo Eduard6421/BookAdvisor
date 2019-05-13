@@ -49,7 +49,9 @@ class AddToLibraryActivity : NavigationMenuActivity() {
             for (rl in selectedReadingLists) {
 
                 rl.add(currentBook)
-                UserApiManager.updateReadingList(rl)
+                UserApiManager.updateReadingList(rl) {
+                    /*TODO: update readinglist*/
+                }
             }
 
             Toast.makeText(this, "Book successfully added to selected reading lists!", Toast.LENGTH_LONG).show()

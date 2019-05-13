@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.Models.ReadStatus
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
 
-class VerticalBookAdapter(private val books: ArrayList<Book>): RecyclerView.Adapter<VerticalBookAdapter.BookViewHolder>() {
+class VerticalBookAdapter(private val books: ArrayList<Book>, private val onBookClickListener: OnBookClickListener): RecyclerView.Adapter<VerticalBookAdapter.BookViewHolder>() {
 
     private lateinit var usedContext: Context
 
@@ -34,7 +33,7 @@ class VerticalBookAdapter(private val books: ArrayList<Book>): RecyclerView.Adap
 
         val book = books[position]
 
-        Utils.loadImage(usedContext, holder.coverImageView, book.coverURL)
+        Utils.loadBookImage(usedContext, holder.coverImageView, book.coverURL)
 
         when(book.readStatus) {
 
@@ -66,6 +65,10 @@ class VerticalBookAdapter(private val books: ArrayList<Book>): RecyclerView.Adap
                 }
             }
         }
+
+        holder.itemView.setOnClickListener {
+            onBookClickListener.onBookClick(book)
+        }
     }
 
 
@@ -73,5 +76,9 @@ class VerticalBookAdapter(private val books: ArrayList<Book>): RecyclerView.Adap
 
         val coverImageView: ImageView = view.findViewById(R.id.book_lisitiem_vertical_cover)
         val wantToReadButton: Button = view.findViewById(R.id.book_listitem_vertical_button)
+    }
+
+    interface OnBookClickListener {
+        fun onBookClick(book: Book)
     }
 }

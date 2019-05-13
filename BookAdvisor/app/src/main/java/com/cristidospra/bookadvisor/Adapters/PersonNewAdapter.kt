@@ -11,7 +11,7 @@ import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
 
-class PersonNewAdapter(private val people: ArrayList<User>) : RecyclerView.Adapter<PersonNewAdapter.PersonViewHolder>() {
+class PersonNewAdapter(private val people: ArrayList<User>, private val onPersonClickListener: OnPersonClickListener) : RecyclerView.Adapter<PersonNewAdapter.PersonViewHolder>() {
 
     private lateinit var usedContext: Context
 
@@ -32,8 +32,12 @@ class PersonNewAdapter(private val people: ArrayList<User>) : RecyclerView.Adapt
 
         val person = people[position]
 
-        Utils.loadImage(usedContext, holder.profilePictureImageView, person.profilePicURL)
+        Utils.loadPersonImage(usedContext, holder.profilePictureImageView, person.profilePic())
         holder.nameTextView.text = person.fullName()
+
+        holder.itemView.setOnClickListener {
+            onPersonClickListener.onPersonClick(person)
+        }
     }
 
 
@@ -41,5 +45,9 @@ class PersonNewAdapter(private val people: ArrayList<User>) : RecyclerView.Adapt
 
         val profilePictureImageView: ImageView = view.findViewById(R.id.person_new_listitem_picture)
         val nameTextView: TextView = view.findViewById(R.id.person_new_listitem_name)
+    }
+
+    interface OnPersonClickListener {
+        fun onPersonClick(user: User)
     }
 }

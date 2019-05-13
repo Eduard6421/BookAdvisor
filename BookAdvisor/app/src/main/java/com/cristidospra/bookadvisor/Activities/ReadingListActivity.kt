@@ -1,12 +1,14 @@
 package com.cristidospra.bookadvisor.Activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.GenreAdapter
 import com.cristidospra.bookadvisor.Adapters.HorizontalBookAdapter
+import com.cristidospra.bookadvisor.Models.Book
+import com.cristidospra.bookadvisor.Models.Genre
 import com.cristidospra.bookadvisor.Models.ReadingList
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
@@ -27,11 +29,29 @@ class ReadingListActivity : NavigationMenuActivity() {
 
         currentReadingList = intent.getSerializableExtra("reading_list") as ReadingList
 
-        readingListBooksRecyclerView.layoutManager = LinearLayoutManager(this)
-        readingListBooksRecyclerView.adapter = HorizontalBookAdapter(currentReadingList.books)
+        readingListTitleTextView.text = currentReadingList.title
 
-        readingListGenresRecyclerView.layoutManager = LinearLayoutManager(this)
-        readingListGenresRecyclerView.adapter = GenreAdapter(currentReadingList.genres)
+        readingListBooksRecyclerView.layoutManager = LinearLayoutManager(this)
+        readingListBooksRecyclerView.adapter = HorizontalBookAdapter(currentReadingList.books, object : HorizontalBookAdapter.OnBookClickListener {
+            override fun onBookClick(book: Book) {
+
+                val intent = Intent(this@ReadingListActivity, Book::class.java)
+                intent.putExtra("book", book)
+                this@ReadingListActivity.startActivity(intent)
+            }
+        })
+
+        readingListGenresRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        readingListGenresRecyclerView.adapter = GenreAdapter(currentReadingList.genres, object: GenreAdapter.OnGenreClickListener {
+
+            override fun onGenreClick(genre: Genre) {
+
+                val intent = Intent(this@ReadingListActivity, GenreActivity::class.java)
+                intent.putExtra("genre", genre)
+                this@ReadingListActivity.startActivity(intent)
+            }
+
+        })
     }
 
     private fun inflateViews() {

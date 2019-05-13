@@ -2,27 +2,25 @@ package com.cristidospra.bookadvisor.Activities
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
 import com.cristidospra.bookadvisor.CurrentUser
-import com.cristidospra.bookadvisor.Models.User
-import com.cristidospra.bookadvisor.Networking.ApiClient
-import com.cristidospra.bookadvisor.Networking.AuthToken
+import com.cristidospra.bookadvisor.FirebaseManager
 import com.cristidospra.bookadvisor.Networking.LoginApiManager
-import com.cristidospra.bookadvisor.Networking.UserApiInterface
+import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.ArrayList
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -34,11 +32,15 @@ class LoginActivity : AppCompatActivity() {
     lateinit var rememberMeCheckbox: CheckBox
     lateinit var wrongCredentialsTextView: TextView
 
+    private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         inflateViews()
+
+        firebaseAuth = FirebaseAuth.getInstance()
 
         val sharedPreferences = getSharedPreferences(Utils.SHARED_PREF, Context.MODE_PRIVATE)
 
@@ -50,34 +52,49 @@ class LoginActivity : AppCompatActivity() {
 
         signInButton.setOnClickListener {
 
-            LoginApiManager.login(emailEditText.text.toString(), passwordEditText.text.toString()) {
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
 
-                if (it.isValid()) {
+            LoginApiManager.login(email, password,
+                onSuccess = {token ->
 
-                    if (rememberMeCheckbox.isChecked) {
+                    if (token.isValid()) {
 
-                        val spEditor = sharedPreferences.edit()
+                        if (rememberMeCheckbox.isChecked) {
 
-                        spEditor.putString(Utils.SHARED_PREF_EMAIL, emailEditText.text.toString())
-                        spEditor.putString(Utils.SHARED_PREF_PASSWORD, passwordEditText.text.toString())
-                        spEditor.apply()
+                            val spEditor = sharedPreferences.edit()
+
+                            spEditor.putString(Utils.SHARED_PREF_EMAIL, email)
+                            spEditor.putString(Utils.SHARED_PREF_PASSWORD, password)
+                            spEditor.apply()
+                        }
+                        else {
+                            val spEditor = sharedPreferences.edit()
+
+                            spEditor.remove(Utils.SHARED_PREF_EMAIL)
+                            spEditor.remove(Utils.SHARED_PREF_PASSWORD)
+                            spEditor.apply()
+                        }
+
+                        FirebaseManager.signIn(email, password)
+
+
+                        CurrentUser.instance.authToken = token.token
+
+                        UserApiManager.getUser(email) {user ->
+
+                            CurrentUser.instance.fromUser(user)
+                            this.startActivity(Intent(this, LibraryActivity::class.java))
+                        }
                     }
-                    else {
-                        val spEditor = sharedPreferences.edit()
-
-                        spEditor.remove(Utils.SHARED_PREF_EMAIL)
-                        spEditor.remove(Utils.SHARED_PREF_PASSWORD)
-                        spEditor.apply()
-                    }
-
-                    CurrentUser.instance.authToken = it.token
-                    this.startActivity(Intent(this, LibraryActivity::class.java))
-                }
-                else {
+                },
+                onFailure = {
 
                     wrongCredentialsTextView.visibility = View.VISIBLE
-                }
-            }
+                })
+
+            Utils.closeKeyboard(this, emailEditText)
+            Utils.closeKeyboard(this, passwordEditText)
         }
 
         forgotPasswordTextView.setOnClickListener {

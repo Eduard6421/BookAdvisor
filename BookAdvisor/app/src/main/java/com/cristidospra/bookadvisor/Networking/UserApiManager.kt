@@ -1,14 +1,19 @@
 package com.cristidospra.bookadvisor.Networking
 
+import android.graphics.Bitmap
 import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.Models.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 
 object UserApiManager {
 
-     fun getUser(email: String, onSucces: (User) -> Unit) {
+     fun getUser(email: String, onSuccess: (User) -> Unit) {
 
         val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
 
@@ -21,11 +26,32 @@ object UserApiManager {
             }
 
             override fun onResponse(call: Call<User>, response: Response<User>) {
-                print("")
-                onSucces(response.body()!!)
+                response.body()?.let { onSuccess(it) }
             }
 
         })
+     }
+
+    fun getUserByFirebase(firebaseUID: String, onSuccess: (User) -> Unit) {
+
+        val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
+
+        val call: Call<User> = userApiInterface.getUserByFirebaseUID(firebaseUID)
+
+        call.enqueue(object : Callback<User> {
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                print("")
+            }
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                print("")
+                response.body()?.let { onSuccess(it) }
+            }
+
+        })
+
+        onSuccess(User(firebasUID = firebaseUID))
     }
 
      fun getRecommendedBooks(onSuccess: (ArrayList<Recommendation>) -> Unit) {
@@ -43,7 +69,7 @@ object UserApiManager {
             override fun onResponse(call: Call<ArrayList<Recommendation>>, response: Response<ArrayList<Recommendation>>) {
 
                 print("")
-                onSuccess(response.body()!!)
+                response.body()?.let { onSuccess(it) }
             }
 
         })
@@ -71,7 +97,36 @@ object UserApiManager {
         })
     }
 
-     fun getFollowers(onSucces: (ArrayList<User>) -> Unit) {
+    fun changeProfilePic(photo: Bitmap, onSuccess: (User) -> Unit) {
+
+        val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
+
+        val stream = ByteArrayOutputStream()
+
+        photo.compress(Bitmap.CompressFormat.PNG, 100, stream)
+
+        val cover: RequestBody = RequestBody.create(MediaType.parse("image/*"), stream.toByteArray())
+        val body: MultipartBody.Part = MultipartBody.Part.createFormData("profile", "Profile_pic", cover)
+
+        val call: Call<User> = userApiInterface.changeProfilePic(body)
+
+        call.enqueue(object : Callback<User> {
+
+            // Failed request
+            override fun onFailure(call: Call<User>?, t: Throwable?) {
+                print("")
+            }
+
+            // Successful request
+            override fun onResponse(call: Call<User>?, response: Response<User>?) {
+                print("")
+                response?.body()?.let { onSuccess(it) }
+            }
+
+        })
+    }
+
+     fun getFollowers(onSuccess: (ArrayList<User>) -> Unit) {
 
         val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
 
@@ -85,7 +140,7 @@ object UserApiManager {
 
             override fun onResponse(call: Call<ArrayList<User>>, response: Response<ArrayList<User>>) {
                 print("")
-                onSucces(response.body()!!)
+                response.body()?.let { onSuccess(it) }
             }
 
         })
@@ -106,7 +161,7 @@ object UserApiManager {
 
             override fun onResponse(call: Call<ArrayList<User>>, response: Response<ArrayList<User>>) {
                 print("")
-                onSuccess(response.body()!!)
+                response.body()?.let { onSuccess(it) }
             }
 
         })
@@ -178,28 +233,29 @@ object UserApiManager {
         })
     }
 
-     fun updateReadingList(readingList: ReadingList) {
+     fun updateReadingList(readingList: ReadingList, onSuccess: (ReadingList) -> Unit) {
 
         val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
 
-        val call: Call<Unit> = userApiInterface.updateReadingList(readingList.title, readingList)
+        val call: Call<ReadingList> = userApiInterface.updateReadingList(readingList.title, readingList)
 
-        call.enqueue(object : Callback<Unit> {
+        call.enqueue(object : Callback<ReadingList> {
 
             // Failed request
-            override fun onFailure(call: Call<Unit>?, t: Throwable?) {
+            override fun onFailure(call: Call<ReadingList>?, t: Throwable?) {
                 print("")
             }
 
             // Successful request
-            override fun onResponse(call: Call<Unit>?, response: Response<Unit>?) {
+            override fun onResponse(call: Call<ReadingList>?, response: Response<ReadingList>?) {
                 print("")
+                response?.body()?.let { onSuccess(it) }
             }
 
         })
     }
 
-     fun getUsers(onSucces: (ArrayList<User>) -> Unit) {
+     fun getUsers(onSuccess: (ArrayList<User>) -> Unit) {
 
         val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
 
@@ -213,14 +269,14 @@ object UserApiManager {
 
             override fun onResponse(call: Call<ArrayList<User>>, response: Response<ArrayList<User>>) {
                 print("")
-                onSucces(response.body()!!)
+                response.body()?.let { onSuccess(it) }
             }
 
         })
 
     }
 
-     fun getConversations(onSucces: (ArrayList<Conversation>) -> Unit) {
+     fun getConversations(onSuccess: (ArrayList<Conversation>) -> Unit) {
 
         val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
 
@@ -234,13 +290,13 @@ object UserApiManager {
 
             override fun onResponse(call: Call<ArrayList<Conversation>>, response: Response<ArrayList<Conversation>>) {
                 print("")
-                onSucces(response.body()!!)
+                response.body()?.let { onSuccess(it) }
             }
         })
 
     }
 
-     fun getConversation(user: User, onSucces: (Conversation) -> Unit) {
+     fun getConversation(user: User, onSuccess: (Conversation) -> Unit) {
 
         val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
 
@@ -254,7 +310,7 @@ object UserApiManager {
 
             override fun onResponse(call: Call<Conversation>, response: Response<Conversation>) {
                 print("")
-                onSucces(response.body()!!)
+                response.body()?.let { onSuccess(it) }
             }
 
         })

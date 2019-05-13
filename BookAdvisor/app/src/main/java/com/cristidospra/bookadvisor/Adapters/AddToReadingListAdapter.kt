@@ -25,6 +25,7 @@ class AddToReadingListAdapter(private val readingLists: ArrayList<ReadingList>, 
         return readingLists.count()
     }
 
+
     override fun onBindViewHolder(holder: ReadingListViewHolder, position: Int) {
 
         val readingList = readingLists[position]

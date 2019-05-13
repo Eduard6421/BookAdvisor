@@ -11,7 +11,7 @@ import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
 
-class PersonFollowingAdapter(private val people: ArrayList<User>) : RecyclerView.Adapter<PersonFollowingAdapter.PersonViewHolder>() {
+class PersonFollowingAdapter(private val people: ArrayList<User>, private val onPersonClickListener: OnPersonClickListener) : RecyclerView.Adapter<PersonFollowingAdapter.PersonViewHolder>() {
 
     private lateinit var usedContext: Context
 
@@ -32,12 +32,16 @@ class PersonFollowingAdapter(private val people: ArrayList<User>) : RecyclerView
 
         val person = people[position]
 
-        Utils.loadImage(usedContext, holder.profilePictureImageView, person.profilePicURL)
+        Utils.loadPersonImage(usedContext, holder.profilePictureImageView, person.profilePic())
         holder.nameTextView.text = person.fullName()
         holder.readingTextView.text = ""
         holder.messageImageView.setOnClickListener {
 
             /*TODO: go to inbox */
+        }
+
+        holder.itemView.setOnClickListener {
+            onPersonClickListener.onPersonClick(person)
         }
     }
 
@@ -48,5 +52,9 @@ class PersonFollowingAdapter(private val people: ArrayList<User>) : RecyclerView
         val nameTextView: TextView = view.findViewById(R.id.person_following_listitem_name)
         val readingTextView: TextView = view.findViewById(R.id.person_following_listitem_reading)
         val messageImageView: ImageView = view.findViewById(R.id.person_following_listitem_message)
+    }
+
+    interface OnPersonClickListener {
+        fun onPersonClick(user: User)
     }
 }

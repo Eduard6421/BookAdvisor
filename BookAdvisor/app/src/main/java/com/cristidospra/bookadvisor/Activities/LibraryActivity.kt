@@ -1,26 +1,37 @@
 package com.cristidospra.bookadvisor.Activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.ReadingListAdapter
 import com.cristidospra.bookadvisor.CurrentUser
+import com.cristidospra.bookadvisor.Dialogs.AddReadingListDialog
+import com.cristidospra.bookadvisor.Models.ReadingList
 import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.NavigationMenuActivity
+import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
 
 class LibraryActivity : NavigationMenuActivity() {
 
     lateinit var readingListsRecyclerView: RecyclerView
+    lateinit var readingListsAdapter: ReadingListAdapter
+
     lateinit var addReadingListButton: Button
 
     private var currentLibraryUser: User = CurrentUser.instance
 
+    /*TODO: add slide on items? */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_library)
+
+        title = "My Library"
 
         inflateViews()
 
@@ -29,12 +40,46 @@ class LibraryActivity : NavigationMenuActivity() {
             currentLibraryUser = intent.getSerializableExtra("user") as User
         }
 
+        readingListsAdapter = ReadingListAdapter(currentLibraryUser.readingLists, object : ReadingListAdapter.OnReadingListClickListener {
+            override fun onReadingListClick(rl: ReadingList) {
+
+                val intent = Intent(this@LibraryActivity, ReadingListActivity::class.java)
+                intent.putExtra("reading_list", rl)
+                this@LibraryActivity.startActivity(intent)
+            }
+
+        })
+
+        /*TODO: add on click listener on reading list */
         readingListsRecyclerView.layoutManager = LinearLayoutManager(this)
-        readingListsRecyclerView.adapter = ReadingListAdapter(currentLibraryUser.readingLists)
+        readingListsRecyclerView.adapter = readingListsAdapter
+
+        if (currentLibraryUser.email != CurrentUser.instance.email) {
+            addReadingListButton.visibility = View.GONE
+        }
 
         addReadingListButton.setOnClickListener {
 
-            /* TODO:: add reading list */
+            val addReadingListDialog = AddReadingListDialog(this) { title ->
+
+                if (!CurrentUser.instance.readingLists.map {
+                    it.title
+                }.contains(title)) {
+
+                    val newReadingList = ReadingList(title)
+
+                    /*TODO: consider genres from servers */
+                    CurrentUser.instance.readingLists.add(newReadingList)
+                    UserApiManager.addReadingList(newReadingList)
+                }
+                else {
+
+                    Toast.makeText(this, "There is already a reading list name \"${title}\"", Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+            addReadingListDialog.show()
         }
     }
 

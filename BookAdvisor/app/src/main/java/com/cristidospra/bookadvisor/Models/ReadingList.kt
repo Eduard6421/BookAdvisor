@@ -30,14 +30,7 @@ class ReadingList(
 
     fun contains(book: Book) : Boolean {
 
-        for (b in this.books) {
-
-            if (b.id == book.id) {
-                return true
-            }
-        }
-
-        return false
+        return this.books.map { it.id }.contains(book.id)
     }
 
     fun remove(book: Book) : Boolean {

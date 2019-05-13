@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorBackground">
 
+
         <ImageView
             android:id="@+id/profile_picture"
             android:layout_width="100dp"
@@ -28,6 +29,16 @@
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             android:text="Cristi Dospra"
+        />
+
+        <ImageView
+                android:id="@+id/profile_send_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:padding="21dp"
+                android:src="@drawable/ic_message"
+                android:tint="@color/colorPrimary"
         />
 
         <TextView
@@ -333,6 +344,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_below="@id/favourite_genres"
         />

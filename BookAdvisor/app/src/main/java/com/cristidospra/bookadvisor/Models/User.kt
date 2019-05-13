@@ -1,9 +1,13 @@
 package com.cristidospra.bookadvisor.Models
 
+import com.cristidospra.bookadvisor.Networking.ApiClient.Companion.BASE_URL
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 open class User(
+
+    @SerializedName("firebaseUID")
+    var firebasUID: String = "",
 
     @SerializedName("email")
     var email: String = "",
@@ -74,18 +78,17 @@ open class User(
 
     fun isFollowing(user: User) : Boolean {
 
-        return following.contains(user)
+        return following.map{it.email}.contains(user.email)
     }
 
     fun profilePic() : String {
 
-        /*TODO: need to add any prefix? */
-        return ""
+        return BASE_URL + this.profilePicURL
     }
 
     fun addGenreToFavourites(genre: Genre) {
 
-        if (!this.favouriteGenres.contains(genre)) {
+        if (!this.favouriteGenres.map { it.id }.contains(genre.id)) {
             this.favouriteGenres.add(genre)
         }
     }

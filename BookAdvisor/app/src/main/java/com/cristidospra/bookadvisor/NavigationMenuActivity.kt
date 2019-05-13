@@ -9,9 +9,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -32,6 +30,10 @@ open class NavigationMenuActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var navigationHeaderView: View
 
+    protected lateinit var searchField: EditText
+    protected lateinit var searchIcon: ImageView
+    protected lateinit var messagesIcon: ImageView
+
     companion object {
 
         var currentActivity: Int = R.id.navigation_my_library
@@ -51,6 +53,24 @@ open class NavigationMenuActivity : AppCompatActivity() {
         this.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar?.setDisplayShowCustomEnabled(true)
         supportActionBar?.setCustomView(R.layout.action_bar_layout)
+
+        searchField = findViewById(R.id.actionbar_search_field)
+        searchIcon = findViewById(R.id.actionbar_search_icon)
+        messagesIcon = findViewById(R.id.actionbar_messages_icon)
+
+        searchIcon.setOnClickListener {
+
+            if (searchField.visibility == View.GONE) {
+                searchField.visibility = View.VISIBLE
+            }
+            else {
+                searchField.visibility = View.GONE
+            }
+        }
+
+        messagesIcon.setOnClickListener {
+            createIntent(InboxActivity::class.java)
+        }
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
@@ -100,7 +120,7 @@ open class NavigationMenuActivity : AppCompatActivity() {
         val nameTextView = navigationHeaderView.findViewById<TextView>(R.id.navigation_name)
 
 
-        Utils.loadImage(this, profilePic, CurrentUser.instance.profilePicURL)
+        Utils.loadPersonImage(this, profilePic, CurrentUser.instance.profilePic())
 
         // Click on profile picture sends you to "my profile"
         profilePic.setOnClickListener {

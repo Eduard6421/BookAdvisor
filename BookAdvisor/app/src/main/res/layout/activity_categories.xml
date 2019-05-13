@@ -35,7 +35,6 @@
             android:id="@+id/recommendations_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/recommendations_separator">
 

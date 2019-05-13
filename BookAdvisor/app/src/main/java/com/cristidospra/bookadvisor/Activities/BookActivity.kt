@@ -1,7 +1,6 @@
 package com.cristidospra.bookadvisor.Activities
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.GenreAdapter
 import com.cristidospra.bookadvisor.Adapters.ReviewAdapter
 import com.cristidospra.bookadvisor.Models.Book
-import com.cristidospra.bookadvisor.Models.ReadStatus
+import com.cristidospra.bookadvisor.Models.Genre
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
@@ -41,7 +40,7 @@ class BookActivity : NavigationMenuActivity() {
 
         currentBook = intent.getSerializableExtra("current_book") as Book
 
-        Utils.loadImage(this, bookCoverImageView, currentBook.coverURL)
+        Utils.loadBookImage(this, bookCoverImageView, currentBook.coverURL)
         bookTitleTextView.text = currentBook.title
         bookAuthorTextView.text = currentBook.authorsToString()
         bookRatingBar.rating = currentBook.rating
@@ -57,8 +56,17 @@ class BookActivity : NavigationMenuActivity() {
             startActivity(intent)
         }
 
-        bookGenresRecyclerView.layoutManager = LinearLayoutManager(this)
-        bookGenresRecyclerView.adapter = GenreAdapter(currentBook.genres)
+        bookGenresRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        bookGenresRecyclerView.adapter = GenreAdapter(currentBook.genres, object: GenreAdapter.OnGenreClickListener {
+
+            override fun onGenreClick(genre: Genre) {
+
+                val intent = Intent(this@BookActivity, GenreActivity::class.java)
+                intent.putExtra("genre", genre)
+                this@BookActivity.startActivity(intent)
+            }
+
+        })
 
         bookReviewsRecyclerView.layoutManager = LinearLayoutManager(this)
         bookReviewsRecyclerView.adapter = ReviewAdapter(currentBook.reviews)

@@ -8,10 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Models.Conversation
+import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
 
-class ConversationAdapter(private val conversations: ArrayList<Conversation>): RecyclerView.Adapter<ConversationAdapter.ConversationHolder>() {
+class ConversationAdapter(private val conversations: ArrayList<Conversation>, private val onConversationClickListener: OnConversationClickListener): RecyclerView.Adapter<ConversationAdapter.ConversationHolder>() {
 
     private lateinit var usedContext: Context
 
@@ -31,18 +32,32 @@ class ConversationAdapter(private val conversations: ArrayList<Conversation>): R
 
         val conversation = conversations[position]
 
-        Utils.loadImage(usedContext, holder.profilePicImageView, conversation.user.profilePicURL)
-        holder.nameTextView.text = conversation.user.fullName()
-        holder.dateTextView.text = conversation.lastMessage.sentDate.toString()
+        UserApiManager.getUserByFirebase(conversation.user.firebasUID) {
 
-        /*TODO: la click pe conversatie du-te pe pagina conversatiei */
+            Utils.loadPersonImage(usedContext, holder.profilePicImageView, it.profilePic())
+            holder.nameTextView.text = it.fullName()
+            holder.dateTextView.text = conversation.lastMessage.sentDate.toString()
+        }
+
+        holder.itemView.setOnClickListener {
+            onConversationClickListener.onConversationClick(conversation)
+        }
     }
 
+    fun addItem(conversation: Conversation) {
+
+        conversations.add(conversation)
+        notifyDataSetChanged()
+    }
 
     class ConversationHolder(view: View): RecyclerView.ViewHolder(view) {
 
         val profilePicImageView: ImageView = view.findViewById(R.id.inbox_item_profilepic)
         val nameTextView: TextView = view.findViewById(R.id.inbox_item_name_textview)
         val dateTextView: TextView = view.findViewById(R.id.inbox_item_last_date)
+    }
+
+    interface OnConversationClickListener {
+        fun onConversationClick(conversation: Conversation)
     }
 }
