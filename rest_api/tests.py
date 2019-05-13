@@ -63,10 +63,10 @@ def load_from_csv(filename='/data/datasets/ratingsnew.csv'):
                     pass
 
 
-POPULATE_DB = False
+POPULATE_DB = True
 
 # load_from_csv()
-load_from_csv('/data/datasets/books.csv')
+# load_from_csv('/data/BookAdvisor/datasets/books.csv')
 
 if POPULATE_DB:
     # Users and profiles test case

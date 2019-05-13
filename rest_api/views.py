@@ -38,7 +38,7 @@ import requests
 from .models import *
 from .serializers import *
 
-from .tests import *
+# from .tests import *
 
 # Create your views here.
 
@@ -292,25 +292,31 @@ def get_user(request, email):
 @api_view(['GET', ])
 def recommended_books(request):
     # AI Edu
+    books_id = [1,2,3,4,5,6,7,8,9,10]
+    user_input = [1,1,1,1,1,1,1,1,1,1]
 
-    api_ModelAI = 'http://localhost:9001/v1/models/recom:predict'
+    api_ModelAI = 'http://localhost:9001/v1/models/recsys:predict'
 
-    headers = {'cache-control': 'no-cache', 'content-type': 'application/json', }
-    senddata = {'signature-name': 'serving_default',
-                'inputs': {
-                    'Book-Input': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                    'User-Input': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    headers = {'cache-control':'no-cache','content-type': 'application/json',}
+    senddata =  { 'signature-name': 'serving_default',
+                'inputs' : {
+                    'Book-Input' : books_id,
+                    'User-Input' : user_input,
                 }
                 }
 
-    req = requests.Request('POST', api_ModelAI, headers=headers, json=senddata)
+    req = requests.Request('POST',api_ModelAI,headers=headers,json=senddata)
     prepared = req.prepare()
     sess = requests.Session()
     resp = sess.send(prepared)
 
     print(resp.text)
 
+
+    print(resp.text)
+    print('After AI module call')
     books = Book.objects.all()
+
     if books:
         try:
             serializer = BookSerializer(books, many=True)
