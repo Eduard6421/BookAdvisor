@@ -39,7 +39,7 @@ logger.setLevel(logging.INFO)
 
 
 #Change this to the EAST Model
-checkpoint_path = '/home/eduard/Private/AI/EAST/tmp/east_icdar2015_resnet_v1_50_rbox'
+checkpoint_path = '/data/ai_module/BookAdvisor/AI-Server/EAST/models/trainedmodel'
 
 #Change APIs according to the machine
 #VEZI CA AM SCHIMBAT PORT-UL
@@ -154,7 +154,7 @@ config = Config()
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/api/east')
 def index():
     return render_template('index.html')
 
@@ -177,7 +177,7 @@ def OCR_Model(newimage,ocrImg):
             'inputs' : {
                 'input' :
                 {
-                    'b64' : newimage
+                    'b64' : str(newimage,'utf-8')
                 }
             } 
     }
@@ -232,7 +232,7 @@ def save_result(img, rst):
         top_left_y = min([int(element['y0']),int(element['y1']),int(element['y2']),int(element['y3'])])
         bot_right_x = max([int(element['x0']),int(element['x1']),int(element['x2']),int(element['x3'])])
         bot_right_y = max([int(element['y0']),int(element['y1']),int(element['y2']),int(element['y3'])])
-        
+
         newimage = img[top_left_y:bot_right_y,top_left_x:bot_right_x]
         ocrImg = newimage
 
@@ -253,7 +253,7 @@ def save_result(img, rst):
         newimage = cv2.resize(newimage, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
 
         cv2.imwrite(output_path,newimage)
-            
+
         retval, buff = cv2.imencode('.jpg', newimage)
         newimage = base64.b64encode(buff)
 
@@ -262,6 +262,7 @@ def save_result(img, rst):
         ocr_result["textbox"+str(cnt)]  = newobj
         cnt +=1
 
+    ocr_result["session_id"]=session_id
     ocr_result["num"] = cnt
 
 
@@ -277,13 +278,19 @@ def save_result(img, rst):
 @app.route('/api/recsys', methods=['POST'])
 def recomandation_request():
 
-    newuser = request.json
 
+    newuser = request.json
     Client = MongoClient()
 
     db = Client["recsysdb"]
     collection = db["Users"]
 
+    if not bool(newuser):
+        for i in range(1,10):
+            strusr = 'book_id_' + str(i)
+            newuser[strusr] = 0
+
+    #print(newuser)
 
     current_loss = 100000.0
     similar_user = {}
@@ -326,8 +333,8 @@ def recomandation_request():
 
     recommended_books = zip(book_input,outputs)
     recommended_books = sorted(recommended_books, key=lambda x: x[1] , reverse=True)
-    
-    print(list(recommended_books))
+
+    #print(list(recommended_books))
 
 
     recommended_books = {
@@ -341,6 +348,8 @@ def recomandation_request():
 def east():
     global predictor
     import io
+    print('i m here u big fat nibba')
+
     bio = io.BytesIO()
     request.files['image'].save(bio)
     img = cv2.imdecode(np.frombuffer(bio.getvalue(), dtype='uint8'), 1)
@@ -382,7 +391,7 @@ def main():
 
     app.debug = False  # change this to True if you want to debug
     east_model = get_predictor(checkpoint_path)
-    app.run('localhost', args.port)
+    app.run('0.0.0.0', args.port)
 
 if __name__ == '__main__':
     main()
