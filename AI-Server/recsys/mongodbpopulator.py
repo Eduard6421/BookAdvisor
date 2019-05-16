@@ -10,7 +10,7 @@ db = Client["recsysdb"]
 collection = db["Users"]
 
 
-csv_file = pd.read_csv('/home/eduard/Private/AI/recsys/ratingsnewsorted.csv')
+csv_file = pd.read_csv('/data/ai_module/BookAdvisor/AI-Server/recsys/ratingsnewsorted.csv')
 
 #print('sorting...')
 #csv_file = csv_file.sort_values(by=["user_id"])
