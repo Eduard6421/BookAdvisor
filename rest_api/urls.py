@@ -15,6 +15,7 @@ urlpatterns = [
         r'[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)/$', get_user, name='get_user'),
     url(r'^recommended-books/$', recommended_books, name='recommended_books'),
     url(r'^update-user/$', update_user, name='update_user'),
+    url(r'^get-user-by-firebase/(?P<firebaseUID>.+)$', get_user_by_firebase, name='get_user_by_firebase'),
 
     url(r'^get-followers/$', get_followers, name='get_followers'),
     url(r'^get-following/$', get_following, name='get_following'),
@@ -45,6 +46,12 @@ urlpatterns = [
     url(r'^get-reviews/(?P<title>.+)$', get_reviews, name='get_reviews'),
     url(r'^add-review/(\d+)$', add_review, name='add_review'),
 
+    url(r'^update-user-pic/$', update_user_pic, name='update_user_pic'),
+    url(r'^get-filter-books/(?P<term_filter>.+)$', get_filter_books, name='get_filter_books'),
+    url(r'^find-user/(?P<term_filter>.+)$', find_user, name='find_user'),
+
+    url(r'^/data/BookAdvisor/media/(?P<uuid_img>.+)$', get_profil_img, name='get_profil_img'),
+    url(r'^find-new-people$', find_new_people, name='find_new_people'),
 
     url(r'^current-user$', current_user, name='current_user'),
 ]

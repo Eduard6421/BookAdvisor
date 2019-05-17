@@ -1,9 +1,17 @@
+from Levenshtein import distance
+from django.contrib.postgres.search import TrigramSimilarity
+from django.contrib.postgres.search import SearchVector
+from django.db.models import Func
+from django.db.models import F
 from django.shortcuts import render
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
+
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
@@ -14,6 +22,7 @@ from django.core.files.storage import default_storage
 import os
 from django.apps import apps
 from django.db.models import Q
+from django.contrib.postgres.search import TrigramSimilarity
 
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
@@ -29,11 +38,15 @@ from rest_framework.response import Response
 
 from django.core import serializers
 from django.forms.models import model_to_dict
+from django.db.models import Func
+from django.db.models import F
 
 
 import uuid
 import json
 import requests
+import base64
+import ast
 
 from .models import *
 from .serializers import *
@@ -41,6 +54,100 @@ from .serializers import *
 # from .tests import *
 
 # Create your views here.
+
+
+
+
+
+
+
+
+class Levenshtein(Func):
+    template = "%(function)s(%(expressions)s, '%(search_term)s')"
+    function = "levenshtein"
+
+    def __init__(self, expression, search_term, **extras):
+        super(Levenshtein, self).__init__(
+            expression,
+            search_term=search_term,
+            **extras
+        )
+
+
+
+
+
+# receive an profile obj or a list of profiles
+def parse_user(user_profile):
+    if user_profile is None:
+        return None
+    try:
+        if type(user_profile) is list:
+            serializer = ProfileSerializer(user_profile, many=True)
+            profile_json = serializer.data
+            for profile_elem in profile_json:
+                for key, element in profile_elem['user'].items():
+                    profile_elem[key] = element
+                del profile_elem['user']
+                for reading_list in profile_elem['reading_lists']:
+                    for books in reading_list['books']:
+                        if books:
+                            for book in reading_list['books']:
+                                authors = []
+                                for author in book['authors']:
+                                    for key, element in author.items():
+                                        if key == 'name':
+                                            authors.append(element)
+
+                                for review in book['reviews']:
+                                    for key, element in review['user_review'].items():
+                                        if key == 'id':
+                                            pass
+                                        else:
+                                            review[key] = element
+
+                                    del review['user_review']
+                                del book['authors']
+                                book['authors'] = []
+                                for author in authors:
+                                    book['authors'].append(author)
+
+            return profile_json
+        else:
+            serializer = ProfileSerializer(user_profile)
+            profile_json = serializer.data
+            for key, element in serializer.data['user'].items():
+                profile_json[key] = element
+            del profile_json['user']
+            for reading_list in profile_json['reading_lists']:
+                for books in reading_list['books']:
+                    if books:
+                        for book in reading_list['books']:
+                            authors = []
+                            for author in book['authors']:
+                                for key, element in author.items():
+                                    if key == 'name':
+                                        authors.append(element)
+
+                            for review in book['reviews']:
+                                for key, element in review['user_review'].items():
+                                    if key == 'id':
+                                        pass
+                                    else:
+                                        review[key] = element
+
+                                del review['user_review']
+                            del book['authors']
+                            book['authors'] = []
+                            for author in authors:
+                                book['authors'].append(author)
+
+                return profile_json
+    except User.DoesNotExist:
+        return None
+
+
+
 
 '''
 -> add review
@@ -252,7 +359,6 @@ def get_user(request, email):
         user = User.objects.get(email=email)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
-
     try:
         obj_user = Profile.objects.get(user=user)
         serializer = ProfileSerializer(obj_user)
@@ -292,34 +398,37 @@ def get_user(request, email):
 @api_view(['GET', ])
 def recommended_books(request):
     # AI Edu
-    books_id = [1,2,3,4,5,6,7,8,9,10]
-    user_input = [1,1,1,1,1,1,1,1,1,1]
+    user_input = {}
+    book_score = {}
 
-    api_ModelAI = 'http://localhost:9001/v1/models/recsys:predict'
+    profile_obj = Profile.objects.filter(user=request.user)
+    if profile_obj.first() is None:
+        return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+    profile_obj = profile_obj.first()
 
+    for reading_list in profile_obj.reading_lists.all():
+        for book in reading_list.books.all():
+            str_book = 'book_id_' + str(book.id)
+            for review in book.reviews.all():
+                book_score[str_book] = review.score
+
+    api_ModelAI = 'http://localhost:8769/api/recsys'
     headers = {'cache-control':'no-cache','content-type': 'application/json',}
-    senddata =  { 'signature-name': 'serving_default',
-                'inputs' : {
-                    'Book-Input' : books_id,
-                    'User-Input' : user_input,
-                }
-                }
 
-    req = requests.Request('POST',api_ModelAI,headers=headers,json=senddata)
+    req = requests.Request('POST', api_ModelAI, headers=headers, json=book_score)
     prepared = req.prepare()
     sess = requests.Session()
     resp = sess.send(prepared)
 
-    print(resp.text)
+    result_ai = ast.literal_eval(resp.text)['recommandations']
+    book_id_recommended = [elem[0] for elem in result_ai]
 
+    # print('After AI module call')
+    books_recommended = Book.objects.filter(id__in=book_id_recommended)
 
-    print(resp.text)
-    print('After AI module call')
-    books = Book.objects.all()
-
-    if books:
+    if books_recommended:
         try:
-            serializer = BookSerializer(books, many=True)
+            serializer = BookSerializer(books_recommended, many=True)
             books_json = serializer.data
 
             for book in serializer.data:
@@ -390,37 +499,66 @@ RETURN: Book json format
 def get_followers(request):
     msg = 'maintenance'
     try:
-        user = User.objects.get(email=request.user.email)
-    except User.DoesNotExist:
-        return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+        profile_obj = Profile.objects.get(user=request.user)
+        obj_user = [Profile.objects.get(user=u) for u in profile_obj.followers.all()]
+        res = parse_user(obj_user)
 
-    try:
-        obj_user = Profile.objects.get(user=user)
-        serializer = FollowersSerializer(obj_user)
-        profile_json = serializer.data
-
-        return Response(profile_json['followers'], status=HTTP_200_OK)
+        return Response(res, status=HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 
 
 @csrf_exempt
 @api_view(['GET', ])
+def find_user(request, term_filter):
+    msg = 'maintenance'
+
+    try:
+        users_filter = [Profile.objects.get(user=u) for u in User.objects.filter(Q(first_name__contains=term_filter)|Q(last_name__contains=term_filter))]
+        res = parse_user(users_filter)
+
+        return Response(res, status=HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+
+
+
+@csrf_exempt
+@api_view(['GET', ])
 def get_following(request):
     msg = 'maintenance'
+
     try:
-        user = User.objects.get(email=request.user.email)
+        profile_obj = Profile.objects.get(user=request.user)
+        obj_user = [Profile.objects.get(user=u) for u in profile_obj.following.all()]
+        res = parse_user(obj_user)
+
+        return Response(res, status=HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 
-    try:
-        obj_user = Profile.objects.get(user=user)
-        serializer = FollowingSerializer(obj_user)
-        profile_json = serializer.data
 
-        return Response(profile_json['following'], status=HTTP_200_OK)
+
+@csrf_exempt
+@api_view(['GET', ])
+def find_new_people(request):
+    msg = 'maintenance'
+
+    try:
+        obj_user = Profile.objects.get(user=request.user)
+        following = obj_user.following.all()
+        if following.exists():
+            following_user = [o.id for o in obj_user.following.all()]
+            new_people = User.objects.all().exclude(id__in=following_user)
+            new_people = [Profile.objects.get(user=u) for u in new_people if u.id is not request.user.id]
+        else:
+            new_people = [Profile.objects.get(user=u) for u in User.objects.all()[:10] if u.id is not request.user.id]
+        res = parse_user(new_people)
+        return Response(res, status=HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
 
 
 @csrf_exempt
@@ -469,18 +607,47 @@ def follow(request):
 @api_view(['PUT', ])
 def book(request):
     msg = 'maintenance'
-    image_cover = request.data.get('image_cover')
-
+    image_cover = request.data.get('cover', None)
+    print(request.data)
     # APP_ROOT = apps.get_app_config('rest_api').path
     # ROOT_IMG = os.path.join(APP_ROOT, "images")
 
     # path = os.path.join(ROOT_IMG, str(image_cover))
+    if image_cover is None:
+        return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 
     book = Book(cover=image_cover)
     # Send AI Edu
 
-    book.title = 'test'
-    book.save()
+    headers = {"Content-type": "application/x-www-form-urlencoded"}
+
+    EASTModelAPI='http://localhost:8769/api/east'
+    #req = requests.Request('POST',EASTModelAPI,headers=headers, files=base64.b64encode(image_cover.read()) )
+    r = requests.post(EASTModelAPI, files={'image': image_cover.read()})
+    result_ai = ast.literal_eval(r.text)
+    result_ai = [val['outputs']['output']  for key,val in result_ai.items() if 'textbox' in key]
+
+    # print(result_ai)
+    b = Book.objects.filter(title__icontains=result_ai)
+    text_ai_join = ' '.join(result_ai)
+    min_pos = -1
+    min_value = 100000
+    for book in Book.objects.all():
+        curent_value = distance(book.title, text_ai_join)
+        if curent_value < min_value:
+            min_value = curent_value
+            min_pos = book.id
+
+    book_ocr = Book.objects.filter(id=min_pos).first()
+    #for b in Book.objects.all():
+    #    if len(b.title) < 4:
+    #        print(b.id)
+
+    #print("text: " + text_ai_join)
+    #print("book title: " + str(book_ocr.autors.all()[0].name))
+    serializer = BookSerializer(book_ocr)
+    books_json = serializer.data
+    return Response(books_json, status=HTTP_200_OK)
 
     return Response({'has_error': 'false', 'book_path': str(book.cover), }, status=HTTP_200_OK)
 
@@ -604,6 +771,7 @@ def update_reading_list(request, reading_list_name):
     reading_list_json = request.data
     profile_user = Profile.objects.get(user=request.user)
     reading_list = profile_user.reading_lists.get(title=reading_list_json['title'])
+
     reading_list.tags.remove()
     reading_list.books.remove()
 
@@ -611,9 +779,24 @@ def update_reading_list(request, reading_list_name):
         book_db = Book.objects.get(id=int(book['id']))
         reading_list.books.add(book_db)
 
+        for tag in book_db.books_tags:
+            tag_filter = reading_list.tags.filter(tag)
+            if tag_filter.first() is not None:
+                reading_list.tags.add(tag)
+
+
     for tag in reading_list_json['tags']:
         tag_db = Tag.objects.get(id=int(tag['id']))
         reading_list.tags.add(tag_db)
+
+    if reading_list:
+        try:
+            serializer = Reading_list_booksSerializer(reading_list, many=True)
+            reading_lists_json = serializer.data
+
+            return Response({'has_error': 'false', 'reading_lists_current_user': reading_lists_json, }, status=HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 
     return Response({'has_error': 'false', 'reading_list_name': reading_list_name, }, status=HTTP_200_OK)
 
@@ -889,7 +1072,13 @@ def add_review(request, book_id):
 def get_user_by_firebase(request, firebaseUID):
     msg = 'maintenance'
     try:
-        obj_user = Profile.objects.get(firebaseUID=firebaseUID)
+        obj_user = Profile.objects.filter(firebaseUID=firebaseUID)
+
+        if obj_user.first() is None:
+            return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+        else:
+            obj_user = obj_user.first()
+
         serializer = ProfileSerializer(obj_user)
         profile_json = serializer.data
         for key, element in serializer.data['user'].items():
@@ -921,6 +1110,109 @@ def get_user_by_firebase(request, firebaseUID):
         return Response(profile_json, status=HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+
+
+@csrf_exempt
+@api_view(['PUT', ])
+def update_user_pic(request):
+    try:
+       image_cover = request.data.get('image_profile', None)
+
+       path_img = default_storage.save('/data/BookAdvisor/media/' + str(uuid.uuid4()) + ".jpg", ContentFile(request.data.get('profile',None).read()))
+       print(path_img)
+
+       obj_user = Profile.objects.get(user=request.user)
+       obj_user.profile_picture = path_img
+       obj_user.save()
+       serializer = ProfileSerializer(obj_user)
+       profile_json = serializer.data
+
+       for key, element in serializer.data['user'].items():
+           profile_json[key] = element
+       del profile_json['user']
+       for reading_list in profile_json['reading_lists']:
+           for books in reading_list['books']:
+               if books:
+                   for book in reading_list['books']:
+                       authors = []
+                       for author in book['authors']:
+                           for key, element in author.items():
+                               if key == 'name':
+                                   authors.append(element)
+
+                       for review in book['reviews']:
+                           for key, element in review['user_review'].items():
+                               if key == 'id':
+                                   pass
+                               else:
+                                   review[key] = element
+
+                           del review['user_review']
+                       del book['authors']
+                       book['authors'] = []
+                       for author in authors:
+                           book['authors'].append(author)
+
+       return Response(profile_json, status=HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def get_filter_books(request, term_filter):
+    books = Book.objects.filter(Q(title__contains=term_filter))
+    authors = Author.objects.filter(Q(name__contains=term_filter))
+    books += [Book.objects.filter(authors__name=author.name) for author in authors]
+    print(books)
+    if books:
+        try:
+            serializer = BookSerializer(books, many=True)
+            books_json = serializer.data
+
+            for book in serializer.data:
+                authors = []
+                for author in book['authors']:
+                    for key, element in author.items():
+                        if key == 'name':
+                            authors.append(element)
+
+                for review in book['reviews']:
+                    for key, element in review['user_review'].items():
+                        if key == 'id':
+                            pass
+                        else:
+                            review[key] = element
+
+                    del review['user_review']
+                del book['authors']
+                book['authors'] = []
+                for author in authors:
+                    book['authors'].append(author)
+
+            return Response(books_json, status=HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+
+    return Response([], status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def get_profil_img(request, uuid_img):
+    try:
+        with open('/data/BookAdvisor/media/' + uuid_img, "rb") as f:
+            return HttpResponse(f.read(), content_type="image/jpeg")
+    except IOError:
+        red = Image.new('RGBA', (1, 1), (255,0,0,0))
+        response = HttpResponse(content_type="image/jpeg")
+        red.save(response, "JPEG")
+        return response
+
+
 
 ##########
 

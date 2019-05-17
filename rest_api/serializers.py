@@ -7,8 +7,7 @@ from .models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'last_login', 'date_joined', 'is_active',
-                  'firebaseUID')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'last_login', 'date_joined', 'is_active')
 
 
 class TagSerializer(serializers.ModelSerializer):
