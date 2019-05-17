@@ -126,7 +126,7 @@ class ScanBookActivity : NavigationMenuActivity() {
                 booksRecyclerView.adapter = VerticalBookAdapter(it, object : VerticalBookAdapter.OnBookClickListener {
                     override fun onBookClick(book: Book) {
 
-                        val intent = Intent(this@ScanBookActivity, Book::class.java)
+                        val intent = Intent(this@ScanBookActivity, BookActivity::class.java)
                         intent.putExtra("book", book)
                         this@ScanBookActivity.startActivity(intent)
                     }

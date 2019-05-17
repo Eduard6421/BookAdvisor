@@ -50,23 +50,43 @@ object UserApiManager {
             }
 
         })
-
-        onSuccess(User(firebasUID = firebaseUID))
     }
 
-     fun getRecommendedBooks(onSuccess: (ArrayList<Recommendation>) -> Unit) {
+    fun getUserByName(name: String, onSuccess: (ArrayList<User>) -> Unit) {
 
         val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
 
-        val call: Call<ArrayList<Recommendation>> = userApiInterface.getRecommended()
+        val call: Call<ArrayList<User>> = userApiInterface.getUserByName(name)
 
-        call.enqueue(object : Callback<ArrayList<Recommendation>> {
+        call.enqueue(object : Callback<ArrayList<User>> {
 
-            override fun onFailure(call: Call<ArrayList<Recommendation>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
+                print("")
+            }
+
+            override fun onResponse(call: Call<ArrayList<User>>, response: Response<ArrayList<User>>) {
+                print("")
+                response.body()?.let { onSuccess(it) }
+            }
+
+        })
+
+    }
+
+
+     fun getRecommendedBooks(onSuccess: (ArrayList<Book>) -> Unit) {
+
+        val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
+
+        val call: Call<ArrayList<Book>> = userApiInterface.getRecommended()
+
+        call.enqueue(object : Callback<ArrayList<Book>> {
+
+            override fun onFailure(call: Call<ArrayList<Book>>, t: Throwable) {
 
             }
 
-            override fun onResponse(call: Call<ArrayList<Recommendation>>, response: Response<ArrayList<Recommendation>>) {
+            override fun onResponse(call: Call<ArrayList<Book>>, response: Response<ArrayList<Book>>) {
 
                 print("")
                 response.body()?.let { onSuccess(it) }
@@ -114,12 +134,11 @@ object UserApiManager {
 
             // Failed request
             override fun onFailure(call: Call<User>?, t: Throwable?) {
-                print("")
+                t?.printStackTrace()
             }
 
             // Successful request
             override fun onResponse(call: Call<User>?, response: Response<User>?) {
-                print("")
                 response?.body()?.let { onSuccess(it) }
             }
 
@@ -166,10 +185,32 @@ object UserApiManager {
 
         })
 
+     }
+
+    fun getRecommendedPeople(onSuccess: (ArrayList<User>) -> Unit) {
+
+        val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
+
+        val call: Call<ArrayList<User>> = userApiInterface.getRecommendedPeople()
+
+        call.enqueue(object : Callback<ArrayList<User>> {
+
+            override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
+                print("")
+            }
+
+            override fun onResponse(call: Call<ArrayList<User>>, response: Response<ArrayList<User>>) {
+                print("")
+                response.body()?.let { onSuccess(it) }
+            }
+
+        })
+
     }
 
 
-     fun follow(userToFollow: User, onSuccess: () -> Unit) {
+
+    fun follow(userToFollow: User, onSuccess: () -> Unit) {
 
         val userApiInterface: UserApiInterface = ApiClient.getClient()?.create(UserApiInterface::class.java)!!
 

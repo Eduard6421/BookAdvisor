@@ -17,7 +17,7 @@ import java.util.*
 
 object Utils {
 
-    private const val DATE_FORMAT = "DD.MM.yyyy HH:mm"
+    private const val DATE_FORMAT = "dd.MM.yyyy HH:mm"
     private val dateFormatter = SimpleDateFormat(DATE_FORMAT)
 
     const val SHARED_PREF = "PREFERENCES"

@@ -39,7 +39,7 @@ class HorizontalBookAdapter(private val books: ArrayList<Book>, private val onBo
         holder.ratingValueTextView.text = book.rating.toString()
         holder.nrRatesTextView.text = ("out of ${book.nrRates()} rates")
         holder.nrPagesTextView.text = ("${book.nrPages} pages")
-        holder.releaseDateTextView.text = ("since ${book.releaseDateString}")
+        holder.releaseDateTextView.text = ("since ${book.releaseDateString()}")
 
         holder.itemView.setOnClickListener {
             onBookClickListener.onBookClick(book)

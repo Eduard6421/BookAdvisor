@@ -17,13 +17,14 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.SearchedBooksActivity">
-        </activity>
         <activity
                 android:name=".Activities.ForgotPasswordActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.ScanBookActivity">
+        <activity
+                android:name=".Activities.ScanBookActivity"
+                android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
         <activity
                 android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
@@ -31,40 +32,54 @@
         </activity>
         <activity
                 android:name=".Activities.RegisterActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.ConversationActivity">
+        <activity android:name=".Activities.ConversationActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.FindPeopleActivity">
+        <activity android:name=".Activities.FindPeopleActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.CategoriesActivity">
+        <activity android:name=".Activities.CategoriesActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.SettingsActivity">
+        <activity android:name=".Activities.SettingsActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.RecommendedActivity">
+        <activity android:name=".Activities.RecommendedActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.ReadingListActivity">
+        <activity android:name=".Activities.ReadingListActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.ProfileActivity">
+        <activity android:name=".Activities.ProfileActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
         <activity
                 android:name=".Activities.LoginActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.LibraryActivity">
+        <activity android:name=".Activities.LibraryActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.InboxActivity">
+        <activity android:name=".Activities.InboxActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.AddToLibraryActivity">
+        <activity android:name=".Activities.AddToLibraryActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.GenreActivity">
+        <activity android:name=".Activities.GenreActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".Activities.BookActivity">
+        <activity android:name=".Activities.BookActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
         <activity android:name=".MainActivity">
         </activity>

@@ -35,7 +35,7 @@ class ReadingListActivity : NavigationMenuActivity() {
         readingListBooksRecyclerView.adapter = HorizontalBookAdapter(currentReadingList.books, object : HorizontalBookAdapter.OnBookClickListener {
             override fun onBookClick(book: Book) {
 
-                val intent = Intent(this@ReadingListActivity, Book::class.java)
+                val intent = Intent(this@ReadingListActivity, BookActivity::class.java)
                 intent.putExtra("book", book)
                 this@ReadingListActivity.startActivity(intent)
             }

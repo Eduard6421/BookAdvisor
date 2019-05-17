@@ -26,7 +26,7 @@ interface BookApiInterface {
     @GET("get-categories/")
     fun getGenres() : Call<ArrayList<Genre>>
 
-    @GET("get-filtered-books/{search}")
+    @GET("get-filter-books/{search}")
     fun getBooksFromSearch(@Path("search") searchedString: String) : Call<ArrayList<Book>>
 
     @GET("get-books-category/{tag_name}")

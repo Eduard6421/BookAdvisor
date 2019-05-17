@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.Activities.BookActivity
 import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.Models.Recommendation
 import com.cristidospra.bookadvisor.MyApplication
@@ -36,7 +37,7 @@ class RecommendationAdapter(private val recommendations: ArrayList<Recommendatio
         holder.booksRecyclerView.adapter = VerticalBookAdapter(recommendation.books, object : VerticalBookAdapter.OnBookClickListener {
             override fun onBookClick(book: Book) {
 
-                val intent = Intent(currentContext, Book::class.java)
+                val intent = Intent(currentContext, BookActivity::class.java)
                 intent.putExtra("book", book)
                 currentContext.startActivity(intent)
             }

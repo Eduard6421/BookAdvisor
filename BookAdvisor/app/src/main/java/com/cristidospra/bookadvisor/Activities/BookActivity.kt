@@ -40,7 +40,7 @@ class BookActivity : NavigationMenuActivity() {
 
         currentBook = intent.getSerializableExtra("current_book") as Book
 
-        Utils.loadBookImage(this, bookCoverImageView, currentBook.coverURL)
+        Utils.loadBookImage(this, bookCoverImageView, currentBook.coverURL())
         bookTitleTextView.text = currentBook.title
         bookAuthorTextView.text = currentBook.authorsToString()
         bookRatingBar.rating = currentBook.rating

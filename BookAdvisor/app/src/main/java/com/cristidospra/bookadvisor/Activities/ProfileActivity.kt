@@ -20,7 +20,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.cristidospra.bookadvisor.Adapters.GenreAdapter
 import com.cristidospra.bookadvisor.Adapters.HorizontalBookAdapter
 import com.cristidospra.bookadvisor.CurrentUser
+import com.cristidospra.bookadvisor.FirebaseManager
 import com.cristidospra.bookadvisor.Models.Book
+import com.cristidospra.bookadvisor.Models.Conversation
 import com.cristidospra.bookadvisor.Models.Genre
 import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.NavigationMenuActivity
@@ -103,8 +105,6 @@ class ProfileActivity : NavigationMenuActivity() {
 
     private fun setData(user: User) {
 
-        currentProfileUser = user
-
         Utils.loadPersonImage(this, profilePictureImageView, currentProfileUser.profilePic())
         profileNameTextView.text = currentProfileUser.fullName()
         profileNrBooksSmallTextView.text = currentProfileUser.nrOfBooks().toString()
@@ -124,7 +124,18 @@ class ProfileActivity : NavigationMenuActivity() {
 
             profileSendMessageImageView.setOnClickListener {
 
-                /*TODO: create new conversation or go to the existent one */
+                FirebaseManager.getUserChat(CurrentUser.instance.firebasUID, currentProfileUser.firebasUID) {chatUID ->
+
+                    FirebaseManager.getLastMessage(CurrentUser.instance.firebasUID, currentProfileUser.firebasUID, chatUID) {lastMessage ->
+                        val conversation = Conversation(currentProfileUser, lastMessage)
+
+                        val intent = Intent(this, ConversationActivity::class.java)
+                        intent.putExtra("conversation", conversation)
+                        this.startActivity(intent)
+                    }
+                }
+
+                /*TODO: test create new conversation or go to the existent one */
             }
         }
 
@@ -165,7 +176,7 @@ class ProfileActivity : NavigationMenuActivity() {
         profileAlreadyReadRecyclerView.adapter = HorizontalBookAdapter(currentProfileUser.getReadBooks(), object : HorizontalBookAdapter.OnBookClickListener {
             override fun onBookClick(book: Book) {
 
-                val intent = Intent(this@ProfileActivity, Book::class.java)
+                val intent = Intent(this@ProfileActivity, BookActivity::class.java)
                 intent.putExtra("book", book)
                 this@ProfileActivity.startActivity(intent)
             }
@@ -176,7 +187,7 @@ class ProfileActivity : NavigationMenuActivity() {
         profileWantToReadRecyclerView.adapter = HorizontalBookAdapter(currentProfileUser.getWantToReadBooks(), object : HorizontalBookAdapter.OnBookClickListener {
             override fun onBookClick(book: Book) {
 
-                val intent = Intent(this@ProfileActivity, Book::class.java)
+                val intent = Intent(this@ProfileActivity, BookActivity::class.java)
                 intent.putExtra("book", book)
                 this@ProfileActivity.startActivity(intent)
             }

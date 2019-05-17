@@ -28,6 +28,9 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="4dp"
 
+
+                android:inputType="text"
+                android:imeOptions="actionSearch"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorLightGray"
                 android:textSize="16sp"

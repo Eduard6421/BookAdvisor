@@ -27,9 +27,11 @@
         android:lines="2"
         android:maxLines="2"
         android:minLines="2"
+        android:maxWidth="100dip"
+        android:textAlignment="center"
         android:textColor="@color/colorDarkGray"
         android:textSize="16sp"
-        android:text="Alice Cole"
+        android:text="Georgescu Georgescu"
 
     />
 

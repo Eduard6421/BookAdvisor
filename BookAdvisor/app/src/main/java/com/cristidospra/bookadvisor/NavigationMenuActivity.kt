@@ -4,11 +4,12 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.ActionBar
@@ -17,7 +18,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cristidospra.bookadvisor.Activities.*
+import com.cristidospra.bookadvisor.Adapters.HorizontalBookAdapter
+import com.cristidospra.bookadvisor.Dialogs.SearchedBooksDialog
+import com.cristidospra.bookadvisor.Models.Book
+import com.cristidospra.bookadvisor.Networking.BookApiManager
 import com.cristidospra.bookadvisor.Utils.Utils
 import com.google.android.material.navigation.NavigationView
 
@@ -57,6 +63,29 @@ open class NavigationMenuActivity : AppCompatActivity() {
         searchField = findViewById(R.id.actionbar_search_field)
         searchIcon = findViewById(R.id.actionbar_search_icon)
         messagesIcon = findViewById(R.id.actionbar_messages_icon)
+
+        searchField.setOnEditorActionListener(object: TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+
+                var handled = false
+
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                    val booksDialog = SearchedBooksDialog(this@NavigationMenuActivity, searchField.text.toString())
+
+                    val width = ViewGroup.LayoutParams.MATCH_PARENT
+                    val height = ViewGroup.LayoutParams.MATCH_PARENT
+
+                    booksDialog.window.setLayout(width, height)
+                    booksDialog.show()
+
+                    handled = true
+                }
+                return handled
+            }
+
+        })
+
 
         searchIcon.setOnClickListener {
 

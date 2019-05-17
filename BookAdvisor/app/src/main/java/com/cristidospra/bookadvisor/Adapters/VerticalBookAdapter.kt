@@ -33,7 +33,7 @@ class VerticalBookAdapter(private val books: ArrayList<Book>, private val onBook
 
         val book = books[position]
 
-        Utils.loadBookImage(usedContext, holder.coverImageView, book.coverURL)
+        Utils.loadBookImage(usedContext, holder.coverImageView, book.coverURL())
 
         when(book.readStatus) {
 

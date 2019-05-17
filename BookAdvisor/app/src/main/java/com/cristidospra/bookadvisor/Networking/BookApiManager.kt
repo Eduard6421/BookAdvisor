@@ -22,10 +22,10 @@ object BookApiManager {
 
         val stream = ByteArrayOutputStream()
 
-        photo.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        photo.compress(Bitmap.CompressFormat.JPEG, 100, stream)
 
         val cover: RequestBody = RequestBody.create(MediaType.parse("image/*"), stream.toByteArray())
-        val body: MultipartBody.Part = MultipartBody.Part.createFormData("cover", "Book_Cover", cover)
+        val body: MultipartBody.Part = MultipartBody.Part.createFormData("cover", "image_cover", cover)
 
         val call: Call<ArrayList<Book>> = bookApiInterface.sendScannedBook(body)
 

@@ -4,15 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.PersonFollowingAdapter
 import com.cristidospra.bookadvisor.Adapters.PersonNewAdapter
 import com.cristidospra.bookadvisor.CurrentUser
+import com.cristidospra.bookadvisor.Dialogs.SearchedBooksDialog
 import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.NavigationMenuActivity
+import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
+import com.cristidospra.bookadvisor.Utils.Utils
 
 class FindPeopleActivity : NavigationMenuActivity() {
 
@@ -31,32 +37,35 @@ class FindPeopleActivity : NavigationMenuActivity() {
         inflateViews()
 
         following = CurrentUser.instance.following
-        /* TODO: endpoint to get new people */
 
-        followingSearchEditText.addTextChangedListener(object : TextWatcher {
+        followingSearchEditText.setOnEditorActionListener(object: TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
 
-            override fun afterTextChanged(s: Editable?) {
-            }
+                var handled = false
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                followingPeopleRecyclerView.swapAdapter(PersonFollowingAdapter(filteredUsers(following, s.toString()), object : PersonFollowingAdapter.OnPersonClickListener {
-                    override fun onPersonClick(user: User) {
+                    followingPeopleRecyclerView.swapAdapter(PersonFollowingAdapter(this@FindPeopleActivity, filteredUsers(following, followingSearchEditText.text.toString()), object : PersonFollowingAdapter.OnPersonClickListener {
+                        override fun onPersonClick(user: User) {
 
-                        val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
-                        intent.putExtra("user", user)
-                        this@FindPeopleActivity.startActivity(intent)
-                    }
+                            val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
+                            intent.putExtra("user", user)
+                            this@FindPeopleActivity.startActivity(intent)
+                        }
 
 
-                }), true)
+                    }), true)
+
+                    Utils.closeKeyboard(this@FindPeopleActivity, followingSearchEditText)
+                    handled = true
+                }
+                return handled
             }
 
         })
+
         followingPeopleRecyclerView.layoutManager = LinearLayoutManager(this)
-        followingPeopleRecyclerView.adapter = PersonFollowingAdapter(following, object : PersonFollowingAdapter.OnPersonClickListener {
+        followingPeopleRecyclerView.adapter = PersonFollowingAdapter(this, following, object : PersonFollowingAdapter.OnPersonClickListener {
             override fun onPersonClick(user: User) {
 
                 val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
@@ -65,36 +74,65 @@ class FindPeopleActivity : NavigationMenuActivity() {
             }
         })
 
-        newPeopleSearchEditText.addTextChangedListener(object : TextWatcher {
+        newPeopleSearchEditText.setOnEditorActionListener(object: TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
 
-            override fun afterTextChanged(s: Editable?) {
-            }
+                var handled = false
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                newPeopleRecyclerView.swapAdapter(PersonNewAdapter(filteredUsers(newPeople, s.toString()), object : PersonNewAdapter.OnPersonClickListener {
-                    override fun onPersonClick(user: User) {
+                    if (newPeopleSearchEditText.text.toString().isNotEmpty()) {
+                        UserApiManager.getUserByName(newPeopleSearchEditText.text.toString()) {
 
-                        val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
-                        intent.putExtra("user", user)
-                        this@FindPeopleActivity.startActivity(intent)
+                            newPeopleRecyclerView.swapAdapter(PersonNewAdapter(this@FindPeopleActivity, filteredUsers(newPeople, newPeopleSearchEditText.text.toString()), object : PersonNewAdapter.OnPersonClickListener {
+                                override fun onPersonClick(user: User) {
+
+                                    val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
+                                    intent.putExtra("user", user)
+                                    this@FindPeopleActivity.startActivity(intent)
+                                }
+
+                            }), true)
+                        }
+                    }
+                    else {
+                        UserApiManager.getRecommendedPeople {
+
+                            newPeopleRecyclerView.swapAdapter(PersonNewAdapter(this@FindPeopleActivity, filteredUsers(newPeople, newPeopleSearchEditText.text.toString()), object : PersonNewAdapter.OnPersonClickListener {
+                                override fun onPersonClick(user: User) {
+
+                                    val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
+                                    intent.putExtra("user", user)
+                                    this@FindPeopleActivity.startActivity(intent)
+                                }
+
+                            }), true)
+                        }
                     }
 
-                }), true)
+                    Utils.closeKeyboard(this@FindPeopleActivity, newPeopleSearchEditText)
+
+                    handled = true
+                }
+                return handled
             }
-
         })
-        newPeopleRecyclerView.layoutManager = LinearLayoutManager(this)
-        newPeopleRecyclerView.adapter = PersonNewAdapter(newPeople, object: PersonNewAdapter.OnPersonClickListener {
-            override fun onPersonClick(user: User) {
 
-                val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
-                intent.putExtra("user", user)
-                this@FindPeopleActivity.startActivity(intent)            }
+        UserApiManager.getRecommendedPeople {
 
-        })
+            newPeople = it
+            newPeopleRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            newPeopleRecyclerView.adapter = PersonNewAdapter(this, newPeople, object: PersonNewAdapter.OnPersonClickListener {
+                override fun onPersonClick(user: User) {
+
+                    val intent = Intent(this@FindPeopleActivity, ProfileActivity::class.java)
+                    intent.putExtra("user", user)
+                    this@FindPeopleActivity.startActivity(intent)
+                }
+
+            })
+        }
+
     }
 
     private fun inflateViews() {

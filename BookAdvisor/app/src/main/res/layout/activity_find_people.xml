@@ -45,6 +45,8 @@
                 android:background="@color/colorWhite"
                 android:drawableEnd="@drawable/ic_search"
 
+                android:inputType="text"
+                android:imeOptions="actionSearch"
                 android:hint="Search through the people you follow"
         />
 
@@ -92,6 +94,8 @@
                 android:background="@color/colorWhite"
                 android:drawableEnd="@drawable/ic_search"
 
+                android:inputType="text"
+                android:imeOptions="actionSearch"
                 android:hint="Find someone new"
         />
 

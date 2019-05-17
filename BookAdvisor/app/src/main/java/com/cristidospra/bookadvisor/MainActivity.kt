@@ -26,17 +26,18 @@ class MainActivity: AppCompatActivity() {
 
         button = findViewById(R.id.main_button)
 
-        FirebaseManager.signIn("user1@gmail.com", "test123")
+        FirebaseManager.signIn("cristi@email.com", "Cristi123")
 
-        FirebaseManager.getNewMessage(User(firebasUID = "kwx1Mme8pzVpD8dUbuD14zYdz9G3")) {
+
+        /*FirebaseManager.getNewMessage(User(firebasUID = "kwx1Mme8pzVpD8dUbuD14zYdz9G3")) {
 
             Toast.makeText(this, it.content, Toast.LENGTH_LONG).show()
-        }
+        }*/
 
         button.setOnClickListener {
 
-            val user1 = User(firebasUID = "vJgkIRWkTPeybolzvsD9vWrfcts2")
-            val user2 = User(firebasUID = "kwx1Mme8pzVpD8dUbuD14zYdz9G3")
+            val user1 = User(firebasUID = "i3WAfCUGZCT80TMKDl3bGi14eg32")
+            val user2 = User(firebasUID = "QxTXWEHmhqMSbVolcIdpZS0I6Oq1")
 
             addMessage(user1, user2, Message(sender = user1, content = "test1"))
             //addMessage(User(firebasUID = "kwx1Mme8pzVpD8dUbuD14zYdz9G3"), User(firebasUID = "vJgkIRWkTPeybolzvsD9vWrfcts2"), Message(content = "test2"))

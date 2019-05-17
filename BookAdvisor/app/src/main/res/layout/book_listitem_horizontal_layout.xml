@@ -17,7 +17,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="32dp"
 
-        android:src="@drawable/book_cover"
+        android:src="@drawable/cover_placeholder"
     />
 
     <TextView
@@ -30,7 +30,7 @@
 
         android:layout_marginTop="4dp"
 
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorPrimary"
         android:text="Naruto Shippuden"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -46,7 +46,7 @@
 
         android:layout_marginTop="4dp"
 
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorPrimary"
         android:text="by Masashi Kishimoto"
         android:textSize="16sp"
     />
@@ -76,7 +76,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginTop="-4dp"
 
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorPrimary"
         android:text="5.0"
         android:textSize="16sp"
     />
@@ -90,7 +90,7 @@
         android:layout_toEndOf="@id/book_lisitiem_horizontal_ratingtext"
         android:layout_alignTop="@id/book_lisitiem_horizontal_ratingtext"
 
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorPrimary"
         android:text="out of 19929 rates"
         android:textSize="16sp"
     />
@@ -105,7 +105,7 @@
 
         android:layout_marginTop="4dp"
 
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorPrimary"
         android:text="100 pages"
         android:textSize="16sp"
     />
@@ -120,7 +120,7 @@
 
         android:layout_marginTop="4dp"
 
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorPrimary"
         android:text="since 15.02.2007"
         android:textSize="16sp"
     />

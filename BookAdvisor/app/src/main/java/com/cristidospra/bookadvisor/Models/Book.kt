@@ -1,9 +1,11 @@
 package com.cristidospra.bookadvisor.Models
 
 import com.cristidospra.bookadvisor.CurrentUser
+import com.cristidospra.bookadvisor.Networking.ApiClient
 import com.cristidospra.bookadvisor.Utils.Utils
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -61,7 +63,33 @@ class Book(
     }
 
     fun releaseDate() : Date {
-        return Utils.stringToDate(releaseDateString)
+
+        val DATE_FORMAT = "yyyy-MM-dd"
+        val dateFormatter = SimpleDateFormat(DATE_FORMAT)
+
+        val deletePosition = this.releaseDateString.indexOf('T')
+
+        var cleanDate = this.releaseDateString
+        if (deletePosition >= 0) {
+            cleanDate = this.releaseDateString.removeRange(deletePosition, this.releaseDateString.length)
+        }
+
+        return dateFormatter.parse(cleanDate)
+    }
+
+    fun releaseDateString() : String {
+
+        val DATE_FORMAT = "dd.MM.yyyy"
+        val dateFormatter = SimpleDateFormat(DATE_FORMAT)
+
+        val deletePosition = this.releaseDateString.indexOf('T')
+
+        var cleanDate = this.releaseDateString
+        if (deletePosition >= 0) {
+            cleanDate = this.releaseDateString.removeRange(deletePosition, this.releaseDateString.length)
+        }
+
+        return dateFormatter.format(releaseDate())
     }
 
     fun getContainedByReadingLists() : ArrayList<ReadingList> {
@@ -76,5 +104,10 @@ class Book(
         }
 
         return readingLists
+    }
+
+    fun coverURL() : String {
+
+        return ApiClient.BASE_URL + this.coverURL
     }
 }

@@ -12,11 +12,17 @@ interface UserApiInterface {
     @GET("get-user/{email}")
     fun getUser(@Path("email") email: String) : Call<User>
 
+
     @GET("get-user-firebase/{id}")
     fun getUserByFirebaseUID(@Path("id") firebaseUID: String) : Call<User>
 
+
+    @GET("find-user/{name}")
+    fun getUserByName(@Path("name") name: String) : Call<ArrayList<User>>
+
+
     @GET("recommended-books/")
-    fun getRecommended() : Call<ArrayList<Recommendation>>
+    fun getRecommended() : Call<ArrayList<Book>>
 
 
     @PUT("update-user/")
@@ -34,6 +40,9 @@ interface UserApiInterface {
     @FormUrlEncoded
     @POST("follow")
     fun follow(@Field("email_to_follow") email: String) : Call<Unit>
+
+    @GET("find-new-people")
+    fun getRecommendedPeople() : Call<ArrayList<User>>
 
 
     @PUT("add-reading-list/")
@@ -59,10 +68,6 @@ interface UserApiInterface {
 
     @GET("get-conversation/{email_destinatar")
     fun getConversation(@Path("email_destinatar") email: String) : Call<Conversation>
-
-
-    @GET("")
-    fun getRecommendedPeople() : Call<ArrayList<User>>
 
     @FormUrlEncoded
     @POST("send-message")

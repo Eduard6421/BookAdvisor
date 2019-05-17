@@ -46,7 +46,7 @@ class InboxActivity : NavigationMenuActivity() {
                 messagesRecyclerViewAdapter.addItem(Conversation(it, convo.lastMessage))
             }
         }
-        /*TODO: get conversations from firebase */
+        /*TODO: test get conversations from firebase */
     }
 
     private fun inflateViews() {

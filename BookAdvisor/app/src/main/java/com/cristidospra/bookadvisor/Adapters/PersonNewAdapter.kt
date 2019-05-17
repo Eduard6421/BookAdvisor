@@ -11,14 +11,11 @@ import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
 
-class PersonNewAdapter(private val people: ArrayList<User>, private val onPersonClickListener: OnPersonClickListener) : RecyclerView.Adapter<PersonNewAdapter.PersonViewHolder>() {
-
-    private lateinit var usedContext: Context
+class PersonNewAdapter(private val usedContext: Context, private val people: ArrayList<User>, private val onPersonClickListener: OnPersonClickListener) : RecyclerView.Adapter<PersonNewAdapter.PersonViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.person_new_listitem_layout, parent, false)
-        this.usedContext = parent.context
 
         return PersonViewHolder(itemView)
     }

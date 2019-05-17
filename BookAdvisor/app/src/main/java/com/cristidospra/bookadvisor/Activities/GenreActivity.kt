@@ -60,7 +60,7 @@ class GenreActivity : NavigationMenuActivity() {
             genreBooksRecyclerView.adapter = HorizontalBookAdapter(it, object : HorizontalBookAdapter.OnBookClickListener {
                 override fun onBookClick(book: Book) {
 
-                    val intent = Intent(this@GenreActivity, Book::class.java)
+                    val intent = Intent(this@GenreActivity, BookActivity::class.java)
                     intent.putExtra("book", book)
                     this@GenreActivity.startActivity(intent)
                 }

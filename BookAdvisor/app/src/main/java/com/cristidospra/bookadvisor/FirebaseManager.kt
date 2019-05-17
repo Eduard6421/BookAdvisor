@@ -200,6 +200,26 @@ object FirebaseManager {
         })
     }
 
+
+    fun getUserChat(user1UID: String, user2UID: String, onSuccess: (String) -> Unit) {
+
+        val chatRef = firebaseDatabase.reference.child("user_chats").child(user1UID).child(user2UID)
+
+        chatRef.addListenerForSingleValueEvent(object: ValueEventListener {
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                println("The read failed: " + databaseError.code)
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                onSuccess((dataSnapshot.value as HashMap<String, String>).values.first())
+            }
+
+        })
+    }
+
+
     fun getMessage(chatUID: String, messageUID: String, onSuccess: (FirebaseMessage) -> Unit) {
 
         val chatRef = firebaseDatabase.reference.child("chat_messages").child(chatUID).child(messageUID)
