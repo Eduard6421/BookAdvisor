@@ -1164,38 +1164,34 @@ def update_user_pic(request):
 @csrf_exempt
 @api_view(['GET', ])
 def get_filter_books(request, term_filter):
-    books = Book.objects.filter(Q(title__contains=term_filter))
-    authors = Author.objects.filter(Q(name__contains=term_filter))
-    books += [Book.objects.filter(authors__name=author.name) for author in authors]
-    print(books)
+    books = Book.objects.filter(Q(title__icontains=term_filter))[:10]
+    authors = Author.objects.filter(Q(name__icontains=term_filter))
+    #books = [Book.objects.filter(authors__name=author.name) for author in authors]
     if books:
-        try:
-            serializer = BookSerializer(books, many=True)
-            books_json = serializer.data
+        serializer = BookSerializer(books, many=True)
+        books_json = serializer.data
 
-            for book in serializer.data:
-                authors = []
-                for author in book['authors']:
-                    for key, element in author.items():
-                        if key == 'name':
-                            authors.append(element)
+        for book in serializer.data:
+            authors = []
+            for author in book['authors']:
+                for key, element in author.items():
+                    if key == 'name':
+                        authors.append(element)
 
-                for review in book['reviews']:
-                    for key, element in review['user_review'].items():
-                        if key == 'id':
-                            pass
-                        else:
-                            review[key] = element
+            for review in book['reviews']:
+                for key, element in review['user_review'].items():
+                    if key == 'id':
+                        pass
+                    else:
+                        review[key] = element
 
-                    del review['user_review']
-                del book['authors']
-                book['authors'] = []
-                for author in authors:
-                    book['authors'].append(author)
+                del review['user_review']
+            del book['authors']
+            book['authors'] = []
+            for author in authors:
+                book['authors'].append(author)
 
-            return Response(books_json, status=HTTP_200_OK)
-        except User.DoesNotExist:
-            return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+        return Response(books_json, status=HTTP_200_OK)
 
     return Response([], status=HTTP_200_OK)
 
