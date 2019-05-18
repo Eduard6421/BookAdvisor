@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
 android:orientation="vertical"
@@ -25,7 +26,8 @@ android:background="@color/colorBackground">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/add_to_reading_lists_title"
+        android:layout_below="@id/add_to_reading_lists_title"
+        android:layout_above="@id/add_to_readin_lists_confirm"
         android:layout_marginTop="16dp"
 >
 
@@ -35,9 +37,10 @@ android:background="@color/colorBackground">
         android:id="@+id/add_to_readin_lists_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_to_reading_lists_recyclerview"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/button_layout"
         android:textColor="@color/colorWhite"
         android:text="Submit"

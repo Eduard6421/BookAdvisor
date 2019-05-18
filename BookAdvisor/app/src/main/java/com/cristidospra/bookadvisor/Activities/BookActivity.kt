@@ -38,7 +38,9 @@ class BookActivity : NavigationMenuActivity() {
 
         inflateViews()
 
-        currentBook = intent.getSerializableExtra("current_book") as Book
+        if (intent.hasExtra("book")) {
+            currentBook = intent.getSerializableExtra("book") as Book
+        }
 
         Utils.loadBookImage(this, bookCoverImageView, currentBook.coverURL())
         bookTitleTextView.text = currentBook.title
