@@ -99,13 +99,14 @@ def parse_user(user_profile):
             for reading_list in profile_json['reading_lists']:
                 for books in reading_list['books']:
                     if books:
+                        i = 0 
                         for book in reading_list['books']:
                             authors = []
-                            for author in book['authors']:
-                                for key, element in author.items():
-                                    if key == 'name':
-                                        authors.append(element)
 
+                            ##ISSUE : SOME AUTHORS ARE OBJECTS BUT SOME AUTHORS ARE TREATED AS STRINGS. PLEASE SOLVE THIS ASAP.
+
+                            for author in book['authors']:
+                                authors.append({'name':author['name']})
                             for review in book['reviews']:
                                 for key, element in review['user_review'].items():
                                     if key == 'id':
@@ -115,10 +116,8 @@ def parse_user(user_profile):
 
                                 del review['user_review']
                             del book['authors']
-                            book['authors'] = []
-                            for author in authors:
-                                book['authors'].append(author)
+                            book['authors'] = authors
 
-                return profile_json
+            return profile_json
     except User.DoesNotExist:
         return None

@@ -1,6 +1,11 @@
 from .base_views import *
 
 
+@csrf_exempt
+@api_view(['POST', 'GET'])
+@permission_classes((AllowAny,))
+def index(request):
+    return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 @api_view(['POST'])
@@ -35,7 +40,7 @@ def login_user(request):
                 token, created = Token.objects.get_or_create(user=user)
                 if token is None:  # Check if tocken already exist and return for login
                     token = created
-                msg = 'User has been successfully authenticate'
+                msg = 'User has been successfully logged in'
                 return Response({'has_error': 'false', 'token': str(token), 'msg': msg, }, status=HTTP_200_OK)
             else:  # Inactiv user
                 msg = 'User is set to inactiv'
@@ -175,43 +180,9 @@ RETURN:
 @csrf_exempt
 @api_view(['GET', ])
 def get_user(request, email):
-    try:
-        user = User.objects.get(email=email)
-    except User.DoesNotExist:
-        return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
-    try:
-        obj_user = Profile.objects.get(user=user)
-        serializer = ProfileSerializer(obj_user)
-        profile_json = serializer.data
-        for key, element in serializer.data['user'].items():
-            profile_json[key] = element
-        del profile_json['user']
-        for reading_list in profile_json['reading_lists']:
-            for books in reading_list['books']:
-                if books:
-                    for book in reading_list['books']:
-                        authors = []
-                        for author in book['authors']:
-                            for key, element in author.items():
-                                if key == 'name':
-                                    authors.append(element)
-
-                        for review in book['reviews']:
-                            for key, element in review['user_review'].items():
-                                if key == 'id':
-                                    pass
-                                else:
-                                    review[key] = element
-
-                            del review['user_review']
-                        del book['authors']
-                        book['authors'] = []
-                        for author in authors:
-                            book['authors'].append(author)
-
-        return Response(profile_json, status=HTTP_200_OK)
-    except User.DoesNotExist:
-        return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+    obj_user = Profile.objects.get(user=request.user)
+    res = parse_user(obj_user)
+    return Response(res, status=HTTP_200_OK)
 
 
 @csrf_exempt

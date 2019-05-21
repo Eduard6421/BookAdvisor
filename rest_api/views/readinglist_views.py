@@ -52,7 +52,7 @@ def update_reading_list(request, reading_list_name):
         book_db = Book.objects.get(id=int(book['id']))
         reading_list.books.add(book_db)
 
-        for tag in book_db.books_tags:
+        for tag in book_db.books_tags.all():
             tag_filter = reading_list.tags.filter(tag)
             if tag_filter.first() is not None:
                 reading_list.tags.add(tag)
@@ -64,10 +64,10 @@ def update_reading_list(request, reading_list_name):
 
     if reading_list:
         try:
-            serializer = Reading_list_booksSerializer(reading_list, many=True)
-            reading_lists_json = serializer.data
-
-            return Response({'has_error': 'false', 'reading_lists_current_user': reading_lists_json, }, status=HTTP_200_OK)
+            #serializer = Reading_list_booksSerializer(reading_list, many=True)
+            #print(serializer.data)
+            #reading_lists_json = serializer.data
+            return Response({'has_error': 'false', }, status=HTTP_200_OK)
         except User.DoesNotExist:
             return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 
@@ -82,7 +82,7 @@ def get_reading_list_books(request):
     reading_lists = Profile.objects.get(user=request.user).reading_lists
     if reading_lists:
         try:
-            serializer = Reading_list_booksSerializer(reading_lists)
+            serializer = Reading_list_booksSerializer(reading_lists, many=True)
             reading_lists_json = serializer.data
             return Response({'has_error': 'false', 'reading_lists_current_user': reading_lists_json, }, status=HTTP_200_OK)
         except User.DoesNotExist:

@@ -8,7 +8,6 @@ def update_book(request, id_book):
     msg = 'maintenance'
     email = request.user.email
     book_update = request.data
-    print(book_update)
     try:
         book = Book.objects.get(id=id_book)
         book.title = book_update['title']
@@ -25,16 +24,33 @@ def update_book(request, id_book):
 def get_categories(request):
     msg = 'maintenance'
     tags = Tag.objects.all()
-    if users:
-        try:
-            serializer = TagSerializer(tags, many=True)
-            tags_json = serializer.data
+    try:
+        serializer = TagSerializer(tags, many=True)
+        tags_json = serializer.data
 
-            return Response(tags_json, status=HTTP_200_OK)
-        except User.DoesNotExist:
-            return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
+        return Response(tags_json, status=HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 
     return Response({'has_error': 'false', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+
+
+
+
+@csrf_exempt
+@api_view(['GET',])
+def get_book(request, book_id):
+    book_update = request.data
+    email = request.user.email
+
+    try:
+        book = Book.objects.get(id=book_id)
+        serializer = BookSerializer(book)
+        book_json = serializer.data
+
+        return Response(book_json)
+    except Book.DoesNotExist:
+        return Response({'has_error': 'false', 'email': email, }, status=HTTP_400_BAD_REQUEST)
 
 
 
@@ -80,7 +96,7 @@ def recommended_books(request):
                 for author in book['authors']:
                     for key, element in author.items():
                         if key == 'name':
-                            authors.append(element)
+                            authors.append({'name':element})
 
                 for review in book['reviews']:
                     for key, element in review['user_review'].items():
@@ -158,7 +174,7 @@ def book(request):
 
 @csrf_exempt
 @api_view(['GET', ])
-def get_books(request, title):
+def get_books(request):
     msg = 'maintenance'
     books = Book.objects.filter(title=title)
     if books:
@@ -171,7 +187,7 @@ def get_books(request, title):
                 for author in book['authors']:
                     for key, element in author.items():
                         if key == 'name':
-                            authors.append(element)
+                            authors.append({'name':element})
 
                 for review in book['reviews']:
                     for key, element in review['user_review'].items():
@@ -230,7 +246,7 @@ def get_books_category(request, tag_name):
                 for author in book['authors']:
                     for key, element in author.items():
                         if key == 'name':
-                            authors.append(element)
+                            authors.append({'name':element})
 
                 for review in book['reviews']:
                     for key, element in review['user_review'].items():
@@ -268,7 +284,7 @@ def get_filter_books(request, term_filter):
             for author in book['authors']:
                 for key, element in author.items():
                     if key == 'name':
-                        authors.append(element)
+                        authors.append({'name':element})
 
             for review in book['reviews']:
                 for key, element in review['user_review'].items():
@@ -329,3 +345,18 @@ def add_review(request, book_id):
 
         return Response({'has_error': 'false'}, status=HTTP_200_OK)
 
+
+
+@csrf_exempt
+@api_view(['GET', ])
+def get_book_cover(request, uuid_img):
+    msg = 'maintenance'
+    print('aa')
+    try:
+        with open('/data/BookAdvisor/images/' + uuid_img, "rb") as f:
+            return HttpResponse(f.read(), content_type="image/jpeg")
+    except IOError:
+        red = Image.new('RGBA', (1, 1), (255,0,0,0))
+        response = HttpResponse(content_type="image/jpeg")
+        red.save(response, "JPEG")
+        return response

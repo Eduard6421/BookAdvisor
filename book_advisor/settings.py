@@ -26,7 +26,7 @@ SECRET_KEY = '891b((s9fae+cl@5-eguaq51zb^o2pp9uucq*^$pgr4)(dmco-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.106', '108.128.54.229', 'book-advisor.aws.bitrack.biz']
+ALLOWED_HOSTS = ['192.168.0.106', '108.128.54.229', 'book-advisor.aws.bitrack.biz','54.73.10.39']
 
 # Application definition
 

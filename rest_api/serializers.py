@@ -7,7 +7,7 @@ from .models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'last_login', 'date_joined', 'is_active')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'last_login', 'date_joined', 'is_active',)
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -29,7 +29,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Author
-        fields = '__all__'
+        fields = ('name',)
 
 
 class CommentSerializer(serializers.ModelSerializer):
