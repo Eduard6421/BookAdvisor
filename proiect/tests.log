@@ -1,0 +1,61 @@
+============================= test session starts ==============================
+platform linux -- Python 3.6.7, pytest-4.5.0, py-1.8.0, pluggy-0.11.0 -- /data/book_advisor/venv/bin/python3
+cachedir: .pytest_cache
+Django settings: book_advisor.settings (from ini file)
+rootdir: /data/book_advisor, inifile: pytest.ini
+plugins: django-3.4.8
+collecting ... collected 36 items
+
+test_all.py::test_login_1 PASSED                                         [  2%]
+test_all.py::test_login_2 PASSED                                         [  5%]
+test_all.py::test_login_3 PASSED                                         [  8%]
+test_all.py::test_login_4 PASSED                                         [ 11%]
+test_all.py::test_login_5 PASSED                                         [ 13%]
+test_all.py::test_login_6 PASSED                                         [ 16%]
+test_all.py::test_register_user_1 PASSED                                 [ 19%]
+test_all.py::test_register_user_2 PASSED                                 [ 22%]
+test_all.py::test_logout_1 PASSED                                        [ 25%]
+test_all.py::test_logout_2 PASSED                                        [ 27%]
+test_all.py::test_get_books_1 PASSED                                     [ 30%]
+test_all.py::test_get_books_2 PASSED                                     [ 33%]
+test_all.py::test_get_followers_1 PASSED                                 [ 36%]
+test_all.py::test_get_followers_2 PASSED                                 [ 38%]
+test_all.py::test_get_following_1 PASSED                                 [ 41%]
+test_all.py::test_get_following_2 PASSED                                 [ 44%]
+test_all.py::test_follow PASSED                                          [ 47%]
+test_all.py::test_get_all_books PASSED                                   [ 50%]
+test_all.py::test_get_reading_list PASSED                                [ 52%]
+test_all.py::test_users PASSED                                           [ 55%]
+test_all.py::test_get_categories PASSED                                  [ 58%]
+test_all.py::test_get_books_category PASSED                              [ 61%]
+test_all.py::test_get_all_conversations PASSED                           [ 63%]
+test_all.py::test_get_conversations PASSED                               [ 66%]
+test_all.py::test_get_reviews PASSED                                     [ 69%]
+test_all.py::test_current_user PASSED                                    [ 72%]
+test_all.py::test_register_flow PASSED                                   [ 75%]
+test_all.py::test_follow_flow PASSED                                     [ 77%]
+test_all.py::test_message_flow PASSED                                    [ 80%]
+test_all.py::test_update_user_flow PASSED                                [ 83%]
+test_all.py::test_add_reading_list_flow PASSED                           [ 86%]
+test_all.py::test_update_book_flow PASSED                                [ 88%]
+test_all.py::test_read_conversations_flow_1 PASSED                       [ 91%]
+test_all.py::test_read_conversations_flow_2 PASSED                       [ 94%]
+test_all.py::test_add_review_flow_1 PASSED                               [ 97%]
+test_all.py::test_add_review_flow_2 PASSED                               [100%]
+
+=============================== warnings summary ===============================
+venv/lib/python3.6/site-packages/rest_framework/serializers.py:30
+venv/lib/python3.6/site-packages/rest_framework/serializers.py:30
+  /data/book_advisor/venv/lib/python3.6/site-packages/rest_framework/serializers.py:30: DeprecationWarning: 'version' is deprecated. Use '__version__' instead.
+    from rest_framework.compat import Mapping, postgres_fields, unicode_to_repr
+
+venv/lib/python3.6/site-packages/_pytest/cacheprovider.py:133
+  /data/book_advisor/venv/lib/python3.6/site-packages/_pytest/cacheprovider.py:133: PytestCacheWarning: cache could not write path /data/book_advisor/.pytest_cache/v/cache/stepwise
+    self.warn("cache could not write path {path}", path=path)
+
+venv/lib/python3.6/site-packages/_pytest/cacheprovider.py:133
+  /data/book_advisor/venv/lib/python3.6/site-packages/_pytest/cacheprovider.py:133: PytestCacheWarning: cache could not write path /data/book_advisor/.pytest_cache/v/cache/nodeids
+    self.warn("cache could not write path {path}", path=path)
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+==================== 36 passed, 4 warnings in 8.14 seconds =====================
