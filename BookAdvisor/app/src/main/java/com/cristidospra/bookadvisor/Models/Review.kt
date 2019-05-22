@@ -24,17 +24,7 @@ class Review(
 
     fun date() : Date {
 
-        val DATE_FORMAT = "yyyy-MM-dd"
-        val dateFormatter = SimpleDateFormat(DATE_FORMAT)
-
-        val deletePosition = this.dateString.indexOf('T')
-
-        var cleanDate = this.dateString
-        if (deletePosition >= 0) {
-            cleanDate = this.dateString.removeRange(deletePosition, this.dateString.length)
-        }
-
-        return dateFormatter.parse(cleanDate)
+       return Utils.stringToDate(this.dateString)
     }
 
     fun timeStamp() : String {
