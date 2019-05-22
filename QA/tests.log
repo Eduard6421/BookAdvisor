@@ -1,0 +1,57 @@
+============================= test session starts ==============================
+platform linux -- Python 3.6.7, pytest-4.5.0, py-1.8.0, pluggy-0.11.0 -- /data/book_advisor/venv/bin/python3
+cachedir: .pytest_cache
+Django settings: book_advisor.settings (from ini file)
+rootdir: /data/book_advisor, inifile: pytest.ini
+plugins: django-3.4.8
+collecting ... collected 40 items
+
+test_all.py::test_login_1 PASSED                                         [  2%]
+test_all.py::test_login_2 PASSED                                         [  5%]
+test_all.py::test_login_3 PASSED                                         [  7%]
+test_all.py::test_login_4 PASSED                                         [ 10%]
+test_all.py::test_login_5 PASSED                                         [ 12%]
+test_all.py::test_login_6 PASSED                                         [ 15%]
+test_all.py::test_register_user_1 PASSED                                 [ 17%]
+test_all.py::test_register_user_2 PASSED                                 [ 20%]
+test_all.py::test_logout_1 PASSED                                        [ 22%]
+test_all.py::test_logout_2 PASSED                                        [ 25%]
+test_all.py::test_get_books_1 PASSED                                     [ 27%]
+test_all.py::test_get_books_2 PASSED                                     [ 30%]
+test_all.py::test_get_followers_1 PASSED                                 [ 32%]
+test_all.py::test_get_followers_2 PASSED                                 [ 35%]
+test_all.py::test_get_following_1 PASSED                                 [ 37%]
+test_all.py::test_get_following_2 PASSED                                 [ 40%]
+test_all.py::test_follow PASSED                                          [ 42%]
+test_all.py::test_get_all_books_1 PASSED                                 [ 45%]
+test_all.py::test_get_all_books_2 PASSED                                 [ 47%]
+test_all.py::test_get_reading_list_1 PASSED                              [ 50%]
+test_all.py::test_get_reading_list_2 PASSED                              [ 52%]
+test_all.py::test_get_reading_list_3 PASSED                              [ 55%]
+test_all.py::test_users PASSED                                           [ 57%]
+test_all.py::test_get_categories PASSED                                  [ 60%]
+test_all.py::test_get_books_category_1 PASSED                            [ 62%]
+test_all.py::test_get_books_category_2 PASSED                            [ 65%]
+test_all.py::test_get_all_conversations PASSED                           [ 67%]
+test_all.py::test_get_conversations PASSED                               [ 70%]
+test_all.py::test_get_reviews PASSED                                     [ 72%]
+test_all.py::test_current_user PASSED                                    [ 75%]
+test_all.py::test_register_flow PASSED                                   [ 77%]
+test_all.py::test_follow_flow PASSED                                     [ 80%]
+test_all.py::test_message_flow PASSED                                    [ 82%]
+test_all.py::test_update_user_flow PASSED                                [ 85%]
+test_all.py::test_add_reading_list_flow PASSED                           [ 87%]
+test_all.py::test_update_book_flow PASSED                                [ 90%]
+test_all.py::test_read_conversations_flow_1 PASSED                       [ 92%]
+test_all.py::test_read_conversations_flow_2 PASSED                       [ 95%]
+test_all.py::test_add_review_flow_1 PASSED                               [ 97%]
+test_all.py::test_add_review_flow_2 PASSED                               [100%]
+
+=============================== warnings summary ===============================
+venv/lib/python3.6/site-packages/rest_framework/serializers.py:30
+venv/lib/python3.6/site-packages/rest_framework/serializers.py:30
+  /data/book_advisor/venv/lib/python3.6/site-packages/rest_framework/serializers.py:30: DeprecationWarning: 'version' is deprecated. Use '__version__' instead.
+    from rest_framework.compat import Mapping, postgres_fields, unicode_to_repr
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+==================== 40 passed, 2 warnings in 9.15 seconds =====================
