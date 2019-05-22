@@ -25,8 +25,6 @@ class Message(
 
 ) : Serializable {
 
-    //constructor(firebaseMessage: FirebaseMessage) : this(Utils.stringToDate(firebaseMessage.timeStamp), firebaseMessage.content)
-
     fun timeStamp() : String {
 
         val format = SimpleDateFormat("dd.MM.yyyy HH:mm")
