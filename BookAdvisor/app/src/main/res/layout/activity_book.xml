@@ -142,6 +142,21 @@
                 android:text="In the ninja world, those who break the rules are regarded as scum. But those who ask students to do a complex project in their last semester are even worse than scum."
             />
 
+            <TextView
+                    android:id="@+id/book_about_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@id/book_about_prologue_content"
+                    android:layout_alignStart="@id/book_about_title"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="32dp"
+
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"
+                    android:text="GENRES"
+            />
+
             <!-- Use small_genre_listitem_layout -->
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/book_tags_recyclerview"
@@ -149,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="12dp"
-                    android:layout_below="@id/book_about_prologue_content"
+                    android:layout_below="@id/book_about_genres"
             >
 
             </androidx.recyclerview.widget.RecyclerView>
@@ -171,11 +186,24 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
 
 
                 android:textColor="@color/colorBackground"
                 android:textSize="18sp"
-                android:text="REVEIWS"
+                android:text="REVIEWS"
+            />
+
+            <ImageView
+                    android:id="@+id/book_activity_add_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@id/book_reviews"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_add"
+                    android:tint="@color/colorBarText"
+
             />
 
             <!-- Use review_listitem_layout -->

@@ -13,7 +13,7 @@ interface UserApiInterface {
     fun getUser(@Path("email") email: String) : Call<User>
 
 
-    @GET("get-user-firebase/{id}")
+    @GET("get-user-by-firebase/{id}")
     fun getUserByFirebaseUID(@Path("id") firebaseUID: String) : Call<User>
 
 

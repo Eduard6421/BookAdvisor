@@ -41,11 +41,10 @@ object UserApiManager {
         call.enqueue(object : Callback<User> {
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                print("")
+                t.printStackTrace()
             }
 
             override fun onResponse(call: Call<User>, response: Response<User>) {
-                print("")
                 response.body()?.let { onSuccess(it) }
             }
 

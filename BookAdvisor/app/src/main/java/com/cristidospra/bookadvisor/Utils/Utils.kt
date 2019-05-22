@@ -8,6 +8,9 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.MyApplication
 import com.cristidospra.bookadvisor.R
@@ -41,7 +44,17 @@ object Utils {
 
     fun loadBookImage(currentContext: Context, imageView: ImageView, source: String) {
 
-        Glide.with(currentContext).load(source).placeholder(R.drawable.cover_placeholder).into(imageView)
+        val glideUrl = GlideUrl(
+            source,
+            LazyHeaders.Builder()
+                .addHeader("Authorization", "Token ${CurrentUser.instance.authToken}")
+                .build()
+        )
+
+        Glide.with(currentContext).load(glideUrl)
+            .apply(RequestOptions().placeholder(R.drawable.cover_placeholder))
+            .apply(RequestOptions().transforms(CenterInside()))
+            .into(imageView)
     }
 
     fun loadPersonImage(currentContext: Context, imageView: ImageView, source: String) {
@@ -53,7 +66,10 @@ object Utils {
                 .build()
         )
 
-        Glide.with(currentContext).load(glideUrl).placeholder(R.drawable.ic_default_profile).into(imageView)
+        Glide.with(currentContext).load(glideUrl)
+            .apply(RequestOptions().placeholder(R.drawable.ic_default_profile))
+            .apply(RequestOptions().transforms(CircleCrop(), CenterInside()))
+            .into(imageView)
     }
 
     fun closeKeyboard(context: Context, view: View) {

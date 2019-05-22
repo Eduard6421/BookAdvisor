@@ -15,6 +15,10 @@ interface BookApiInterface {
     fun sendScannedBook(@Part image: MultipartBody.Part) : Call<ArrayList<Book>>
 
 
+    @GET("get-book/{id}")
+    fun getBook(@Path("id") id: Int) : Call<Book>
+
+
     @GET("get-books/{title}")
     fun getBooks(@Path("title") title: String): Call<ArrayList<Book>>
 
@@ -26,8 +30,10 @@ interface BookApiInterface {
     @GET("get-categories/")
     fun getGenres() : Call<ArrayList<Genre>>
 
+
     @GET("get-filter-books/{search}")
     fun getBooksFromSearch(@Path("search") searchedString: String) : Call<ArrayList<Book>>
+
 
     @GET("get-books-category/{tag_name}")
     fun getBooksByGenre(@Path("tag_name") genreName: String) : Call<ArrayList<Book>>

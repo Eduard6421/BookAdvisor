@@ -28,7 +28,7 @@ object LoginApiManager {
                 if (response.body() != null) {
                     onSuccess(response.body()!!)
                 }
-                else if (response.code() == 401) {
+                else if (response.code() != 200) {
 
                     onFailure()
                 }

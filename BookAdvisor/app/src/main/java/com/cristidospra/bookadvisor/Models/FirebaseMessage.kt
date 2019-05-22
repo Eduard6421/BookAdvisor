@@ -1,6 +1,7 @@
 package com.cristidospra.bookadvisor.Models
 
 import com.google.gson.annotations.SerializedName
+import java.util.HashMap
 
 class FirebaseMessage(
 
@@ -15,5 +16,5 @@ class FirebaseMessage(
 ) {
 
     constructor(message: Message) : this(message.sender.firebasUID, message.content, message.timeStamp())
-    constructor(hmap: HashMap<String, String>) : this(hmap["senderUID"].toString(), hmap["content"].toString(), hmap["timeStamp"].toString())
+    constructor(hmap: HashMap<String, String>?) : this(hmap!!["senderUID"].toString(), hmap["content"].toString(), hmap["timeStamp"].toString())
 }

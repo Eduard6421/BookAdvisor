@@ -21,7 +21,8 @@ class Book(
     var title: String = "",
 
     @SerializedName("authors")
-    var authors: ArrayList<String> = ArrayList(),
+    var authors: ArrayList<Author> = ArrayList(),
+    //var authors: ArrayList<String> = ArrayList(),
 
     @SerializedName("no_pages")
     var nrPages: Int = 0,
@@ -52,8 +53,9 @@ class Book(
         var toPrint = ""
 
         for (author in this.authors) {
-            toPrint = (toPrint + author)
+            toPrint = ("$toPrint${author.name}, ")
         }
+        toPrint.removeRange(toPrint.length - 2, toPrint.length)
 
         return toPrint
     }

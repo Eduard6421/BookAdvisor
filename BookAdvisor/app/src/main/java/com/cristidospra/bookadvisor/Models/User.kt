@@ -3,6 +3,7 @@ package com.cristidospra.bookadvisor.Models
 import com.cristidospra.bookadvisor.Networking.ApiClient.Companion.BASE_URL
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.util.function.Predicate
 
 open class User(
 
@@ -50,22 +51,35 @@ open class User(
 
     fun nrOfReadBooks() : Int {
 
-        return readingLists[ReadingList.ALREADY_READ].nrOfBooks()
+        if (readingLists.isNotEmpty()) {
+            return readingLists[ReadingList.ALREADY_READ].nrOfBooks()
+        }
+        return 0
     }
 
     fun nrOfWantToReadBooks() : Int {
 
-        return readingLists[ReadingList.WANT_TO_READ].nrOfBooks()
+        if (readingLists.isNotEmpty()) {
+            return readingLists[ReadingList.WANT_TO_READ].nrOfBooks()
+        }
+        return 0
     }
 
     fun getReadBooks(): ArrayList<Book> {
 
-        return readingLists[ReadingList.ALREADY_READ].books
+        if (readingLists.isNotEmpty()) {
+            return readingLists[ReadingList.ALREADY_READ].books
+        }
+        return ArrayList()
     }
 
     fun getWantToReadBooks() : ArrayList<Book> {
 
-        return readingLists[ReadingList.WANT_TO_READ].books
+        if (readingLists.isNotEmpty()) {
+            return readingLists[ReadingList.WANT_TO_READ].books
+        }
+
+        return ArrayList()
     }
 
     fun nrFollowers() : Int {
@@ -91,5 +105,11 @@ open class User(
         if (!this.favouriteGenres.map { it.id }.contains(genre.id)) {
             this.favouriteGenres.add(genre)
         }
+    }
+
+    fun updateReadingList(rl: ReadingList) {
+
+        this.readingLists.removeAll { r -> r.title == rl.title }
+        this.readingLists.add(rl)
     }
 }

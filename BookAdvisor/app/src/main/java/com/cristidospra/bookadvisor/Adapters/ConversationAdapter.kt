@@ -36,7 +36,8 @@ class ConversationAdapter(private val conversations: ArrayList<Conversation>, pr
 
             Utils.loadPersonImage(usedContext, holder.profilePicImageView, it.profilePic())
             holder.nameTextView.text = it.fullName()
-            holder.dateTextView.text = conversation.lastMessage.sentDate.toString()
+            holder.messageTextView.text = conversation.lastMessage?.content ?: ""
+            holder.dateTextView.text = conversation.lastMessage?.timeStamp()
         }
 
         holder.itemView.setOnClickListener {
@@ -54,6 +55,7 @@ class ConversationAdapter(private val conversations: ArrayList<Conversation>, pr
 
         val profilePicImageView: ImageView = view.findViewById(R.id.inbox_item_profilepic)
         val nameTextView: TextView = view.findViewById(R.id.inbox_item_name_textview)
+        val messageTextView: TextView = view.findViewById(R.id.inbox_item_last_message)
         val dateTextView: TextView = view.findViewById(R.id.inbox_item_last_date)
     }
 

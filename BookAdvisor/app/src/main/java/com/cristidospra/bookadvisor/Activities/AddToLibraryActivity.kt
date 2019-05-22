@@ -20,6 +20,8 @@ class AddToLibraryActivity : NavigationMenuActivity() {
 
     private lateinit var currentBook: Book
 
+    private lateinit var addToReadingListAdapter: AddToReadingListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_to_library)
@@ -30,8 +32,7 @@ class AddToLibraryActivity : NavigationMenuActivity() {
 
         val selectedReadingLists: ArrayList<ReadingList> = ArrayList()
 
-        readingListsRecyclerView.layoutManager = LinearLayoutManager(this)
-        readingListsRecyclerView.adapter = AddToReadingListAdapter(CurrentUser.instance.readingLists, object : AddToReadingListAdapter.OnCheckedChangeListener {
+        addToReadingListAdapter = AddToReadingListAdapter(CurrentUser.instance.readingLists, object : AddToReadingListAdapter.OnCheckedChangeListener {
             override fun onCheckChange(readingList: ReadingList, isChecked: Boolean) {
 
                 if (isChecked) {
@@ -44,6 +45,9 @@ class AddToLibraryActivity : NavigationMenuActivity() {
 
         })
 
+        readingListsRecyclerView.layoutManager = LinearLayoutManager(this)
+        readingListsRecyclerView.adapter = addToReadingListAdapter
+
         submitButton.setOnClickListener {
 
             for (rl in selectedReadingLists) {
@@ -51,6 +55,8 @@ class AddToLibraryActivity : NavigationMenuActivity() {
                 rl.add(currentBook)
                 UserApiManager.updateReadingList(rl) {
                     /*TODO: update readinglist*/
+                    CurrentUser.instance.updateReadingList(it)
+                    addToReadingListAdapter.notifyDataSetChanged()
                 }
             }
 
@@ -63,6 +69,6 @@ class AddToLibraryActivity : NavigationMenuActivity() {
     private fun inflateViews() {
 
         readingListsRecyclerView = findViewById(R.id.add_to_reading_lists_recyclerview)
-        submitButton = findViewById(R.id.add_to_readin_lists_confirm)
+        submitButton = findViewById(R.id.add_to_reading_lists_confirm)
     }
 }

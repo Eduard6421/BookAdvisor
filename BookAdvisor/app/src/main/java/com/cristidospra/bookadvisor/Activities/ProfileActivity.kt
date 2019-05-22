@@ -105,16 +105,16 @@ class ProfileActivity : NavigationMenuActivity() {
 
     private fun setData(user: User) {
 
-        Utils.loadPersonImage(this, profilePictureImageView, currentProfileUser.profilePic())
-        profileNameTextView.text = currentProfileUser.fullName()
-        profileNrBooksSmallTextView.text = currentProfileUser.nrOfBooks().toString()
-        profileNrFollowersTextView.text = currentProfileUser.nrFollowers().toString()
-        profileNrFollowingTextView.text = currentProfileUser.nrFollowing().toString()
-        profileNrBooksBigTextView.text = currentProfileUser.nrOfBooks().toString()
-        profileNrReadBooksTextView.text = currentProfileUser.nrOfReadBooks().toString()
-        profileNrWantToReadTextView.text = currentProfileUser.nrOfWantToReadBooks().toString()
+        Utils.loadPersonImage(this, profilePictureImageView, user.profilePic())
+        profileNameTextView.text = user.fullName()
+        profileNrBooksSmallTextView.text = user.nrOfBooks().toString()
+        profileNrFollowersTextView.text = user.nrFollowers().toString()
+        profileNrFollowingTextView.text = user.nrFollowing().toString()
+        profileNrBooksBigTextView.text = user.nrOfBooks().toString()
+        profileNrReadBooksTextView.text = user.nrOfReadBooks().toString()
+        profileNrWantToReadTextView.text = user.nrOfWantToReadBooks().toString()
 
-        if (currentProfileUser.email == CurrentUser.instance.email) {
+        if (user.email == CurrentUser.instance.email) {
 
             profileSendMessageImageView.visibility = View.GONE
         }
@@ -124,10 +124,10 @@ class ProfileActivity : NavigationMenuActivity() {
 
             profileSendMessageImageView.setOnClickListener {
 
-                FirebaseManager.getUserChat(CurrentUser.instance.firebasUID, currentProfileUser.firebasUID) {chatUID ->
+                FirebaseManager.getUserChat(CurrentUser.instance.firebasUID, user.firebasUID) {chatUID ->
 
-                    FirebaseManager.getLastMessage(CurrentUser.instance.firebasUID, currentProfileUser.firebasUID, chatUID) {lastMessage ->
-                        val conversation = Conversation(currentProfileUser, lastMessage)
+                    FirebaseManager.getLastMessage(CurrentUser.instance.firebasUID, user.firebasUID, chatUID) {lastMessage ->
+                        val conversation = Conversation(chatUID, user, lastMessage)
 
                         val intent = Intent(this, ConversationActivity::class.java)
                         intent.putExtra("conversation", conversation)
@@ -142,11 +142,11 @@ class ProfileActivity : NavigationMenuActivity() {
         profileReadingListsButton.setOnClickListener {
 
             val intent = Intent(this, LibraryActivity::class.java)
-            intent.putExtra("user", currentProfileUser)
+            intent.putExtra("user", user)
             this.startActivity(intent)
         }
 
-        if (currentProfileUser.email == CurrentUser.instance.email) {
+        if (user.email == CurrentUser.instance.email) {
 
             profileEditSettingsButton.setOnClickListener {
 
@@ -157,7 +157,7 @@ class ProfileActivity : NavigationMenuActivity() {
         else {
 
             profileEditSettingsButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_nav_people, 0, 0, 0)
-            if (CurrentUser.instance.isFollowing(currentProfileUser)) {
+            if (CurrentUser.instance.isFollowing(user)) {
                 profileEditSettingsButton.text = "Following"
                 profileEditSettingsButton.setTextColor(Utils.getColor(R.color.colorAccent))
             }
@@ -165,7 +165,7 @@ class ProfileActivity : NavigationMenuActivity() {
                 profileEditSettingsButton.text = "Follow"
                 profileEditSettingsButton.setOnClickListener {
 
-                    UserApiManager.follow(currentProfileUser) {
+                    UserApiManager.follow(user) {
                         this.recreate()
                     }
                 }
@@ -173,7 +173,7 @@ class ProfileActivity : NavigationMenuActivity() {
         }
 
         profileAlreadyReadRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        profileAlreadyReadRecyclerView.adapter = HorizontalBookAdapter(currentProfileUser.getReadBooks(), object : HorizontalBookAdapter.OnBookClickListener {
+        profileAlreadyReadRecyclerView.adapter = HorizontalBookAdapter(user.getReadBooks(), object : HorizontalBookAdapter.OnBookClickListener {
             override fun onBookClick(book: Book) {
 
                 val intent = Intent(this@ProfileActivity, BookActivity::class.java)
@@ -184,7 +184,7 @@ class ProfileActivity : NavigationMenuActivity() {
         })
 
         profileWantToReadRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        profileWantToReadRecyclerView.adapter = HorizontalBookAdapter(currentProfileUser.getWantToReadBooks(), object : HorizontalBookAdapter.OnBookClickListener {
+        profileWantToReadRecyclerView.adapter = HorizontalBookAdapter(user.getWantToReadBooks(), object : HorizontalBookAdapter.OnBookClickListener {
             override fun onBookClick(book: Book) {
 
                 val intent = Intent(this@ProfileActivity, BookActivity::class.java)
@@ -195,7 +195,7 @@ class ProfileActivity : NavigationMenuActivity() {
         })
 
         profileFavouriteGenresRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        profileFavouriteGenresRecyclerView.adapter = GenreAdapter(currentProfileUser.favouriteGenres, object: GenreAdapter.OnGenreClickListener {
+        profileFavouriteGenresRecyclerView.adapter = GenreAdapter(user.favouriteGenres, object: GenreAdapter.OnGenreClickListener {
 
             override fun onGenreClick(genre: Genre) {
 
@@ -205,7 +205,7 @@ class ProfileActivity : NavigationMenuActivity() {
             }
         })
 
-        if (currentProfileUser.email == CurrentUser.instance.email) {
+        if (user.email == CurrentUser.instance.email) {
             profilePictureImageView.setOnClickListener {
 
                 startCropImageActivity()
@@ -266,7 +266,7 @@ class ProfileActivity : NavigationMenuActivity() {
                 Glide.with(this)
                     .load(photo)
                     .apply(RequestOptions().placeholder(R.drawable.cover_placeholder))
-                    .apply(RequestOptions().transforms(CenterInside(), CircleCrop()))
+                    .apply(RequestOptions().transforms(CircleCrop(), CenterInside()))
                     .into(profilePictureImageView)
 
             }

@@ -2,6 +2,7 @@ package com.cristidospra.bookadvisor.Activities
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.ConversationAdapter
 import com.cristidospra.bookadvisor.CurrentUser
@@ -38,12 +39,15 @@ class InboxActivity : NavigationMenuActivity() {
             }
         })
 
+        messagesRecyclerView.layoutManager = LinearLayoutManager(this)
         messagesRecyclerView.adapter = messagesRecyclerViewAdapter
 
         FirebaseManager.getConversations { convo ->
 
             UserApiManager.getUserByFirebase(convo.user.firebasUID) {
-                messagesRecyclerViewAdapter.addItem(Conversation(it, convo.lastMessage))
+
+                messagesRecyclerViewAdapter.addItem(Conversation(convo.chatUID, it, convo.lastMessage))
+                messagesRecyclerViewAdapter.notifyDataSetChanged()
             }
         }
         /*TODO: test get conversations from firebase */

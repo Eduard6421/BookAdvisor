@@ -72,11 +72,6 @@ open class NavigationMenuActivity : AppCompatActivity() {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
                     val booksDialog = SearchedBooksDialog(this@NavigationMenuActivity, searchField.text.toString())
-
-                    val width = ViewGroup.LayoutParams.MATCH_PARENT
-                    val height = ViewGroup.LayoutParams.MATCH_PARENT
-
-                    booksDialog.window.setLayout(width, height)
                     booksDialog.show()
 
                     handled = true
@@ -155,7 +150,6 @@ open class NavigationMenuActivity : AppCompatActivity() {
         profilePic.setOnClickListener {
 
             resetAllMenuItemsColor(navigationView)
-            setColorForMenuItem(navigationView.menu.findItem(R.id.navigation_scan_books), R.color.colorNavActive)
             createIntent(ProfileActivity::class.java)
         }
 
@@ -217,4 +211,5 @@ open class NavigationMenuActivity : AppCompatActivity() {
             setColorForMenuItem(navigationView.menu.getItem(i), R.color.colorNavInactive)
         }
     }
+
 }

@@ -45,6 +45,27 @@ object BookApiManager {
         })
     }
 
+    fun getBook(id: Int, onSuccess: (Book) -> Unit) {
+
+        val bookApiInterface: BookApiInterface = ApiClient.getClient()?.create(BookApiInterface::class.java)!!
+
+        val call: Call<Book> = bookApiInterface.getBook(id)
+
+        call.enqueue(object : Callback<Book> {
+
+            override fun onFailure(call: Call<Book>, t: Throwable) {
+
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<Book>, response: Response<Book>) {
+
+                response.body()?.let { onSuccess(it) }
+            }
+
+        })
+    }
+
 
      fun getBooks(title: String, onSuccess: (ArrayList<Book>) -> Unit) {
 
@@ -65,7 +86,7 @@ object BookApiManager {
             }
 
         })
-    }
+     }
 
     fun getBooksFromSearch(searchString: String, onSuccess: (ArrayList<Book>) -> Unit) {
 

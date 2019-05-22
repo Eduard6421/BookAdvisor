@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
     <ImageView
             android:id="@+id/inbox_item_profilepic"
@@ -10,23 +11,45 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
+            android:src="@drawable/ic_default_profile"
     />
 
     <TextView
             android:id="@+id/inbox_item_name_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/inbox_item_profilepic"
+            android:layout_alignTop="@id/inbox_item_profilepic"
 
+            android:textSize="14sp"
             android:text="Cristi Dospra"
+            android:textColor="@color/colorBlack"
+    />
+
+    <TextView
+            android:id="@+id/inbox_item_last_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/inbox_item_profilepic"
+            android:layout_alignBottom="@id/inbox_item_profilepic"
+
+            android:maxWidth="150dp"
+
+            android:textSize="12sp"
+            android:text="message placeholder"
     />
 
     <TextView
             android:id="@+id/inbox_item_last_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@id/inbox_item_name_textview"
+            android:layout_centerVertical="true"
 
             android:text="01 Apr"
     />

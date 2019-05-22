@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,8 @@ class SearchedBooksDialog(private val currentContext: Context, private val searc
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         setContentView(R.layout.searched_books_dialog)
+
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
         inflateViews()
 

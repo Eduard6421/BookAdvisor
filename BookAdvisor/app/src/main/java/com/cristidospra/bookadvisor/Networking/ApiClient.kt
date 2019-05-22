@@ -23,7 +23,7 @@ class ApiClient {
 
 
         //Server's base URL
-        const val BASE_URL: String = "http://108.128.54.229:8000/"
+        const val BASE_URL: String = "http://99.80.161.183:8000/"
 
         //Initialize retrofit instance
         private var retrofit: Retrofit? = null

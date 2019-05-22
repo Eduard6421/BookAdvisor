@@ -50,7 +50,7 @@ class LibraryActivity : NavigationMenuActivity() {
 
         })
 
-        /*TODO: add on click listener on reading list */
+
         readingListsRecyclerView.layoutManager = LinearLayoutManager(this)
         readingListsRecyclerView.adapter = readingListsAdapter
 
@@ -62,19 +62,22 @@ class LibraryActivity : NavigationMenuActivity() {
 
             val addReadingListDialog = AddReadingListDialog(this) { title ->
 
+                val validTitle = title.trim()
+
                 if (!CurrentUser.instance.readingLists.map {
                     it.title
-                }.contains(title)) {
+                }.contains(validTitle)) {
 
-                    val newReadingList = ReadingList(title)
+                    val newReadingList = ReadingList(validTitle)
 
                     /*TODO: consider genres from servers */
                     CurrentUser.instance.readingLists.add(newReadingList)
                     UserApiManager.addReadingList(newReadingList)
+                    readingListsAdapter.notifyDataSetChanged()
                 }
                 else {
 
-                    Toast.makeText(this, "There is already a reading list name \"${title}\"", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "There is already a reading list name \"$validTitle\"", Toast.LENGTH_LONG).show()
                 }
 
             }

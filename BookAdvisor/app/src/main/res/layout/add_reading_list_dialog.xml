@@ -28,6 +28,8 @@
             android:paddingBottom="5dp"
             android:background="@android:color/white"
             android:textColor="@color/colorBlack"
+            android:inputType="text"
+            android:imeOptions="actionDone"
             android:textSize="14sp"
             android:text=""
             android:textCursorDrawable="@null"

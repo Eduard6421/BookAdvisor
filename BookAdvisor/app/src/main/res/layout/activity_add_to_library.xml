@@ -27,14 +27,14 @@ android:background="@color/colorBackground">
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@id/add_to_reading_lists_title"
-        android:layout_above="@id/add_to_readin_lists_confirm"
+        android:layout_above="@id/add_to_reading_lists_confirm"
         android:layout_marginTop="16dp"
 >
 
 </androidx.recyclerview.widget.RecyclerView>
 
 <Button
-        android:id="@+id/add_to_readin_lists_confirm"
+        android:id="@+id/add_to_reading_lists_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

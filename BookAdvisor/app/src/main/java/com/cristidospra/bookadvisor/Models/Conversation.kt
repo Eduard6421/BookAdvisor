@@ -5,11 +5,13 @@ import java.io.Serializable
 
 class Conversation(
 
+    var chatUID: String = "",
+
     @SerializedName("user")
     var user: User = User(),
 
     @SerializedName("last_message")
-    var lastMessage: Message = Message()
+    var lastMessage: Message? = null
 
 ) : Serializable {
 }

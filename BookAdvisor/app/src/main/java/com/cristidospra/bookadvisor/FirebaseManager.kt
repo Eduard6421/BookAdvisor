@@ -1,12 +1,10 @@
 package com.cristidospra.bookadvisor
 
 import android.util.Log
-import android.view.View
 import com.cristidospra.bookadvisor.Models.Conversation
 import com.cristidospra.bookadvisor.Models.FirebaseMessage
 import com.cristidospra.bookadvisor.Models.Message
 import com.cristidospra.bookadvisor.Models.User
-import com.cristidospra.bookadvisor.Networking.LoginApiInterface
 import com.cristidospra.bookadvisor.Networking.LoginApiManager
 import com.cristidospra.bookadvisor.Utils.Utils
 import com.google.android.gms.tasks.OnCompleteListener
@@ -135,6 +133,17 @@ object FirebaseManager {
         return chatUID.toString()
     }
 
+    private fun addUserChats(senderUID: String, receiverUID: String) : String {
+
+        val chatRef = firebaseDatabase.reference.child("chats").push()
+        val chatUID = chatRef.key
+
+        firebaseDatabase.reference.child("user_chats").child(senderUID).child(receiverUID).child(chatUID.toString()).setValue(chatUID)
+        firebaseDatabase.reference.child("user_chats").child(receiverUID).child(senderUID).child(chatUID.toString()).setValue(chatUID)
+
+        return chatUID.toString()
+    }
+
     fun getConversations(onSuccess: (Conversation) -> Unit) {
 
         val convoRef = firebaseDatabase.reference.child("user_chats").child(getUID())
@@ -154,7 +163,7 @@ object FirebaseManager {
                     getLastMessage(CurrentUser.instance.firebasUID, userUID, chatUID) { msg ->
 
                         print("")
-                        onSuccess(Conversation(User(firebasUID = userUID), msg))
+                        onSuccess(Conversation(chatUID, User(firebasUID = userUID), msg))
                     }
 
                 }
@@ -166,7 +175,7 @@ object FirebaseManager {
         })
     }
 
-    fun getLastMessage(user1UID: String, user2UID: String, chatUID: String, onSuccess: (Message) -> Unit) {
+    fun getLastMessage(user1UID: String, user2UID: String, chatUID: String, onSuccess: (Message?) -> Unit) {
 
         val chatRef = firebaseDatabase.reference.child("chats").child(chatUID)
 
@@ -178,22 +187,34 @@ object FirebaseManager {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                val messageUID = dataSnapshot.value as String
+                if (dataSnapshot.value == null) {
+                    onSuccess(null)
+                }
+                else {
 
-                getMessage(chatUID, messageUID) {
+                    val messageUID = (dataSnapshot.value as HashMap<String, String>).values.first()
 
-                    var sender: String
-                    var receiver: String
-                    if (it.senderUID == user1UID) {
-                        sender = user1UID
-                        receiver = user2UID
+                    getMessage(chatUID, messageUID) {
+
+                        var sender: String
+                        var receiver: String
+                        if (it.senderUID == user1UID) {
+                            sender = user1UID
+                            receiver = user2UID
+                        } else {
+                            sender = user2UID
+                            receiver = user1UID
+                        }
+
+                        onSuccess(
+                            Message(
+                                User(firebasUID = sender),
+                                User(firebasUID = receiver),
+                                Utils.stringToDate(it.timeStamp),
+                                it.content
+                            )
+                        )
                     }
-                    else {
-                        sender = user2UID
-                        receiver = user1UID
-                    }
-
-                    onSuccess(Message(User(firebasUID = sender), User(firebasUID = receiver), Utils.stringToDate(it.timeStamp), it.content))
                 }
             }
 
@@ -213,7 +234,12 @@ object FirebaseManager {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                onSuccess((dataSnapshot.value as HashMap<String, String>).values.first())
+                if (dataSnapshot.value == null) {
+                    onSuccess(addUserChats(user1UID, user2UID))
+                }
+                else {
+                    onSuccess((dataSnapshot.value as HashMap<String, String>).values.first())
+                }
             }
 
         })
@@ -232,7 +258,7 @@ object FirebaseManager {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                val firebaseMessage = dataSnapshot.value as FirebaseMessage
+                val firebaseMessage = FirebaseMessage((dataSnapshot.value as HashMap<String, String>))
 
                 onSuccess(firebaseMessage)
             }
@@ -240,7 +266,7 @@ object FirebaseManager {
         })
     }
 
-    fun getNewMessage(user: User, onSuccess: (Message) -> Unit) {
+    fun getNewMessage(chatUID: String, user: User, onSuccess: (ArrayList<Message>) -> Unit) {
 
         val ref = firebaseDatabase.reference.child("chat_messages")
 
@@ -253,26 +279,31 @@ object FirebaseManager {
 
                 if (dataSnapshot.value != null) {
 
-                    var chatMap: HashMap<String, HashMap<String, HashMap<String, String>>> = (dataSnapshot.value as HashMap<String, HashMap<String, HashMap<String, String>>>)
-                    val chatUID = chatMap.keys.first()
+                    val chatMap: HashMap<String, HashMap<String, HashMap<String, String>>> = (dataSnapshot.value as HashMap<String, HashMap<String, HashMap<String, String>>>)
+                    val messageMap: HashMap<String, HashMap<String, String>> = chatMap[chatUID] ?: return
+                    val messages: ArrayList<Message> = ArrayList()
 
-                    var messageMap: HashMap<String, HashMap<String, String>> = chatMap[chatUID]!!
-                    val messageUID = messageMap.keys.first()
+                    for (messageUID in messageMap.keys) {
 
-                    val firebaseMessage = FirebaseMessage(messageMap[messageUID]!!)
+                        val firebaseMessage = FirebaseMessage(messageMap[messageUID])
 
-                    var sender: User
-                    var receiver: User
-                    if (firebaseMessage.senderUID == CurrentUser.instance.firebasUID) {
-                        sender = CurrentUser.instance
-                        receiver = user
+                        var sender: User
+                        var receiver: User
+
+                        if (firebaseMessage.senderUID == CurrentUser.instance.firebasUID) {
+                            sender = CurrentUser.instance
+                            receiver = user
+
+                        } else {
+                            sender = user
+                            receiver = CurrentUser.instance
+                        }
+
+                        messages.add(Message(sender, receiver, Utils.stringToDate(firebaseMessage.timeStamp), firebaseMessage.content))
+
                     }
-                    else {
-                        sender = user
-                        receiver = CurrentUser.instance
-                    }
 
-                    onSuccess(Message(sender, receiver, Utils.stringToDate(firebaseMessage.timeStamp), firebaseMessage.content))
+                    onSuccess(messages)
                 }
 
             }
@@ -280,104 +311,3 @@ object FirebaseManager {
         })
     }
 }
-
-
-/*
-
-chatMessages -> chats -> userChats
-
--chats
-   - chat1_UID
-       - members
-           - user1_UID
-           - user2_UID
-           ...
-           - userN_UID
-
-       - lastMessageSent: messageUID
-
-   - chat2_UID
-       - members
-           - user1_UID
-           - user2_UID
-           ...
-           - userN_UID
-
-       - lastMessageSent: messageUID
-   ...
-
-   - chatN_UID
-       - members
-           - user1_UID
-           - user2_UID
-           ...
-           - userN_UID
-
-       - lastMessageSent: messageUID
-
-
--chatMessages
-   - chat1_UID
-     - message1_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-
-      - message2_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-
-       ...
-
-       - messageN_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-
-   - chat2_UID
-     - message1_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-
-      - message2_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-
-       ...
-
-       - messageN_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-    ...
-
--userChats
-    - user1_UID
-       - chat1_UID
-       - chat2_UID
-       ...
-       - chatN_UID
-
-    - user2_UID
-       - chat1_UID
-       - chat2_UID
-       ...
-       - chatN_UID
-    ...
-
-    - userN_UID
-       - chat1_UID
-       - chat2_UID
-       ...
-       - chatN_UID
-
- */

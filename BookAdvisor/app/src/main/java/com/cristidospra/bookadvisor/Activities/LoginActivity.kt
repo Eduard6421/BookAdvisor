@@ -86,6 +86,8 @@ class LoginActivity : AppCompatActivity() {
 
                             CurrentUser.instance.fromUser(user)
                             this.startActivity(Intent(this, LibraryActivity::class.java))
+
+                            finish()
                         }
                     }
                 },

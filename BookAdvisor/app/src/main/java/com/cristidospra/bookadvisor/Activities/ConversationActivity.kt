@@ -38,17 +38,18 @@ class ConversationActivity : NavigationMenuActivity() {
         }
 
         /*TODO: get messages from firebase*/
-        messageAdapter = MessageListAdapter(this, messages)
-        messageList.adapter = messageAdapter
+        /*messageAdapter = MessageListAdapter(this, messages)
+        messageList.adapter = messageAdapter*/
 
         messageSendButton.setOnClickListener {
 
             sendMessage()
         }
 
-        FirebaseManager.getNewMessage(currentConversation.user) {
+        FirebaseManager.getNewMessage(currentConversation.chatUID, currentConversation.user) {
 
-            messageAdapter.add(it)
+            messageAdapter = MessageListAdapter(this, it)
+            messageList.adapter = messageAdapter
             messageAdapter.notifyDataSetChanged()
         }
 
@@ -67,6 +68,7 @@ class ConversationActivity : NavigationMenuActivity() {
 
             val messageToSend = Message(CurrentUser.instance, currentConversation.user, Date(), messageEditText.text.toString())
             FirebaseManager.addMessage(CurrentUser.instance, currentConversation.user, messageToSend)
+            messageEditText.setText("")
         }
     }
 }
