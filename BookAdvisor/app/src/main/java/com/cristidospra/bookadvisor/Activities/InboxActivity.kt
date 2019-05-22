@@ -5,18 +5,11 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.ConversationAdapter
-import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.FirebaseManager
 import com.cristidospra.bookadvisor.Models.Conversation
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ValueEventListener
-
 
 
 class InboxActivity : NavigationMenuActivity() {
@@ -50,7 +43,6 @@ class InboxActivity : NavigationMenuActivity() {
                 messagesRecyclerViewAdapter.notifyDataSetChanged()
             }
         }
-        /*TODO: test get conversations from firebase */
     }
 
     private fun inflateViews() {

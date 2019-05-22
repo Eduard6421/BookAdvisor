@@ -2,7 +2,10 @@ package com.cristidospra.bookadvisor.Networking
 
 import android.graphics.Bitmap
 import com.cristidospra.bookadvisor.CurrentUser
-import com.cristidospra.bookadvisor.Models.*
+import com.cristidospra.bookadvisor.Models.Book
+import com.cristidospra.bookadvisor.Models.Conversation
+import com.cristidospra.bookadvisor.Models.ReadingList
+import com.cristidospra.bookadvisor.Models.User
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

@@ -1,7 +1,5 @@
 package com.cristidospra.bookadvisor
 
-import com.cristidospra.bookadvisor.Models.Genre
-import com.cristidospra.bookadvisor.Models.ReadingList
 import com.cristidospra.bookadvisor.Models.User
 
 class CurrentUser private constructor() : User() {

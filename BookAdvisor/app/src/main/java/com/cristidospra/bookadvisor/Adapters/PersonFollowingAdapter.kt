@@ -1,12 +1,17 @@
 package com.cristidospra.bookadvisor.Adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.cristidospra.bookadvisor.Activities.ConversationActivity
+import com.cristidospra.bookadvisor.CurrentUser
+import com.cristidospra.bookadvisor.FirebaseManager
+import com.cristidospra.bookadvisor.Models.Conversation
 import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
@@ -35,7 +40,16 @@ class PersonFollowingAdapter(private val usedContext: Context, private val peopl
         holder.readingTextView.text = ""
         holder.messageImageView.setOnClickListener {
 
-            /*TODO: go to inbox */
+            FirebaseManager.getUserChat(CurrentUser.instance.firebasUID, person.firebasUID) { chatUID ->
+
+                FirebaseManager.getLastMessage(CurrentUser.instance.firebasUID, person.firebasUID, chatUID) { lastMessage ->
+                    val conversation = Conversation(chatUID, person, lastMessage)
+
+                    val intent = Intent(usedContext, ConversationActivity::class.java)
+                    intent.putExtra("conversation", conversation)
+                    usedContext.startActivity(intent)
+                }
+            }
         }
 
         holder.itemView.setOnClickListener {

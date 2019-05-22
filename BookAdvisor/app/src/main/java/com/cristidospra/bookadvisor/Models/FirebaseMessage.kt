@@ -1,7 +1,7 @@
 package com.cristidospra.bookadvisor.Models
 
 import com.google.gson.annotations.SerializedName
-import java.util.HashMap
+import java.util.*
 
 class FirebaseMessage(
 

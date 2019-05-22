@@ -3,7 +3,6 @@ package com.cristidospra.bookadvisor.Networking
 import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.Models.Genre
 import com.cristidospra.bookadvisor.Models.Review
-import com.cristidospra.bookadvisor.Models.User
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*

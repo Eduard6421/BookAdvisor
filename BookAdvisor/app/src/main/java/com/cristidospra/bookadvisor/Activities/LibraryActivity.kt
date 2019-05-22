@@ -70,7 +70,6 @@ class LibraryActivity : NavigationMenuActivity() {
 
                     val newReadingList = ReadingList(validTitle)
 
-                    /*TODO: consider genres from servers */
                     CurrentUser.instance.readingLists.add(newReadingList)
                     UserApiManager.addReadingList(newReadingList)
                     readingListsAdapter.notifyDataSetChanged()

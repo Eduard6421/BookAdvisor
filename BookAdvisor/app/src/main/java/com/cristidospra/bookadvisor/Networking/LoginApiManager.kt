@@ -1,11 +1,8 @@
 package com.cristidospra.bookadvisor.Networking
 
-import com.cristidospra.bookadvisor.CurrentUser
-import com.cristidospra.bookadvisor.FirebaseManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.HTTP
 
 object LoginApiManager {
 

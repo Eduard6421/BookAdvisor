@@ -3,7 +3,6 @@ package com.cristidospra.bookadvisor.Dialogs
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView

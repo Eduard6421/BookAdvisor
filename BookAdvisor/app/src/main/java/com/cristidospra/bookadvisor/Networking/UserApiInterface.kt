@@ -1,11 +1,13 @@
 package com.cristidospra.bookadvisor.Networking
 
-import com.cristidospra.bookadvisor.Models.*
+import com.cristidospra.bookadvisor.Models.Book
+import com.cristidospra.bookadvisor.Models.Conversation
+import com.cristidospra.bookadvisor.Models.ReadingList
+import com.cristidospra.bookadvisor.Models.User
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 interface UserApiInterface {
 

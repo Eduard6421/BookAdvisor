@@ -1,13 +1,11 @@
 package com.cristidospra.bookadvisor.Activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.cristidospra.bookadvisor.Networking.LoginApiManager
-import com.cristidospra.bookadvisor.Networking.UserApiManager
+import androidx.appcompat.app.AppCompatActivity
 import com.cristidospra.bookadvisor.R
 
 class ForgotPasswordActivity : AppCompatActivity() {

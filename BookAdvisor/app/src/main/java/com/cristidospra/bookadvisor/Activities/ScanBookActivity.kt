@@ -12,15 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterInside
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.cristidospra.bookadvisor.Adapters.VerticalBookAdapter
 import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.Networking.BookApiManager
-import com.cristidospra.bookadvisor.Networking.LoginApiManager
 import com.cristidospra.bookadvisor.R
-import com.cristidospra.bookadvisor.Utils.Utils
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 

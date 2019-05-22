@@ -2,7 +2,6 @@ package com.cristidospra.bookadvisor.Models
 
 import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.Networking.ApiClient
-import com.cristidospra.bookadvisor.Utils.Utils
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.text.SimpleDateFormat
@@ -22,7 +21,6 @@ class Book(
 
     @SerializedName("authors")
     var authors: ArrayList<Author> = ArrayList(),
-    //var authors: ArrayList<String> = ArrayList(),
 
     @SerializedName("no_pages")
     var nrPages: Int = 0,

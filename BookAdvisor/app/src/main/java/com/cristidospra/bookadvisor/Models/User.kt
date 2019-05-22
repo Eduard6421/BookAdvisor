@@ -3,7 +3,6 @@ package com.cristidospra.bookadvisor.Models
 import com.cristidospra.bookadvisor.Networking.ApiClient.Companion.BASE_URL
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import java.util.function.Predicate
 
 open class User(
 

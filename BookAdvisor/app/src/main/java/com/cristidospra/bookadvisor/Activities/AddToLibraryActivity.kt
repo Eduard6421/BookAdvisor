@@ -54,7 +54,6 @@ class AddToLibraryActivity : NavigationMenuActivity() {
 
                 rl.add(currentBook)
                 UserApiManager.updateReadingList(rl) {
-                    /*TODO: update readinglist*/
                     CurrentUser.instance.updateReadingList(it)
                     addToReadingListAdapter.notifyDataSetChanged()
                 }

@@ -2,8 +2,6 @@ package com.cristidospra.bookadvisor.Activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.PersonFollowingAdapter
 import com.cristidospra.bookadvisor.Adapters.PersonNewAdapter
 import com.cristidospra.bookadvisor.CurrentUser
-import com.cristidospra.bookadvisor.Dialogs.SearchedBooksDialog
 import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.Networking.UserApiManager

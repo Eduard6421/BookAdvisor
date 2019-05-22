@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Adapters.HorizontalBookAdapter
-import com.cristidospra.bookadvisor.Adapters.RecommendationAdapter
 import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.Networking.UserApiManager

@@ -4,13 +4,17 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.text.Editable
 import android.text.SpannableString
-import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
-import android.view.*
+import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.*
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -18,12 +22,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.cristidospra.bookadvisor.Activities.*
-import com.cristidospra.bookadvisor.Adapters.HorizontalBookAdapter
 import com.cristidospra.bookadvisor.Dialogs.SearchedBooksDialog
-import com.cristidospra.bookadvisor.Models.Book
-import com.cristidospra.bookadvisor.Networking.BookApiManager
 import com.cristidospra.bookadvisor.Utils.Utils
 import com.google.android.material.navigation.NavigationView
 

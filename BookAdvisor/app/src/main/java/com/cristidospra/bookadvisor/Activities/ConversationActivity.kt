@@ -12,9 +12,7 @@ import com.cristidospra.bookadvisor.Models.Message
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
-import com.google.firebase.database.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ConversationActivity : NavigationMenuActivity() {
@@ -24,7 +22,6 @@ class ConversationActivity : NavigationMenuActivity() {
 
     private lateinit var messageList: ListView
     private lateinit var messageAdapter: MessageListAdapter
-    private var messages: ArrayList<Message> = ArrayList()
 
     private lateinit var currentConversation: Conversation
 
@@ -38,20 +35,19 @@ class ConversationActivity : NavigationMenuActivity() {
             currentConversation = intent.getSerializableExtra("conversation") as Conversation
         }
 
-        /*TODO: get messages from firebase*/
-        /*messageAdapter = MessageListAdapter(this, messages)
-        messageList.adapter = messageAdapter*/
 
         messageSendButton.setOnClickListener {
 
             sendMessage()
         }
 
-        FirebaseManager.getNewMessage(currentConversation.chatUID, currentConversation.user) {
+        FirebaseManager.getNewMessage(currentConversation.chatUID, currentConversation.user) { messages ->
 
-            messageAdapter = MessageListAdapter(this, it)
+            messages.sortBy { selector(it) }
+            messageAdapter = MessageListAdapter(this, messages)
             messageList.adapter = messageAdapter
             messageAdapter.notifyDataSetChanged()
+            messageList.post { messageList.setSelection(messageList.count - 1) }
         }
 
     }
@@ -73,102 +69,6 @@ class ConversationActivity : NavigationMenuActivity() {
             Utils.closeKeyboard(this, messageEditText)
         }
     }
+
+    private fun selector(m: Message): Date = m.sentDate
 }
-
-/*
-
--chats
-   - chat1_UID
-       - members
-           - user1_UID
-           - user2_UID
-           ...
-           - userN_UID
-
-       - lastMessageSent: messageUID
-
-   - chat2_UID
-       - members
-           - user1_UID
-           - user2_UID
-           ...
-           - userN_UID
-
-       - lastMessageSent: messageUID
-   ...
-
-   - chatN_UID
-       - members
-           - user1_UID
-           - user2_UID
-           ...
-           - userN_UID
-
-       - lastMessageSent: messageUID
-
-
--chatMessages
-   - chat1_UID
-     - message1_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-
-      - message2_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-
-       ...
-
-       - messageN_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-
-   - chat2_UID
-     - message1_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-
-      - message2_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-
-       ...
-
-       - messageN_UID
-         - sentBy: userUID
-         - messageDate:""
-         - messageTime:""
-         - message:""
-    ...
-
--userChats
-    - user1_UID
-       - chat1_UID
-       - chat2_UID
-       ...
-       - chatN_UID
-
-    - user2_UID
-       - chat1_UID
-       - chat2_UID
-       ...
-       - chatN_UID
-    ...
-
-    - userN_UID
-       - chat1_UID
-       - chat2_UID
-       ...
-       - chatN_UID
-
- */

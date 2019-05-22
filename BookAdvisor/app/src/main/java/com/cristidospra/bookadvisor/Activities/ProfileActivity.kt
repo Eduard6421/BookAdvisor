@@ -134,8 +134,6 @@ class ProfileActivity : NavigationMenuActivity() {
                         this.startActivity(intent)
                     }
                 }
-
-                /*TODO: test create new conversation or go to the existent one */
             }
         }
 

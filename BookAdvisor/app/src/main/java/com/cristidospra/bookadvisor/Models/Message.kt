@@ -1,10 +1,8 @@
 package com.cristidospra.bookadvisor.Models
 
-import com.cristidospra.bookadvisor.Utils.Utils
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class Message(

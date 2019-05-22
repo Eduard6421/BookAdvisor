@@ -1,20 +1,11 @@
 package com.cristidospra.bookadvisor
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.cristidospra.bookadvisor.FirebaseManager.addMessage
-import com.cristidospra.bookadvisor.FirebaseManager.firebaseDatabase
-import com.cristidospra.bookadvisor.Models.*
-import com.cristidospra.bookadvisor.Networking.*
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.cristidospra.bookadvisor.Models.Message
+import com.cristidospra.bookadvisor.Models.User
 
 class MainActivity: AppCompatActivity() {
 
