@@ -30,7 +30,8 @@ class Book(models.Model):
     publish_date = models.DateTimeField(default=datetime.datetime.now)  # original_publication_year
     rating = models.FloatField(default=0.0)
     no_pages = models.IntegerField(default=0)
-    cover = models.ImageField(upload_to='images/', default='images/default_cover.png')
+    #cover = models.ImageField(upload_to='images/', default='images/default_cover.png')
+    cover = models.CharField(max_length=255, default='')
     authors = models.ManyToManyField(Author, related_name='authors', blank=True)
     reviews = models.ManyToManyField(Review, related_name='reviews', blank=True)
     books_tags = models.ManyToManyField(Tag, related_name='books_tags', blank=True)

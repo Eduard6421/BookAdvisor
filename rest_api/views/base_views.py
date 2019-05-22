@@ -51,14 +51,12 @@ import random
 
 from ..models import *
 from ..serializers import *
-#from ..tests import *
+from ..db_populate import *
 
 from django.db import connection
 with connection.cursor() as cursor:
     cursor.execute('CREATE EXTENSION IF NOT EXISTS pg_trgm')
-    print('hentai lover')
 
-print('hentai non-lover')
 
 # receive an profile obj or a list of profiles
 def parse_user(user_profile):
@@ -78,7 +76,7 @@ def parse_user(user_profile):
         else:
             serializer = ProfileSerializer(user_profile)
             profile_json = serializer.data
-            print(profile_json)
+            #print(profile_json)
             for key, element in serializer.data['user'].items():
                 profile_json[key] = element
             del profile_json['user']

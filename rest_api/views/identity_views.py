@@ -185,6 +185,15 @@ RETURN:
 def get_user(request, email):
     obj_user = Profile.objects.get(user=request.user)
     res = parse_user(obj_user)
+
+    for elem in res['followers']:
+        firebaseUID_follow = Profile.objects.get(user=User.objects.get(email=elem['email'])).firebaseUID
+        elem['firebaseUID'] = firebaseUID_follow
+
+    for elem in res['following']:
+        firebaseUID_follow = Profile.objects.get(user=User.objects.get(email=elem['email'])).firebaseUID
+        elem['firebaseUID'] = firebaseUID_follow
+
     return Response(res, status=HTTP_200_OK)
 
 
@@ -208,6 +217,18 @@ def get_followers(request):
         profile_obj = Profile.objects.get(user=request.user)
         obj_user = [Profile.objects.get(user=u) for u in profile_obj.followers.all()]
         res = parse_user(obj_user)
+        for res_obj in res:
+            for elem in res_obj['followers']:
+                prof_obj = Profile.objects.get(user=User.objects.get(email=elem['email']))
+                firebaseUID_follow = prof_obj.firebaseUID
+                elem['firebaseUID'] = prof_obj.firebaseUID
+                elem['profile_picture'] = prof_obj.profile_picture
+
+            for elem in res_obj['following']:
+                prof_obj = Profile.objects.get(user=User.objects.get(email=elem['email']))
+                firebaseUID_follow = prof_obj.firebaseUID
+                elem['firebaseUID'] = prof_obj.firebaseUID
+                elem['profile_picture'] = prof_obj.profile_picture
 
         return Response(res, status=HTTP_200_OK)
     except User.DoesNotExist:
@@ -240,6 +261,20 @@ def get_following(request):
         obj_user = [Profile.objects.get(user=u) for u in profile_obj.following.all()]
         res = parse_user(obj_user)
 
+        print(len(res))
+        for res_obj in res:
+            for elem in res_obj['followers']:
+                prof_obj = Profile.objects.get(user=User.objects.get(email=elem['email']))
+                firebaseUID_follow = prof_obj.firebaseUID
+                elem['firebaseUID'] = prof_obj.firebaseUID
+                elem['profile_picture'] = prof_obj.profile_picture
+
+            for elem in res_obj['following']:
+                prof_obj = Profile.objects.get(user=User.objects.get(email=elem['email']))
+                firebaseUID_follow = prof_obj.firebaseUID
+                elem['firebaseUID'] = prof_obj.firebaseUID
+                elem['profile_picture'] = prof_obj.profile_picture
+
         return Response(res, status=HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
@@ -261,6 +296,16 @@ def find_new_people(request):
         else:
             new_people = [Profile.objects.get(user=u) for u in User.objects.all()[:10] if u.id is not request.user.id]
         res = parse_user(new_people)
+
+        for res_obj in res:
+            for elem in res_obj['followers']:
+                firebaseUID_follow = Profile.objects.get(user=User.objects.get(email=elem['email'])).firebaseUID
+                elem['firebaseUID'] = firebaseUID_follow
+
+            for elem in res_obj['following']:
+                firebaseUID_follow = Profile.objects.get(user=User.objects.get(email=elem['email'])).firebaseUID
+                elem['firebaseUID'] = firebaseUID_follow
+
         return Response(res, status=HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
@@ -280,10 +325,18 @@ def get_users_notfollowing(request):
         follow_name += [request.user.email]
 
         notfollowing = User.objects.exclude(email__in=follow_name)
-        serializer = UserSerializer(notfollowing, many=True)
-        profile_json = serializer.data
 
-        return Response(profile_json, status=HTTP_200_OK)
+        res = parse_user([Profile.objects.get(user=u) for u in notfollowing])
+        for res_obj in res:
+            for elem in res_obj['followers']:
+                firebaseUID_follow = Profile.objects.get(user=User.objects.get(email=elem['email'])).firebaseUID
+                elem['firebaseUID'] = firebaseUID_follow
+
+            for elem in res_obj['following']:
+                firebaseUID_follow = Profile.objects.get(user=User.objects.get(email=elem['email'])).firebaseUID
+                elem['firebaseUID'] = firebaseUID_follow
+
+        return Response(res, status=HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 
@@ -335,7 +388,7 @@ def get_user_by_firebase(request, firebaseUID):
             profile_json[key] = element
         del profile_json['user']
 
-        print(profile_json)
+        #print(profile_json)
         return Response(profile_json, status=HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
@@ -351,7 +404,7 @@ def update_user_pic(request):
        image_cover = request.data.get('image_profile', None)
 
        path_img = default_storage.save('/data/BookAdvisor/media/' + str(uuid.uuid4()) + ".jpg", ContentFile(request.data.get('profile',None).read()))
-       print(path_img)
+       #print(path_img)
 
        obj_user = Profile.objects.get(user=request.user)
        obj_user.profile_picture = path_img

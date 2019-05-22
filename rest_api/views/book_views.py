@@ -39,13 +39,23 @@ def get_categories(request):
 @csrf_exempt
 @api_view(['GET',])
 def get_book(request, book_id):
-    book_update = request.data
     email = request.user.email
 
     try:
         book = Book.objects.get(id=book_id)
         serializer = BookSerializer(book)
         book_json = serializer.data
+
+        for review in book_json['reviews']:
+            firebaseUID_user = Profile.objects.get(user=User.objects.get(email=review['user_review']['email'])).firebaseUID
+            profile_picture_user = Profile.objects.get(user=User.objects.get(email=review['user_review']['email'])).profile_picture
+            review['user_review']['profile_picture'] = profile_picture_user
+            review['user_review']['firebaseUID'] = firebaseUID_user
+            #print(firebaseUID_user)
+            #print(profile_picture_user)
+
+
+        #print(book_json)
 
         return Response(book_json)
     except Book.DoesNotExist:
@@ -166,7 +176,7 @@ def book(request):
 @api_view(['GET', ])
 def get_books(request,title):
     msg = 'maintenance'
-    
+
     books = Book.objects.annotate(similarity=TrigramSimilarity('title', title), ).filter(similarity__gt=0.2).order_by('-similarity')[:4]
     authors = Author.objects.annotate(similarity=TrigramSimilarity('name', title), ).filter(similarity__gt=0.2).order_by('-similarity')
 
@@ -255,7 +265,14 @@ def get_reviews(request, title):
         book = book.first()
         serializer = BookSerializer(book)
         book_json = serializer.data
+        for review in book_json['reviews']:
+            firebaseUID_user = Profile.objects.get(user=User.objects.get(email=review['user_review']['email'])).firebaseUID
+            profile_picture_user = Profile.objects.get(user=User.objects.get(email=review['user_review']['email'])).profile_picture
+            review['user_review']['profile_picture'] = profile_picture_user
+
         reviews = book_json['reviews']
+
+
 
         return Response(reviews, status=HTTP_200_OK)
 
@@ -265,7 +282,7 @@ def get_reviews(request, title):
 def add_review(request, book_id):
     msg = 'maintenance'
     reviews_json = request.data
-
+    print(reviews_json)
     book = Book.objects.filter(id=book_id)
 
     if book.first() is None:
@@ -276,6 +293,10 @@ def add_review(request, book_id):
         review = Review(content=reviews_json['content'], score=float(reviews_json['score']),
                         user_review=request.user)
         review.save()
+        print(book_id)
+        print(review.content)
+        print(review.score)
+        print(review.user_review)
         book.reviews.add(review)
         book.rating = sum([review.score for review in book.reviews.all()]) / len(book.reviews.all())
         book.save()
