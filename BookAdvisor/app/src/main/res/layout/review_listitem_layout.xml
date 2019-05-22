@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFD8D8D8">
+
+    <ImageView
+        android:id="@+id/review_listitem_profilepic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_default_profile"
+    />
+
+    <TextView
+        android:id="@+id/review_listitem_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_toEndOf="@id/review_listitem_profilepic"
+        android:layout_alignTop="@id/review_listitem_profilepic"
+        android:layout_marginTop="4dp"
+
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"
+        android:text="Gigel"
+    />
+
+    <TextView
+        android:id="@+id/review_listitem_post_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/review_listitem_name"
+        android:layout_alignStart="@id/review_listitem_name"
+
+        android:textColor="@color/colorLightGray"
+        android:textSize="12sp"
+        android:text="22 Mar at 18:49"
+    />
+
+
+    <RatingBar
+        android:id="@+id/review_listitem_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/review_listitem_name"
+
+        style="@style/Base.Widget.AppCompat.RatingBar.Small"
+    />
+
+    <TextView
+        android:id="@+id/review_listitem_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/review_listitem_profilepic"
+        android:layout_alignStart="@id/review_listitem_profilepic"
+        android:layout_marginTop="-4dp"
+
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"
+        android:text="Mare carte de barosani"
+    />
+
+</RelativeLayout>

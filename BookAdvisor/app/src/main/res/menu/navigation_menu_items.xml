@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navigation_my_library"
+        android:icon="@drawable/ic_nav_library"
+        android:title="My Library"/>
+
+    <item android:id="@+id/navigation_explore_categories"
+        android:icon="@drawable/ic_nav_explore"
+        android:title="Explore Categories"/>
+
+    <item android:id="@+id/navigation_recommended_books"
+        android:icon="@drawable/ic_nav_recommended"
+        android:title="Recommended Books"/>
+
+    <item android:id="@+id/navigation_scan_books"
+        android:icon="@drawable/ic_nav_camera"
+        android:title="Scan book"/>
+
+    <item android:id="@+id/navigation_find_people"
+          android:icon="@drawable/ic_nav_people"
+          android:title="Find people"/>
+
+    <item android:id="@+id/navigation_settings"
+          android:icon="@drawable/ic_settings"
+          android:title="Setting and Support"/>
+
+</menu>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:id="@+id/library_reading_lists_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+
+        android:text="Reading Lists"
+        android:textSize="20sp"
+        android:textColor="@color/colorText"
+    />
+
+    <!-- Use readinglist_listitem_layout -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/library_reading_lists_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_above="@id/library_add_reading_list_button"
+        android:layout_below="@+id/library_reading_lists_title"
+        android:layout_marginTop="16dp"
+    >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/library_add_reading_list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_layout"
+        android:textColor="@color/colorWhite"
+        android:text=" + Create a new reading list"
+    />
+
+</RelativeLayout>

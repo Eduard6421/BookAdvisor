@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <RelativeLayout
+        android:id="@+id/people_following_title_container"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:background="@color/colorBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerInParent="true"
+
+            android:textColor="@color/colorText"
+            android:textSize="24sp"
+            android:text="FOLLOWING"
+        />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/people_following_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_below="@id/people_following_title_container">
+
+        <EditText
+                android:id="@+id/people_search_following"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginEnd="21dp"
+                android:padding="12dp"
+                android:background="@color/colorWhite"
+                android:drawableEnd="@drawable/ic_search"
+
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:hint="Search through the people you follow"
+        />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/people_following_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+
+                android:layout_below="@id/people_search_following">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:layout_below="@id/people_following_container">
+
+        <TextView
+            android:id="@+id/people_find_new_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_alignStart="@id/people_search_new"
+
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            android:text="FIND NEW PEOPLE"
+        />
+
+        <EditText
+                android:id="@+id/people_search_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/people_find_new_title"
+
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginEnd="21dp"
+                android:padding="12dp"
+                android:background="@color/colorWhite"
+                android:drawableEnd="@drawable/ic_search"
+
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:hint="Find someone new"
+        />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/people_new_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+
+                android:layout_below="@id/people_search_new">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:background="@color/colorPrimary"
+        android:padding="20dp">
+
+    <TextView
+            android:id="@+id/add_review_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+
+            android:text="Write a review"
+            android:textColor="@color/colorBlack"
+            android:textSize="26sp"
+    />
+
+    <RatingBar
+            android:id="@+id/add_review_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_review_title"
+    />
+
+
+    <EditText
+            android:id="@+id/add_review_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_review_rating"
+            android:layout_above="@id/add_review_save"
+            android:background="@color/colorWhite"
+            android:inputType="textLongMessage"
+            android:hint="Review (optional)"/>
+
+    <TextView
+            android:id="@+id/add_review_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+
+            android:text="Save"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+    />
+
+
+</RelativeLayout>

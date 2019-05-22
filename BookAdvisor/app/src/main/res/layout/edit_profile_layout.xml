@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="22dp"
+    android:paddingBottom="28dp"
+    android:background="@color/colorBarBackground">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="22dp"
+
+        android:textSize="16sp"
+        android:textColor="@color/colorBarText"
+        android:text="Name"
+    />
+
+    <EditText
+        android:id="@+id/name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/name"
+        android:layout_alignStart="@id/name"
+        android:layout_toStartOf="@id/edit_name_icon"
+
+        android:textSize="18sp"
+        android:textColor="@color/colorNavInactive"
+        android:textStyle="bold"
+
+        android:enabled="false"
+    />
+
+    <ImageView
+        android:id="@+id/edit_name_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="22dp"
+        android:layout_marginStart="22dp"
+
+        android:layout_below="@id/name"
+        android:layout_alignParentEnd="true"
+
+        android:src="@drawable/ic_pencil"
+
+    />
+
+
+    <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="22dp"
+            android:layout_marginStart="22dp"
+
+            android:layout_below="@id/name_edit_text"
+
+            android:textSize="16sp"
+            android:textColor="@color/colorBarText"
+            android:text="Email"
+    />
+
+    <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/email"
+            android:layout_alignStart="@id/email"
+            android:layout_toStartOf="@id/edit_email_icon"
+
+            android:textSize="18sp"
+            android:textColor="@color/colorNavInactive"
+            android:textStyle="bold"
+
+            android:enabled="false"
+    />
+
+    <ImageView
+            android:id="@+id/edit_email_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="22dp"
+            android:layout_marginStart="22dp"
+
+            android:layout_below="@id/email"
+            android:layout_alignParentEnd="true"
+
+            android:src="@drawable/ic_pencil"
+
+    />
+
+
+    <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="22dp"
+            android:layout_marginStart="22dp"
+
+            android:layout_below="@id/email_edit_text"
+
+            android:textSize="16sp"
+            android:textColor="@color/colorBarText"
+            android:text="Description"
+    />
+
+    <EditText
+            android:id="@+id/description_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/description"
+            android:layout_alignStart="@id/description"
+            android:layout_toStartOf="@id/edit_description_icon"
+
+            android:textSize="18sp"
+            android:textColor="@color/colorNavInactive"
+            android:textStyle="bold"
+
+            android:enabled="false"
+    />
+
+    <ImageView
+            android:id="@+id/edit_description_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="22dp"
+            android:layout_marginStart="22dp"
+
+            android:layout_below="@id/description"
+            android:layout_alignParentEnd="true"
+
+            android:src="@drawable/ic_pencil"
+
+    />
+
+    <View
+        android:id="@+id/button_separator"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/description_edit_text"
+        android:layout_marginTop="48dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+    >
+
+    </View>
+
+    <Button
+        android:id="@+id/save_changes_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:layout_alignTop="@id/button_separator"
+        android:layout_toStartOf="@id/button_separator"
+
+        android:background="@drawable/button_layout"
+
+        android:textColor="@color/colorWhite"
+        android:text="Save Changes"
+    />
+
+    <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_toEndOf="@id/button_separator"
+            android:layout_alignTop="@id/save_changes_button"
+
+            android:background="@drawable/button_layout"
+            android:backgroundTint="@color/colorLightGray"
+
+            android:textColor="@color/colorWhite"
+            android:text="Cancel"
+    />
+
+</RelativeLayout>

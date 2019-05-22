@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground">
+
+
+        <ImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="21dp"
+            android:src="@drawable/ic_default_profile"/>
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/profile_picture"
+            android:layout_alignTop="@id/profile_picture"
+
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:text="Cristi Dospra"
+        />
+
+        <ImageView
+                android:id="@+id/profile_send_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:padding="21dp"
+                android:src="@drawable/ic_message"
+                android:tint="@color/colorPrimary"
+        />
+
+        <TextView
+            android:id="@+id/profile_nr_books"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="10dp"
+            android:layout_above="@+id/books"
+            android:layout_alignStart="@id/books"
+
+            android:textColor="@color/colorText"
+            android:textSize="22sp"
+            android:text="25"
+        />
+
+        <TextView
+            android:id="@+id/books"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_toEndOf="@id/profile_picture"
+            android:layout_alignBottom="@id/profile_picture"
+
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:text="BOOKS"
+        />
+
+        <TextView
+                android:id="@+id/profile_nr_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="22dp"
+                android:paddingEnd="22dp"
+                android:layout_above="@+id/followers"
+                android:layout_alignStart="@id/followers"
+
+                android:textColor="@color/colorText"
+                android:textSize="22sp"
+                android:text="14"
+        />
+
+        <TextView
+                android:id="@+id/followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/books"
+                android:layout_alignBottom="@id/books"
+
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:text="FOLLOWERS"
+        />
+
+
+        <TextView
+                android:id="@+id/profile_nr_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="22dp"
+                android:paddingEnd="22dp"
+                android:layout_above="@+id/following"
+                android:layout_alignStart="@id/following"
+
+                android:textColor="@color/colorText"
+                android:textSize="22sp"
+                android:text="3"
+        />
+
+        <TextView
+                android:id="@+id/following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/followers"
+                android:layout_alignBottom="@id/followers"
+
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:text="FOLLOWING"
+        />
+
+        <LinearLayout
+                android:id="@+id/profile_buttons_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/profile_picture"
+                android:weightSum="100"
+                android:background="@color/colorBarBackground">
+
+            <Button
+                    android:id="@+id/profile_readinglists_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
+                    android:layout_weight="50"
+                    android:drawableStart="@drawable/ic_reading_lists"
+                    android:background="@color/colorBarBackground"
+                    android:text="READING LISTS"
+                    android:textColor="@color/colorNavInactive"
+            />
+            <Button
+                    android:id="@+id/profile_editsettings_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
+                    android:layout_weight="50"
+                    android:drawableStart="@drawable/ic_settings"
+                    android:background="@color/colorBarBackground"
+                    android:text="EDIT SETTINGS"
+                    android:textColor="@color/colorNavInactive"
+            />
+
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/profile_nr_books2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="9dp"
+                android:layout_above="@id/books2"
+                android:layout_alignStart="@id/books2"
+
+                android:textColor="@color/colorText"
+                android:textSize="22sp"
+                android:text="25"
+        />
+
+        <TextView
+                android:id="@+id/books2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignBottom="@id/books_read"
+                android:layout_toStartOf="@id/profile_separator"
+
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:text="BOOKS"
+        />
+
+
+        <View
+                android:id="@+id/profile_separator"
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_toStartOf="@id/books_read"
+                android:layout_alignBottom="@id/books_read"
+                android:background="@color/colorWhite">
+        </View>
+
+        <TextView
+                android:id="@+id/profile_nr_books_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:layout_below="@id/profile_buttons_linearlayout"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorText"
+                android:textSize="22sp"
+                android:text="14"/>
+
+        <TextView
+                android:id="@+id/books_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/profile_nr_books_read"
+
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:text="READ"
+        />
+
+        <TextView
+                android:id="@+id/profile_nr_want_to_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_above="@+id/want_to_read"
+                android:layout_alignStart="@id/want_to_read"
+                android:paddingStart="35dp"
+
+                android:textColor="@color/colorText"
+                android:textSize="22sp"
+                android:text="3"
+        />
+
+        <TextView
+                android:id="@+id/want_to_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="24dp"
+                android:layout_alignBottom="@id/books_read"
+                android:layout_toEndOf="@id/books_read"
+
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:text="WANT TO READ"
+        />
+
+
+        <TextView
+            android:id="@+id/already_read"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="30dp"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+
+            android:layout_below="@id/books2"
+            android:textSize="24sp"
+            android:textColor="@color/colorText"
+            android:text="ALREADY READ"
+        />
+
+        <!-- Use book_lisitem_vertical_layout and hide button -->
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profile_already_read_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/already_read"
+        />
+
+        <View
+            android:id="@+id/profile_separator1"
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="18dp"
+            android:layout_below="@id/profile_already_read_recyclerview"
+            android:background="@drawable/separator_gradient">
+
+        </View>
+
+        <TextView
+                android:id="@+id/want_to_read_big"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+
+                android:layout_below="@id/profile_separator1"
+                android:textSize="24sp"
+                android:textColor="@color/colorText"
+                android:text="WANT TO READ"
+        />
+
+        <!-- Use book_lisitem_vertical_layout and hide button -->
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profile_want_to_read_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/want_to_read_big"
+        />
+
+        <View
+                android:id="@+id/profile_separator2"
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="18dp"
+                android:layout_below="@id/profile_want_to_read_recyclerview"
+                android:background="@drawable/separator_gradient">
+
+        </View>
+
+        <TextView
+                android:id="@+id/favourite_genres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+
+                android:layout_below="@id/profile_separator2"
+                android:textSize="24sp"
+                android:textColor="@color/colorText"
+                android:text="FAVOURITE GENRES"
+        />
+
+        <!-- Use small_genre_listitem_layout -->
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profile_favourite_genres_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/favourite_genres"
+        />
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/login_activity_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_wallpaper">
+
+    <ImageView
+            android:id="@+id/login_logo"
+
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+
+            android:layout_marginTop="70dp"
+            android:layout_centerHorizontal="true"
+
+            android:src="@drawable/logo"
+            android:contentDescription="Login Logo" />
+
+
+    <RelativeLayout
+            android:id="@+id/login_fields_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_logo"
+            android:visibility="visible">
+
+        <EditText
+                android:id="@+id/login_user_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+
+                android:layout_marginTop="70dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingStart="18.5dp"
+                android:paddingEnd="5dp"
+                android:drawablePadding="17.5dp"
+
+                android:layout_centerHorizontal="true"
+
+                android:hint="Email"
+                android:drawableStart="@drawable/ic_username"
+
+                android:textCursorDrawable="@null"
+
+                android:background="@color/colorWhite"
+
+                android:textSize="14sp"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="0sp"
+                android:inputType="textEmailAddress"/>
+
+        <EditText
+                android:id="@+id/login_password_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingStart="18.5dp"
+                android:paddingEnd="5dp"
+
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/login_user_text"
+
+                android:hint="Password"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="17.5dp"
+
+                android:textCursorDrawable="@null"
+
+                android:background="@color/colorWhite"
+
+                android:textSize="14sp"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="0sp"
+                android:inputType="textPassword" />
+
+        <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/login_password_text"
+
+                android:background="@color/colorAccent"
+
+                android:textSize="15sp"
+                android:lineSpacingExtra="0sp"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:text="Sign In"
+        />
+
+        <TextView
+                android:id="@+id/forgot_password_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/login_button"
+                android:layout_marginTop="14dp"
+                android:padding="5dp"
+
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="0sp"
+                android:text="Forgot Password"/>
+
+        <TextView
+                android:id="@+id/invalid_credentials_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/forgot_password_text"
+                android:layout_marginTop="25dp"
+
+                android:layout_centerHorizontal="true"
+                android:text="Incorrect Email or Password"
+                android:textColor="@color/colorRed"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="invisible"/>
+
+
+        <CheckBox
+                android:id="@+id/remember_me_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignStart="@id/login_button"
+                android:layout_below="@id/invalid_credentials_text"
+                android:padding="5dp"
+
+                android:button="@drawable/checkbox_layout_selector"
+
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="0sp"
+                android:text="Remember me" />
+
+        <TextView
+            android:id="@+id/register_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignTop="@id/remember_me_checkbox"
+            android:layout_alignEnd="@id/login_button"
+
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="0sp"
+            android:text="Register"
+        />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+            android:id="@+id/login_progress_bar_rl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorTransparentWhite"
+            android:visibility="gone"
+            android:clickable="false"
+            android:focusable="false">
+
+        <ImageView
+                android:id="@+id/login_progress_bar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_loading" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

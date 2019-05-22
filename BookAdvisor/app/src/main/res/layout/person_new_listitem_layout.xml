@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackground">
+
+    <ImageView
+        android:id="@+id/person_new_listitem_picture"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_margin="20dp"
+
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_default_profile"
+    />
+
+    <TextView
+        android:id="@+id/person_new_listitem_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/person_new_listitem_picture"
+
+        android:layout_centerHorizontal="true"
+
+        android:lines="2"
+        android:maxLines="2"
+        android:minLines="2"
+        android:maxWidth="100dip"
+        android:textAlignment="center"
+        android:textColor="@color/colorDarkGray"
+        android:textSize="16sp"
+        android:text="Georgescu Georgescu"
+
+    />
+
+</RelativeLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:id="@+id/add_readinglist_dialog_rl"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:background="@color/colorPrimary">
+
+    <TextView
+            android:id="@+id/add_readinglist_dialog_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="10sp"
+            android:textAllCaps="true"
+            android:text="Choose a title for the reading list"/>
+
+    <EditText
+            android:id="@+id/add_readinglist_dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/add_readinglist_dialog_label"
+            android:layout_alignStart="@+id/add_readinglist_dialog_label"
+            android:layout_marginTop="8dp"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@android:color/white"
+            android:textColor="@color/colorBlack"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:textSize="14sp"
+            android:text=""
+            android:textCursorDrawable="@null"
+            android:hint="Insert reading list name"/>
+
+
+    <TextView
+            android:id="@+id/add_readinglist_dialog_cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/add_readinglist_dialog_add_button"
+            android:layout_below="@+id/add_readinglist_dialog_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="14sp"
+            android:textColor="@color/colorDarkGray"
+            android:text="Cancel" />
+
+    <TextView
+            android:id="@+id/add_readinglist_dialog_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/add_readinglist_dialog_content"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:textColor="@color/colorBarText"
+            android:text="ADD"/>
+
+</RelativeLayout>

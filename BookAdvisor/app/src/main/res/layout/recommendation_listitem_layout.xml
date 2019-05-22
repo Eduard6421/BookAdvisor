@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:id="@+id/recommendation_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:textColor="@color/colorText"
+        android:text="Because you like"
+        android:textSize="24sp"
+    />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recommendation_books_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/recommendation_title_text_view"
+    />
+
+    <View
+            android:id="@+id/recommendation_separator"
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="18dp"
+            android:layout_below="@id/recommendation_books_rv"
+            android:background="@drawable/separator_gradient">
+
+    </View>
+
+</RelativeLayout>
