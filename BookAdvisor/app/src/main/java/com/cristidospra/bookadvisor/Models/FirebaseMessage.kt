@@ -15,6 +15,6 @@ class FirebaseMessage(
                         var timeStamp: String = ""
 ) {
 
-    constructor(message: Message) : this(message.sender.firebasUID, message.content, message.timeStamp())
+    constructor(message: Message) : this(message.sender.firebasUID, message.content, message.accurateTimeStamp())
     constructor(hmap: HashMap<String, String>?) : this(hmap!!["senderUID"].toString(), hmap["content"].toString(), hmap["timeStamp"].toString())
 }

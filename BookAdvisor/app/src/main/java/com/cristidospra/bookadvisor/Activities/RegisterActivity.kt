@@ -7,7 +7,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.cristidospra.bookadvisor.CurrentUser
 import com.cristidospra.bookadvisor.FirebaseManager
+import com.cristidospra.bookadvisor.Networking.UserApiManager
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
 import com.google.firebase.auth.FirebaseAuth
@@ -71,7 +73,13 @@ class RegisterActivity : AppCompatActivity() {
 
                 FirebaseManager.register(email, password, firstName, lastName) {
 
-                    this.startActivity(Intent(this, LibraryActivity::class.java))
+                    UserApiManager.getUser(email) { user ->
+
+                        CurrentUser.instance.fromUser(user)
+                        this.startActivity(Intent(this, LibraryActivity::class.java))
+
+                        finish()
+                    }
                 }
             }
         }

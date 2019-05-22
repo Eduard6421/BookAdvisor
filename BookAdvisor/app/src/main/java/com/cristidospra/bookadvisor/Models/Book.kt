@@ -108,6 +108,6 @@ class Book(
 
     fun coverURL() : String {
 
-        return ApiClient.BASE_URL + this.coverURL
+        return /*ApiClient.BASE_URL + */this.coverURL
     }
 }

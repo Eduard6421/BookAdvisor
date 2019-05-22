@@ -299,7 +299,7 @@ object FirebaseManager {
                             receiver = CurrentUser.instance
                         }
 
-                        messages.add(Message(sender, receiver, Utils.stringToDate(firebaseMessage.timeStamp), firebaseMessage.content))
+                        messages.add(Message(sender, receiver, Utils.accurateStringToDate(firebaseMessage.timeStamp), firebaseMessage.content))
 
                     }
 
