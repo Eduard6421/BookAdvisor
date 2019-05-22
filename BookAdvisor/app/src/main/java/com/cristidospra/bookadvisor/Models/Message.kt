@@ -31,4 +31,11 @@ class Message(
 
         return format.format(this.sentDate)
     }
+
+    fun accurateTimeStamp() : String {
+
+        val format = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
+
+        return format.format(this.sentDate)
+    }
 }

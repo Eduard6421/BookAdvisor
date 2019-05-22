@@ -27,6 +27,14 @@ object Utils {
     const val SHARED_PREF_EMAIL = "EmailKey"
     const val SHARED_PREF_PASSWORD = "PasswordKey"
 
+    fun accurateStringToDate(date: String) : Date {
+
+        val accurateDateFormat = "dd.MM.yyyy HH:mm:ss"
+        val dateFormatter = SimpleDateFormat(accurateDateFormat)
+
+        return dateFormatter.parse(date)
+    }
+
     fun stringToDate(date: String) : Date {
 
         return dateFormatter.parse(date)

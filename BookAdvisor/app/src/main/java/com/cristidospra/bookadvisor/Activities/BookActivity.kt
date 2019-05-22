@@ -13,6 +13,7 @@ import com.cristidospra.bookadvisor.Adapters.ReviewAdapter
 import com.cristidospra.bookadvisor.Dialogs.AddReviewDialog
 import com.cristidospra.bookadvisor.Models.Book
 import com.cristidospra.bookadvisor.Models.Genre
+import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.Networking.BookApiManager
 import com.cristidospra.bookadvisor.R
@@ -78,7 +79,15 @@ class BookActivity : NavigationMenuActivity() {
                 })
 
 
-                bookReviewsAdapter = ReviewAdapter(currentBook.reviews)
+                bookReviewsAdapter = ReviewAdapter(currentBook.reviews, object : ReviewAdapter.OnPersonClickListener {
+                    override fun onPersonClick(user: User) {
+
+                        val intent = Intent(this@BookActivity, ProfileActivity::class.java)
+                        intent.putExtra("user", user)
+                        this@BookActivity.startActivity(intent)
+                    }
+
+                })
                 bookReviewsRecyclerView.layoutManager = LinearLayoutManager(this)
                 bookReviewsRecyclerView.adapter = bookReviewsAdapter
 

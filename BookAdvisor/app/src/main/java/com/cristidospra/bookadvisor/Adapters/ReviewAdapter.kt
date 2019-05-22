@@ -9,10 +9,11 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cristidospra.bookadvisor.Models.Review
+import com.cristidospra.bookadvisor.Models.User
 import com.cristidospra.bookadvisor.R
 import com.cristidospra.bookadvisor.Utils.Utils
 
-class ReviewAdapter(val reviews: ArrayList<Review>): RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
+class ReviewAdapter(private val reviews: ArrayList<Review>, private val onPersonClickListener: OnPersonClickListener): RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
     private lateinit var usedContext: Context
 
@@ -32,11 +33,15 @@ class ReviewAdapter(val reviews: ArrayList<Review>): RecyclerView.Adapter<Review
 
         val review = reviews[position]
 
-        Utils.loadPersonImage(usedContext, holder.profilePicImageView, review.user.profilePicURL)
+        Utils.loadPersonImage(usedContext, holder.profilePicImageView, review.user.profilePic())
         holder.userNameTextView.text = review.user.fullName()
         holder.postedDateTextView.text = review.timeStamp()
         holder.ratingBar.rating = review.givenRating
         holder.contentTextView.text = review.text
+
+        holder.itemView.setOnClickListener {
+            onPersonClickListener.onPersonClick(review.user)
+        }
     }
 
     class ReviewViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -46,5 +51,9 @@ class ReviewAdapter(val reviews: ArrayList<Review>): RecyclerView.Adapter<Review
         val postedDateTextView: TextView = view.findViewById(R.id.review_listitem_post_date)
         val ratingBar: RatingBar = view.findViewById(R.id.review_listitem_rating)
         val contentTextView: TextView = view.findViewById(R.id.review_listitem_content)
+    }
+
+    interface OnPersonClickListener {
+        fun onPersonClick(user: User)
     }
 }
