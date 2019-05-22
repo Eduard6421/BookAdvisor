@@ -11,6 +11,7 @@ import com.cristidospra.bookadvisor.Models.Conversation
 import com.cristidospra.bookadvisor.Models.Message
 import com.cristidospra.bookadvisor.NavigationMenuActivity
 import com.cristidospra.bookadvisor.R
+import com.cristidospra.bookadvisor.Utils.Utils
 import com.google.firebase.database.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -69,6 +70,7 @@ class ConversationActivity : NavigationMenuActivity() {
             val messageToSend = Message(CurrentUser.instance, currentConversation.user, Date(), messageEditText.text.toString())
             FirebaseManager.addMessage(CurrentUser.instance, currentConversation.user, messageToSend)
             messageEditText.setText("")
+            Utils.closeKeyboard(this, messageEditText)
         }
     }
 }
