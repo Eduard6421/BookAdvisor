@@ -1,6 +1,6 @@
 # from django.test import TestCase
 
-import pandas
+#import pandas
 import csv
 import sys
 from random import randint
@@ -63,11 +63,25 @@ def load_from_csv(filename='/data/datasets/ratingsnew.csv'):
                     pass
 
 
-POPULATE_DB = True
+POPULATE_DB = False
+
+
+if POPULATE_DB:
+    with open('/data/BookAdvisor/rest_api/references.csv','r') as tagrefs_file:
+    
+        csv_reader = csv.reader(tagrefs_file,delimiter=',')
+        for row in csv_reader:
+
+            book_id = int(row[0])
+            tag_id = int(row[1])
+
+            book = Book.objects.filter(id=book_id).first()
+            tag = Tag.objects.filter(id=tag_id).first()
+            book.books_tags.add(tag)
 
 # load_from_csv()
 # load_from_csv('/data/BookAdvisor/datasets/books.csv')
-
+'''
 if POPULATE_DB:
     # Users and profiles test case
     find_user = User.objects.filter(username='test_user@yahoo.com')
@@ -107,7 +121,7 @@ if POPULATE_DB:
     for tag_content in tags:
         tag = Tag(name=tag_content)
         tag.save()
-
+'''
 
 '''
 if POPULATE_DB:

@@ -1,7 +1,6 @@
 from .base_views import *
 
 
-
 @csrf_exempt
 @api_view(['PUT', ])
 def update_book(request, id_book):
@@ -91,26 +90,6 @@ def recommended_books(request):
             serializer = BookSerializer(books_recommended, many=True)
             books_json = serializer.data
 
-            for book in serializer.data:
-                authors = []
-                for author in book['authors']:
-                    for key, element in author.items():
-                        if key == 'name':
-                            authors.append({'name':element})
-
-                for review in book['reviews']:
-                    for key, element in review['user_review'].items():
-                        if key == 'id':
-                            pass
-                        else:
-                            review[key] = element
-
-                    del review['user_review']
-                del book['authors']
-                book['authors'] = []
-                for author in authors:
-                    book['authors'].append(author)
-
             return Response(books_json, status=HTTP_200_OK)
         except User.DoesNotExist:
             return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
@@ -146,24 +125,35 @@ def book(request):
 
     # print(result_ai)
     b = Book.objects.filter(title__icontains=result_ai)
-    text_ai_join = ' '.join(result_ai)
-    min_pos = -1
-    min_value = 100000
-    for book in Book.objects.all():
-        curent_value = distance(book.title, text_ai_join)
-        if curent_value < min_value:
-            min_value = curent_value
-            min_pos = book.id
 
-    book_ocr = Book.objects.filter(id=min_pos).first()
-    #for b in Book.objects.all():
-    #    if len(b.title) < 4:
-    #        print(b.id)
+    tmpset = set()
+    text_ai_join = ' '.join(result_ai)
+
+    result_list = []
+    for i in range(0,7):
+        min_pos = -1
+        min_value = 100000
+        for book in Book.objects.all():
+            if book.id not in tmpset :
+                curent_value = distance(book.title, text_ai_join)
+                if curent_value < min_value:
+                    min_value = curent_value
+                    min_pos = book.id
+
+        tmpset.add(min_pos)
+
+        result_list.append(Book.objects.filter(id=min_pos).first())
+        #for b in Book.objects.all():
+        #    if len(b.title) < 4:
+        #        print(b.id)
 
     #print("text: " + text_ai_join)
     #print("book title: " + str(book_ocr.autors.all()[0].name))
-    serializer = BookSerializer(book_ocr)
+    serializer = BookSerializer(result_list,many=True)
     books_json = serializer.data
+
+    print(books_json)
+
     return Response(books_json, status=HTTP_200_OK)
 
     return Response({'has_error': 'false', 'book_path': str(book.cover), }, status=HTTP_200_OK)
@@ -174,33 +164,20 @@ def book(request):
 
 @csrf_exempt
 @api_view(['GET', ])
-def get_books(request):
+def get_books(request,title):
     msg = 'maintenance'
-    books = Book.objects.filter(title=title)
+    
+    books = Book.objects.annotate(similarity=TrigramSimilarity('title', title), ).filter(similarity__gt=0.2).order_by('-similarity')[:4]
+    authors = Author.objects.annotate(similarity=TrigramSimilarity('name', title), ).filter(similarity__gt=0.2).order_by('-similarity')
+
+    authorbooks = Book.objects.filter(authors__in=authors)[:4]
+
+    books = (books | authorbooks)
+
     if books:
         try:
             serializer = BookSerializer(books, many=True)
             books_json = serializer.data
-
-            for book in serializer.data:
-                authors = []
-                for author in book['authors']:
-                    for key, element in author.items():
-                        if key == 'name':
-                            authors.append({'name':element})
-
-                for review in book['reviews']:
-                    for key, element in review['user_review'].items():
-                        if key == 'id':
-                            pass
-                        else:
-                            review[key] = element
-
-                    del review['user_review']
-                del book['authors']
-                book['authors'] = []
-                for author in authors:
-                    book['authors'].append(author)
 
             return Response(books_json, status=HTTP_200_OK)
         except User.DoesNotExist:
@@ -235,31 +212,11 @@ def get_books_category(request, tag_name):
     except Tag.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
 
-    books = Book.objects.filter(books_tags=tag)
+    books = Book.objects.filter(books_tags=tag)[:20]
     if books:
         try:
             serializer = BookSerializer(books, many=True)
             books_json = serializer.data
-
-            for book in serializer.data:
-                authors = []
-                for author in book['authors']:
-                    for key, element in author.items():
-                        if key == 'name':
-                            authors.append({'name':element})
-
-                for review in book['reviews']:
-                    for key, element in review['user_review'].items():
-                        if key == 'id':
-                            pass
-                        else:
-                            review[key] = element
-
-                    del review['user_review']
-                del book['authors']
-                book['authors'] = []
-                for author in authors:
-                    book['authors'].append(author)
 
             return Response(books_json, status=HTTP_200_OK)
         except User.DoesNotExist:
@@ -278,26 +235,6 @@ def get_filter_books(request, term_filter):
     if books:
         serializer = BookSerializer(books, many=True)
         books_json = serializer.data
-
-        for book in serializer.data:
-            authors = []
-            for author in book['authors']:
-                for key, element in author.items():
-                    if key == 'name':
-                        authors.append({'name':element})
-
-            for review in book['reviews']:
-                for key, element in review['user_review'].items():
-                    if key == 'id':
-                        pass
-                    else:
-                        review[key] = element
-
-                del review['user_review']
-            del book['authors']
-            book['authors'] = []
-            for author in authors:
-                book['authors'].append(author)
 
         return Response(books_json, status=HTTP_200_OK)
 
@@ -351,7 +288,6 @@ def add_review(request, book_id):
 @api_view(['GET', ])
 def get_book_cover(request, uuid_img):
     msg = 'maintenance'
-    print('aa')
     try:
         with open('/data/BookAdvisor/images/' + uuid_img, "rb") as f:
             return HttpResponse(f.read(), content_type="image/jpeg")

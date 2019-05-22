@@ -26,7 +26,7 @@ SECRET_KEY = '891b((s9fae+cl@5-eguaq51zb^o2pp9uucq*^$pgr4)(dmco-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.106', '108.128.54.229', 'book-advisor.aws.bitrack.biz','54.73.10.39']
+ALLOWED_HOSTS = ['192.168.0.106', '108.128.54.229', 'book-advisor.aws.bitrack.biz','99.80.161.183']
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'rest_framework',
     'rest_framework.authtoken',
     'rest_api'
 

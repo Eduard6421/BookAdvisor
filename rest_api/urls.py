@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^update-user-pic/$', identity_views.update_user_pic, name='update_user_pic'),
     url(r'^find-user/(?P<term_filter>.+)$', identity_views.find_user, name='find_user'),
     url(r'^/data/BookAdvisor/media/(?P<uuid_img>.+)$', identity_views.get_profil_img, name='get_profil_img'),
-    url(r'^find-new-peopl   e$', identity_views.find_new_people, name='find_new_people'),
+    url(r'^find-new-people$', identity_views.find_new_people, name='find_new_people'),
     url(r'^current-user$', identity_views.current_user, name='current_user'),
     url(r'^users/$', identity_views.users, name='users'),    
 

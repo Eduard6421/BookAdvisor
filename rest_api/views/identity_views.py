@@ -13,6 +13,9 @@ def index(request):
 def login_user(request):
     msg = ''
     if request.user.is_authenticated:
+        last_token = Token.objects.filter(user=request.user)
+        if last_token.first() is not None:
+            last_token.delete()
         msg = 'Session already authenticated'
         return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
     else:  # Not authenticated user
@@ -313,9 +316,11 @@ def follow(request):
 
 
 @csrf_exempt
-@api_view(['POST', ])
+@api_view(['GET', ])
 def get_user_by_firebase(request, firebaseUID):
     msg = 'maintenance'
+
+    print(firebaseUID)
     try:
         obj_user = Profile.objects.filter(firebaseUID=firebaseUID)
 
@@ -329,29 +334,8 @@ def get_user_by_firebase(request, firebaseUID):
         for key, element in serializer.data['user'].items():
             profile_json[key] = element
         del profile_json['user']
-        for reading_list in profile_json['reading_lists']:
-            for books in reading_list['books']:
-                if books:
-                    for book in reading_list['books']:
-                        authors = []
-                        for author in book['authors']:
-                            for key, element in author.items():
-                                if key == 'name':
-                                    authors.append(element)
 
-                        for review in book['reviews']:
-                            for key, element in review['user_review'].items():
-                                if key == 'id':
-                                    pass
-                                else:
-                                    review[key] = element
-
-                            del review['user_review']
-                        del book['authors']
-                        book['authors'] = []
-                        for author in authors:
-                            book['authors'].append(author)
-
+        print(profile_json)
         return Response(profile_json, status=HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'has_error': 'true', }, status=HTTP_404_NOT_FOUND)
