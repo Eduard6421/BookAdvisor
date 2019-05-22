@@ -34,7 +34,7 @@ class ReviewAdapter(val reviews: ArrayList<Review>): RecyclerView.Adapter<Review
 
         Utils.loadPersonImage(usedContext, holder.profilePicImageView, review.user.profilePicURL)
         holder.userNameTextView.text = review.user.fullName()
-        holder.postedDateTextView.text = review.dateString
+        holder.postedDateTextView.text = review.timeStamp()
         holder.ratingBar.rating = review.givenRating
         holder.contentTextView.text = review.text
     }

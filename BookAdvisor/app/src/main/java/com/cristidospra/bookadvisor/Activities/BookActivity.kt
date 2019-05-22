@@ -54,7 +54,7 @@ class BookActivity : NavigationMenuActivity() {
                 bookAuthorTextView.text = currentBook.authorsToString()
                 bookRatingBar.rating = currentBook.rating
                 bookRatingValueTextView.text = currentBook.rating.toString()
-                bookNrRatesTextView.text = currentBook.nrRates().toString()
+                bookNrRatesTextView.text = ("out of ${currentBook.nrRates()} rates")
                 bookPrologueTextView.text = currentBook.prologue
 
 
@@ -84,11 +84,11 @@ class BookActivity : NavigationMenuActivity() {
 
                 bookAddReviewPlus.setOnClickListener {
 
-                    val reviewDialog = AddReviewDialog(this) {
+                    val reviewDialog = AddReviewDialog(this) {review ->
 
-                        BookApiManager.addReview(currentBook, it)
+                        BookApiManager.addReview(currentBook, review)
 
-                        currentBook.reviews.add(it)
+                        currentBook.reviews.add(review)
                         bookReviewsAdapter.notifyDataSetChanged()
 
                     }
