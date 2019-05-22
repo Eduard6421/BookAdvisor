@@ -1,0 +1,545 @@
+{
+	"id": "6af3849e-00b2-4585-969f-66620e561e1f",
+	"name": "sda",
+	"allTests": [],
+	"timestamp": "2019-05-22T16:29:10.871Z",
+	"collection_id": "658f5fda-e9c4-4896-bf53-9027c276ea6b",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "358d7d55-3953-4413-b9e5-73246fb85691",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "658f5fda-e9c4-4896-bf53-9027c276ea6b",
+		"name": "sda",
+		"description": null,
+		"auth": null,
+		"events": null,
+		"variables": null,
+		"order": [
+			"1483df05-65ce-4a77-be3f-58a11291fb32",
+			"7ed2490b-ae4b-4519-bfda-4cb9e64885f6",
+			"3fd13b1a-deda-4e35-905f-3ff7bc47bc56",
+			"e9a07549-3c81-4232-88c8-2716368b6e1c",
+			"be69a52f-20b1-4cb8-8dac-7dcc376a6183",
+			"03baacec-d8d9-4eb7-a673-e4dc51169a4e",
+			"08d027b7-1a3b-4fde-b803-06028f7f3ffd",
+			"94e9901e-1b27-4c58-bb1e-6e6fcbfb8aa0",
+			"6b761780-950d-4bf1-b581-0e3a3735ddde",
+			"77536fb7-d362-4f79-9417-5f87da5fadf8"
+		],
+		"folders_order": [],
+		"owner": "7615062",
+		"favorite": false,
+		"type": "collection",
+		"depth": 0
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [],
+	"results": [
+		{
+			"name": "http://99.80.161.183:8000/login",
+			"id": "1483df05-65ce-4a77-be3f-58a11291fb32",
+			"url": "http://99.80.161.183:8000/login",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				"263"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "263",
+			"totalRequestTime": "263",
+			"iterationResults": {}
+		},
+		{
+			"name": "http://99.80.161.183:8000/reading-list-books",
+			"id": "7ed2490b-ae4b-4519-bfda-4cb9e64885f6",
+			"url": "http://99.80.161.183:8000/get-reading-list",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Repsonse time": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"168"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Repsonse time": true
+				}
+			],
+			"time": "168",
+			"totalRequestTime": "168",
+			"iterationResults": {}
+		},
+		{
+			"name": "http://99.80.161.183:8000/get-user",
+			"id": "3fd13b1a-deda-4e35-905f-3ff7bc47bc56",
+			"url": "http://99.80.161.183:8000/get-user/test-user@yahoo.com",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Repsonse time": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"177"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Repsonse time": true
+				}
+			],
+			"time": "177",
+			"totalRequestTime": "177",
+			"iterationResults": {}
+		},
+		{
+			"name": "http://99.80.161.183:8000/follow",
+			"id": "e9a07549-3c81-4232-88c8-2716368b6e1c",
+			"url": "http://99.80.161.183:8000/follow",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request",
+				"detail": {
+					"name": "Bad Request",
+					"detail": "The request cannot be fulfilled due to bad syntax."
+				}
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Repsonse time": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"169"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Repsonse time": true
+				}
+			],
+			"time": "169",
+			"totalRequestTime": "169",
+			"iterationResults": {}
+		},
+		{
+			"name": "http://99.80.161.183:8000/update-user",
+			"id": "be69a52f-20b1-4cb8-8dac-7dcc376a6183",
+			"url": "http://99.80.161.183:8000/update-user?email",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error",
+				"detail": {
+					"name": "Internal Server Error",
+					"detail": "A generic error message, given when no more specific message is suitable."
+				}
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Repsonse time": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Repsonse time": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				"333"
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Repsonse time": false
+				}
+			],
+			"time": "333",
+			"totalRequestTime": "333",
+			"iterationResults": {}
+		},
+		{
+			"name": "http://99.80.161.183:8000/update-book",
+			"id": "03baacec-d8d9-4eb7-a673-e4dc51169a4e",
+			"url": "http://99.80.161.183:8000/update-book/10",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Repsonse time": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"165"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Repsonse time": true
+				}
+			],
+			"time": "165",
+			"totalRequestTime": "165",
+			"iterationResults": {}
+		},
+		{
+			"name": "http://99.80.161.183:8000/add-review",
+			"id": "08d027b7-1a3b-4fde-b803-06028f7f3ffd",
+			"url": "http://99.80.161.183:8000/add-review/10",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Repsonse time": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"175"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Repsonse time": true
+				}
+			],
+			"time": "175",
+			"totalRequestTime": "175",
+			"iterationResults": {}
+		},
+		{
+			"name": "http://99.80.161.183:8000/get-books-category",
+			"id": "94e9901e-1b27-4c58-bb1e-6e6fcbfb8aa0",
+			"url": "http://99.80.161.183:8000/get-reading-list",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Repsonse time": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"165"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Repsonse time": true
+				}
+			],
+			"time": "165",
+			"totalRequestTime": "165",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 12,
+	"totalFail": 2,
+	"totalTime": 1615,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "http://99.80.161.183:8000/login",
+			"id": "1483df05-65ce-4a77-be3f-58a11291fb32",
+			"url": "http://99.80.161.183:8000/login",
+			"time": "2019-05-22T16:29:10.871Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "http://99.80.161.183:8000/reading-list-books",
+			"id": "7ed2490b-ae4b-4519-bfda-4cb9e64885f6",
+			"url": "http://99.80.161.183:8000/get-reading-list",
+			"time": "2019-05-22T16:29:10.871Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "http://99.80.161.183:8000/get-user",
+			"id": "3fd13b1a-deda-4e35-905f-3ff7bc47bc56",
+			"url": "http://99.80.161.183:8000/get-user/test-user@yahoo.com",
+			"time": "2019-05-22T16:29:10.871Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "http://99.80.161.183:8000/follow",
+			"id": "e9a07549-3c81-4232-88c8-2716368b6e1c",
+			"url": "http://99.80.161.183:8000/follow",
+			"time": "2019-05-22T16:29:10.871Z",
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request",
+				"detail": {
+					"name": "Bad Request",
+					"detail": "The request cannot be fulfilled due to bad syntax."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "http://99.80.161.183:8000/update-user",
+			"id": "be69a52f-20b1-4cb8-8dac-7dcc376a6183",
+			"url": "http://99.80.161.183:8000/update-user?email",
+			"time": "2019-05-22T16:29:10.871Z",
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error",
+				"detail": {
+					"name": "Internal Server Error",
+					"detail": "A generic error message, given when no more specific message is suitable."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Repsonse time": {
+					"pass": 0,
+					"fail": 1
+				}
+			}
+		},
+		{
+			"name": "http://99.80.161.183:8000/update-book",
+			"id": "03baacec-d8d9-4eb7-a673-e4dc51169a4e",
+			"url": "http://99.80.161.183:8000/update-book/10",
+			"time": "2019-05-22T16:29:10.871Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "http://99.80.161.183:8000/add-review",
+			"id": "08d027b7-1a3b-4fde-b803-06028f7f3ffd",
+			"url": "http://99.80.161.183:8000/add-review/10",
+			"time": "2019-05-22T16:29:10.871Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "http://99.80.161.183:8000/get-books-category",
+			"id": "94e9901e-1b27-4c58-bb1e-6e6fcbfb8aa0",
+			"url": "http://99.80.161.183:8000/get-reading-list",
+			"time": "2019-05-22T16:29:10.871Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Repsonse time": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "http://99.80.161.183:8000/get-books",
+			"id": "6b761780-950d-4bf1-b581-0e3a3735ddde",
+			"url": "",
+			"time": "2019-05-22T16:29:10.871Z",
+			"testPassFailCounts": {}
+		}
+	],
+	"synced": false
+}
