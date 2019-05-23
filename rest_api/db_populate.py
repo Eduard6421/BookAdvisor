@@ -8,7 +8,7 @@ from .models import *
 import pandas
 # Create your tests here.
 
-def load_from_csv(filename='/data/datasets/ratingsnew.csv'):
+def load_from_csv(filename='/data/BookAdvisor/datasets/ratingsnew.csv'):
     print('Start populate db ...')
     f = open(filename, 'r')
     reader = csv.reader(f)
@@ -18,8 +18,8 @@ def load_from_csv(filename='/data/datasets/ratingsnew.csv'):
     print(headers)
     data = pandas.read_csv(filename, names=headers) #csv.reader(tagrefs_file,delimiter=',') 
 
-    migrate_authors = True
-    migrate_books = True
+    migrate_authors = False
+    migrate_books = False
 
     if migrate_authors and data['authors'] is not None:
         for author_row in data['authors']:
@@ -42,8 +42,11 @@ def load_from_csv(filename='/data/datasets/ratingsnew.csv'):
                 authors = row['authors']
                 title = row['original_title']
                 url_book = row['image_url']
-                if len(title) <= 4:
-                    title = 'Nan'
+                try:
+                    if len(title) <= 4:
+                        title = 'Nan'
+                except:
+                    title='Little Evil'
                 try:
                     date_year = row['original_publication_year'][:-2]
 
@@ -68,25 +71,9 @@ def load_from_csv(filename='/data/datasets/ratingsnew.csv'):
 POPULATE_DB = True
 
 load_from_csv('/data/BookAdvisor/datasets/books.csv')
-load_from_csv()
-
-if POPULATE_DB:
-    with open('/data/BookAdvisor/rest_api/references.csv','r') as tagrefs_file:
-
-        csv_reader = csv.reader(tagrefs_file,delimiter=',')
-        for row in csv_reader:
-
-            book_id = int(row[0])
-            tag_id = int(row[1])
-
-            book = Book.objects.filter(id=book_id).first()
-            tag = Tag.objects.filter(id=tag_id).first()
-            book.books_tags.add(tag)
+#load_from_csv()
 
 
-
-
-'''
 if POPULATE_DB:
     # Users and profiles test case
     find_user = User.objects.filter(username='test_user@yahoo.com')
@@ -126,7 +113,20 @@ if POPULATE_DB:
     for tag_content in tags:
         tag = Tag(name=tag_content)
         tag.save()
-'''
+
+
+    with open('/data/BookAdvisor/rest_api/references.csv','r') as tagrefs_file:
+
+        csv_reader = csv.reader(tagrefs_file,delimiter=',')
+        for row in csv_reader:
+
+            book_id = int(row[0])
+            tag_id = int(row[1])
+
+            book = Book.objects.filter(id=book_id).first()
+            tag = Tag.objects.filter(id=tag_id).first()
+            book.books_tags.add(tag)
+
 
 '''
 if POPULATE_DB:

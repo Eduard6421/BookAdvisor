@@ -114,7 +114,7 @@ def recommended_books(request):
 def book(request):
     msg = 'maintenance'
     image_cover = request.data.get('cover', None)
-    print(request.data)
+    #print(request.data)
     # APP_ROOT = apps.get_app_config('rest_api').path
     # ROOT_IMG = os.path.join(APP_ROOT, "images")
 
@@ -162,7 +162,7 @@ def book(request):
     serializer = BookSerializer(result_list,many=True)
     books_json = serializer.data
 
-    print(books_json)
+    #print(books_json)
 
     return Response(books_json, status=HTTP_200_OK)
 
@@ -242,8 +242,19 @@ def get_filter_books(request, term_filter):
     books = Book.objects.filter(Q(title__icontains=term_filter))[:10]
     authors = Author.objects.filter(Q(name__icontains=term_filter))
     #books = [Book.objects.filter(authors__name=author.name) for author in authors]
+    book_result = []
+    for book in books:
+       book_result.append(book)
+
+    a_books = [Book.objects.filter(authors=autor_books) for autor_books in authors]
+    for collection_books in a_books:
+        for book in collection_books:
+            book_result.append(book)
+
+    #print(book_result)
+    #print(authors)
     if books:
-        serializer = BookSerializer(books, many=True)
+        serializer = BookSerializer(book_result[:20], many=True)
         books_json = serializer.data
 
         return Response(books_json, status=HTTP_200_OK)
@@ -282,7 +293,7 @@ def get_reviews(request, title):
 def add_review(request, book_id):
     msg = 'maintenance'
     reviews_json = request.data
-    print(reviews_json)
+    #print(reviews_json)
     book = Book.objects.filter(id=book_id)
 
     if book.first() is None:
@@ -293,10 +304,10 @@ def add_review(request, book_id):
         review = Review(content=reviews_json['content'], score=float(reviews_json['score']),
                         user_review=request.user)
         review.save()
-        print(book_id)
-        print(review.content)
-        print(review.score)
-        print(review.user_review)
+        #print(book_id)
+        #print(review.content)
+        #print(review.score)
+        #print(review.user_review)
         book.reviews.add(review)
         book.rating = sum([review.score for review in book.reviews.all()]) / len(book.reviews.all())
         book.save()

@@ -5,7 +5,7 @@ from .base_views import *
 @api_view(['POST', 'GET'])
 @permission_classes((AllowAny,))
 def index(request):
-    return Response({'has_error': 'true', 'msg': msg, }, status=HTTP_400_BAD_REQUEST)
+    return Response({'has_error': 'true', 'msg': '', }, status=HTTP_200_OK)
 
 @csrf_exempt
 @api_view(['POST'])
@@ -261,7 +261,7 @@ def get_following(request):
         obj_user = [Profile.objects.get(user=u) for u in profile_obj.following.all()]
         res = parse_user(obj_user)
 
-        print(len(res))
+        #print(len(res))
         for res_obj in res:
             for elem in res_obj['followers']:
                 prof_obj = Profile.objects.get(user=User.objects.get(email=elem['email']))
@@ -373,7 +373,7 @@ def follow(request):
 def get_user_by_firebase(request, firebaseUID):
     msg = 'maintenance'
 
-    print(firebaseUID)
+    #print(firebaseUID)
     try:
         obj_user = Profile.objects.filter(firebaseUID=firebaseUID)
 

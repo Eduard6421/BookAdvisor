@@ -51,7 +51,7 @@ import random
 
 from ..models import *
 from ..serializers import *
-from ..db_populate import *
+#from ..db_populate import *
 
 from django.db import connection
 with connection.cursor() as cursor:

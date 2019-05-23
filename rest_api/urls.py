@@ -14,7 +14,7 @@ handler400, handler403, handler404, handler500
 
 urlpatterns = [
 
-    url(r'\$', identity_views.index, name='index'),
+    #url(r'/$', identity_views.index, name='index'),
     url(r'^login$',identity_views.login_user, name='login'),
     url(r'^logout$', identity_views.logout_user, name='logout'),
     url(r'^register$', identity_views.register_user, name='register'),

@@ -1,0 +1,1276 @@
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (urls.W002) Your URL pattern '^/data/BookAdvisor/media/(?P<uuid_img>.+)$' [name='get_profil_img'] has a route beginning with a '/'. Remove this slash as it is unnecessary. If this pattern is targeted in an include(), ensure the include() pattern has a trailing '/'.
+
+System check identified 1 issue (0 silenced).
+[22/May/2019 21:55:41] "POST /login HTTP/1.1" 200 117
+[22/May/2019 21:55:41] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[22/May/2019 21:55:41] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[22/May/2019 21:56:28] "POST /login HTTP/1.1" 200 117
+[22/May/2019 21:56:28] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[22/May/2019 21:56:28] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[22/May/2019 21:56:31] "GET /recommended-books/ HTTP/1.1" 200 10316
+[22/May/2019 21:56:55] "PUT /book/ HTTP/1.1" 200 3179
+[22/May/2019 21:56:59] "GET /get-book/1757 HTTP/1.1" 200 525
+[22/May/2019 21:57:42] "PUT /book/ HTTP/1.1" 200 3203
+[22/May/2019 21:58:04] "PUT /book/ HTTP/1.1" 200 3294
+[22/May/2019 21:58:25] "PUT /book/ HTTP/1.1" 200 3259
+[22/May/2019 21:58:32] "GET /recommended-books/ HTTP/1.1" 200 9918
+[22/May/2019 22:04:15] "POST /login HTTP/1.1" 200 117
+[22/May/2019 22:04:16] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[22/May/2019 22:04:16] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[22/May/2019 22:04:20] "GET /recommended-books/ HTTP/1.1" 200 11104
+[22/May/2019 22:04:25] "GET /recommended-books/ HTTP/1.1" 200 10287
+[22/May/2019 22:04:30] "GET /recommended-books/ HTTP/1.1" 200 9747
+[22/May/2019 22:04:34] "GET /recommended-books/ HTTP/1.1" 200 10402
+[22/May/2019 22:04:39] "GET /recommended-books/ HTTP/1.1" 200 10761
+[22/May/2019 22:04:50] "POST /login HTTP/1.1" 200 117
+[22/May/2019 22:04:50] "GET /get-user/gabrielpoesina@gmail.com HTTP/1.1" 301 0
+[22/May/2019 22:04:50] "GET /get-user/gabrielpoesina@gmail.com/ HTTP/1.1" 200 3133
+Not Found: /
+[22/May/2019 22:04:51] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55350)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[22/May/2019 22:04:52] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55351)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[22/May/2019 22:04:53] "GET /recommended-books/ HTTP/1.1" 200 10274
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55349)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Unauthorized: /recommended-books/
+[22/May/2019 23:34:01] "GET /recommended-books/ HTTP/1.1" 401 59
+Not Found: /
+[22/May/2019 23:34:01] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[22/May/2019 23:34:05] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[22/May/2019 23:34:07] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[22/May/2019 23:34:07] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55828)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[22/May/2019 23:34:11] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[22/May/2019 23:34:12] "GET / HTTP/1.1" 404 8755
+[22/May/2019 23:34:21] "POST /login HTTP/1.1" 200 117
+[22/May/2019 23:34:21] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[22/May/2019 23:34:21] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[22/May/2019 23:34:25] "GET /recommended-books/ HTTP/1.1" 200 9880
+[22/May/2019 23:34:47] "GET /find-new-people HTTP/1.1" 200 3714
+Not Found: /
+[22/May/2019 23:34:47] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55837)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[22/May/2019 23:34:47] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55838)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[22/May/2019 23:34:52] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55839)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[22/May/2019 23:34:53] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[22/May/2019 23:34:53] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55841)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[22/May/2019 23:34:57] "GET / HTTP/1.1" 404 8755
+Not Found: /
+Not Found: /
+[22/May/2019 23:35:02] "GET / HTTP/1.1" 404 8755
+[22/May/2019 23:35:02] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55844)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55843)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[22/May/2019 23:35:08] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[22/May/2019 23:35:08] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55847)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55846)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[22/May/2019 23:35:12] "GET /recommended-books/ HTTP/1.1" 200 10674
+[22/May/2019 23:35:57] "PUT /book/ HTTP/1.1" 200 3297
+[22/May/2019 23:36:45] "PUT /book/ HTTP/1.1" 200 3387
+[22/May/2019 23:37:03] "PUT /book/ HTTP/1.1" 200 3232
+[22/May/2019 23:37:25] "PUT /book/ HTTP/1.1" 200 3244
+[22/May/2019 23:37:55] "PUT /book/ HTTP/1.1" 200 3141
+[22/May/2019 23:38:16] "PUT /book/ HTTP/1.1" 200 3387
+[22/May/2019 23:38:45] "PUT /book/ HTTP/1.1" 200 3183
+[22/May/2019 23:38:50] "GET /get-book/5311 HTTP/1.1" 200 509
+[22/May/2019 23:39:34] "PUT /book/ HTTP/1.1" 200 3381
+[22/May/2019 23:39:52] "PUT /book/ HTTP/1.1" 200 3381
+[22/May/2019 23:40:12] "PUT /book/ HTTP/1.1" 200 3113
+[22/May/2019 23:40:17] "GET /get-book/1275 HTTP/1.1" 200 503
+[22/May/2019 23:41:00] "PUT /book/ HTTP/1.1" 200 3338
+[22/May/2019 23:41:06] "GET /get-book/5311 HTTP/1.1" 200 509
+[22/May/2019 23:41:30] "PUT /book/ HTTP/1.1" 200 3387
+[22/May/2019 23:41:32] "GET /get-book/124 HTTP/1.1" 200 500
+[22/May/2019 23:41:34] "GET /get-book/126 HTTP/1.1" 200 447
+[22/May/2019 23:41:36] "GET /get-book/171 HTTP/1.1" 200 450
+[22/May/2019 23:41:38] "GET /get-book/171 HTTP/1.1" 200 450
+[22/May/2019 23:41:42] "GET /get-book/176 HTTP/1.1" 200 528
+[22/May/2019 23:41:44] "GET /get-book/556 HTTP/1.1" 200 528
+[22/May/2019 23:41:46] "GET /get-book/589 HTTP/1.1" 200 393
+[22/May/2019 23:41:48] "GET /get-book/609 HTTP/1.1" 200 533
+[22/May/2019 23:42:15] "PUT /book/ HTTP/1.1" 200 3387
+[22/May/2019 23:42:43] "PUT /book/ HTTP/1.1" 200 3479
+[22/May/2019 23:43:25] "PUT /book/ HTTP/1.1" 200 3383
+Internal Server Error: /book/
+Traceback (most recent call last):
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/rest_framework/views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/rest_framework/views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/rest_framework/views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/rest_framework/decorators.py", line 55, in handler
+    return func(*args, **kwargs)
+  File "/data/BookAdvisor/rest_api/views/book_views.py", line 133, in book
+    result_ai = ast.literal_eval(r.text)
+  File "/usr/lib/python3.6/ast.py", line 48, in literal_eval
+    node_or_string = parse(node_or_string, mode='eval')
+  File "/usr/lib/python3.6/ast.py", line 35, in parse
+    return compile(source, filename, mode, PyCF_ONLY_AST)
+  File "<unknown>", line 1
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+    ^
+SyntaxError: invalid syntax
+[22/May/2019 23:43:51] "PUT /book/ HTTP/1.1" 500 15284
+[22/May/2019 23:44:29] "PUT /book/ HTTP/1.1" 200 3475
+[22/May/2019 23:44:36] "GET /get-book/1977 HTTP/1.1" 200 543
+[22/May/2019 23:44:38] "GET /get-book/7733 HTTP/1.1" 200 473
+[22/May/2019 23:44:40] "GET /get-book/9850 HTTP/1.1" 200 515
+[22/May/2019 23:44:41] "GET /get-book/31 HTTP/1.1" 200 462
+[22/May/2019 23:44:43] "GET /get-book/43 HTTP/1.1" 200 452
+[22/May/2019 23:44:48] "GET /get-book/43 HTTP/1.1" 200 452
+[22/May/2019 23:44:50] "GET /get-book/73 HTTP/1.1" 200 542
+[22/May/2019 23:44:51] "GET /get-book/43 HTTP/1.1" 200 452
+[22/May/2019 23:45:09] "PUT /book/ HTTP/1.1" 200 3203
+[22/May/2019 23:45:48] "PUT /book/ HTTP/1.1" 200 3244
+[22/May/2019 23:46:07] "GET /get-book/43 HTTP/1.1" 200 452
+[22/May/2019 23:46:10] "GET /get-book/43 HTTP/1.1" 200 452
+Not Found: /
+[22/May/2019 23:46:18] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[22/May/2019 23:46:18] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('95.76.134.5', 55900)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[22/May/2019 23:46:25] "POST /login HTTP/1.1" 200 117
+[22/May/2019 23:46:25] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[22/May/2019 23:46:25] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[22/May/2019 23:46:54] "PUT /book/ HTTP/1.1" 200 3475
+[22/May/2019 23:47:22] "PUT /book/ HTTP/1.1" 200 3193
+[22/May/2019 23:47:55] "PUT /book/ HTTP/1.1" 200 3215
+[22/May/2019 23:48:13] "POST /login HTTP/1.1" 200 117
+[22/May/2019 23:48:14] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[22/May/2019 23:48:14] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[22/May/2019 23:48:31] "PUT /book/ HTTP/1.1" 200 3183
+[22/May/2019 23:48:36] "GET /get-book/3366 HTTP/1.1" 200 421
+[22/May/2019 23:48:37] "GET /get-book/5311 HTTP/1.1" 200 509
+[22/May/2019 23:48:39] "GET /get-book/3511 HTTP/1.1" 200 472
+[22/May/2019 23:48:42] "GET /get-book/4626 HTTP/1.1" 200 426
+[22/May/2019 23:48:44] "GET /get-book/4655 HTTP/1.1" 200 401
+[22/May/2019 23:48:48] "GET /get-book/5834 HTTP/1.1" 200 429
+[22/May/2019 23:48:50] "GET /get-categories/ HTTP/1.1" 200 1096
+[22/May/2019 23:48:55] "GET /get-books-category/Fantasy HTTP/1.1" 200 10115
+[22/May/2019 23:54:04] "POST /login HTTP/1.1" 200 117
+[22/May/2019 23:54:05] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[22/May/2019 23:54:05] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[22/May/2019 23:54:08] "GET /get-categories/ HTTP/1.1" 200 1096
+[22/May/2019 23:54:09] "GET /get-books-category/Art HTTP/1.1" 200 10788
+[23/May/2019 05:40:54] "POST /login HTTP/1.1" 200 117
+[23/May/2019 05:40:54] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 05:40:54] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[23/May/2019 05:40:59] "GET /get-categories/ HTTP/1.1" 200 1096
+[23/May/2019 05:41:00] "GET /get-books-category/Art HTTP/1.1" 200 10788
+[23/May/2019 05:41:02] "GET /recommended-books/ HTTP/1.1" 200 9633
+[23/May/2019 05:41:52] "PUT /book/ HTTP/1.1" 200 2990
+[23/May/2019 05:42:15] "PUT /book/ HTTP/1.1" 200 3165
+[23/May/2019 05:42:45] "PUT /book/ HTTP/1.1" 200 3387
+[23/May/2019 05:42:48] "GET /get-book/171 HTTP/1.1" 200 450
+[23/May/2019 05:43:20] "PUT /book/ HTTP/1.1" 200 3312
+[23/May/2019 05:43:27] "GET /get-book/43 HTTP/1.1" 200 452
+[23/May/2019 05:43:29] "GET /get-book/43 HTTP/1.1" 200 452
+[23/May/2019 05:44:00] "PUT /book/ HTTP/1.1" 200 3244
+[23/May/2019 05:44:23] "PUT /book/ HTTP/1.1" 200 2990
+[23/May/2019 05:45:12] "PUT /book/ HTTP/1.1" 200 2990
+[23/May/2019 05:45:28] "PUT /book/ HTTP/1.1" 200 3193
+[23/May/2019 05:45:51] "PUT /book/ HTTP/1.1" 200 3475
+[23/May/2019 05:46:23] "PUT /book/ HTTP/1.1" 200 3169
+[23/May/2019 05:46:36] "POST /login HTTP/1.1" 200 117
+[23/May/2019 05:46:36] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 05:46:36] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[23/May/2019 05:46:51] "PUT /book/ HTTP/1.1" 200 3475
+[23/May/2019 05:47:00] "GET /get-book/43 HTTP/1.1" 200 452
+[23/May/2019 05:47:06] "GET /get-book/43 HTTP/1.1" 200 452
+[23/May/2019 05:48:27] "PUT /book/ HTTP/1.1" 200 3475
+[23/May/2019 05:48:39] "POST /login HTTP/1.1" 200 117
+[23/May/2019 05:48:39] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 05:48:39] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[23/May/2019 05:48:55] "PUT /book/ HTTP/1.1" 200 3475
+[23/May/2019 05:48:59] "GET /get-book/43 HTTP/1.1" 200 452
+[23/May/2019 05:54:21] "POST /login HTTP/1.1" 200 117
+[23/May/2019 05:54:21] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 05:54:22] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[23/May/2019 05:54:38] "PUT /book/ HTTP/1.1" 200 3367
+[23/May/2019 05:54:55] "PUT /book/ HTTP/1.1" 200 3381
+[23/May/2019 05:55:06] "GET /get-filter-books/moby HTTP/1.1" 200 826
+[23/May/2019 05:55:17] "GET /recommended-books/ HTTP/1.1" 200 10952
+[23/May/2019 05:57:25] "PUT /book/ HTTP/1.1" 200 3527
+[23/May/2019 05:57:28] "GET /get-book/823 HTTP/1.1" 200 452
+[23/May/2019 05:57:48] "GET /recommended-books/ HTTP/1.1" 200 10147
+[23/May/2019 05:58:27] "PUT /book/ HTTP/1.1" 200 3388
+[23/May/2019 05:58:46] "PUT /book/ HTTP/1.1" 200 3181
+[23/May/2019 05:58:52] "GET /get-book/2939 HTTP/1.1" 200 434
+[23/May/2019 05:58:53] "GET /get-book/5317 HTTP/1.1" 200 436
+[23/May/2019 05:58:55] "GET /get-book/5412 HTTP/1.1" 200 572
+[23/May/2019 05:58:57] "GET /get-book/6495 HTTP/1.1" 200 439
+[23/May/2019 05:58:59] "GET /get-book/7221 HTTP/1.1" 200 448
+[23/May/2019 05:59:01] "GET /get-book/1830 HTTP/1.1" 200 452
+[23/May/2019 05:59:02] "GET /get-book/1830 HTTP/1.1" 200 452
+[23/May/2019 05:59:18] "PUT /book/ HTTP/1.1" 200 3181
+[23/May/2019 05:59:31] "GET /recommended-books/ HTTP/1.1" 200 10407
+[23/May/2019 06:15:21] "POST /login HTTP/1.1" 200 117
+[23/May/2019 06:15:21] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 06:15:21] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[23/May/2019 06:15:37] "PUT /book/ HTTP/1.1" 200 3367
+[23/May/2019 06:42:23] "POST /login HTTP/1.1" 200 117
+[23/May/2019 06:42:24] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 06:42:24] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[23/May/2019 06:42:46] "PUT /book/ HTTP/1.1" 200 3244
+[23/May/2019 06:43:04] "PUT /book/ HTTP/1.1" 200 3367
+[23/May/2019 06:43:06] "GET /get-book/43 HTTP/1.1" 200 452
+[23/May/2019 06:43:14] "GET /get-books-category/Romance HTTP/1.1" 200 9391
+[23/May/2019 06:43:23] "GET /get-filter-books/balzac HTTP/1.1" 200 1459
+[23/May/2019 06:43:32] "GET /get-filter-books/moby%20dick HTTP/1.1" 200 826
+[23/May/2019 06:43:41] "GET /get-filter-books/eminescu HTTP/1.1" 200 2
+[23/May/2019 06:43:43] "GET /get-filter-books/eminescu HTTP/1.1" 200 2
+[23/May/2019 06:43:48] "GET /get-filter-books/poezii HTTP/1.1" 200 2
+[23/May/2019 06:45:58] "POST /login HTTP/1.1" 200 117
+[23/May/2019 06:45:58] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 06:45:58] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[23/May/2019 06:46:04] "POST /login HTTP/1.1" 200 117
+[23/May/2019 06:46:04] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 06:46:04] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 4376
+[23/May/2019 06:46:08] "GET /recommended-books/ HTTP/1.1" 200 10357
+[23/May/2019 06:46:10] "GET /get-book/862 HTTP/1.1" 200 382
+[23/May/2019 06:46:24] "GET /get-book/3241 HTTP/1.1" 200 517
+[23/May/2019 06:46:31] "PUT /update-reading-list/Already%20Read HTTP/1.1" 200 2902
+[23/May/2019 06:46:38] "POST /add-review/3241 HTTP/1.1" 200 21
+[23/May/2019 06:46:54] "GET /recommended-books/ HTTP/1.1" 200 9747
+[23/May/2019 06:47:08] "GET /get-book/1308 HTTP/1.1" 200 388
+[23/May/2019 06:47:20] "GET /find-new-people HTTP/1.1" 200 3714
+Not Found: /
+[23/May/2019 06:47:20] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 9586)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 06:47:20] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 06:47:22] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 9588)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 06:47:23] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 06:47:23] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 9590)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 06:47:27] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 9591)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 06:47:30] "POST /follow HTTP/1.1" 200 21
+Not Found: /
+[23/May/2019 06:47:30] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 9592)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 06:47:40] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 9594)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 06:47:44] "GET /get-categories/ HTTP/1.1" 200 1096
+[23/May/2019 06:48:02] "GET /get-books-category/Science HTTP/1.1" 200 9810
+[23/May/2019 07:46:59] "POST /login HTTP/1.1" 200 117
+[23/May/2019 07:46:59] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 07:47:00] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 5621
+[23/May/2019 07:47:13] "GET /recommended-books/ HTTP/1.1" 200 9351
+[23/May/2019 07:47:47] "PUT /book/ HTTP/1.1" 200 3215
+[23/May/2019 07:48:09] "PUT /book/ HTTP/1.1" 200 3367
+[23/May/2019 07:48:10] "GET /get-book/43 HTTP/1.1" 200 452
+[23/May/2019 07:59:45] "POST /login HTTP/1.1" 200 117
+[23/May/2019 07:59:46] "GET /get-user/cristi@email.com HTTP/1.1" 301 0
+[23/May/2019 07:59:47] "GET /get-user/cristi@email.com/ HTTP/1.1" 200 843
+Not Found: /
+[23/May/2019 07:59:52] "GET / HTTP/1.1" 404 8755
+[23/May/2019 07:59:52] "POST /login HTTP/1.1" 200 117
+[23/May/2019 07:59:53] "POST /login HTTP/1.1" 200 117
+[23/May/2019 07:59:53] "POST /login HTTP/1.1" 200 117
+[23/May/2019 07:59:53] "GET /get-user/cristi@email.com HTTP/1.1" 301 0
+[23/May/2019 07:59:53] "GET /get-user/cristi@email.com HTTP/1.1" 301 0
+[23/May/2019 07:59:53] "GET /get-user/cristi@email.com HTTP/1.1" 301 0
+[23/May/2019 07:59:53] "GET /get-user/cristi@email.com/ HTTP/1.1" 200 843
+[23/May/2019 07:59:54] "GET /get-user/cristi@email.com/ HTTP/1.1" 200 843
+[23/May/2019 07:59:54] "GET /get-user/cristi@email.com/ HTTP/1.1" 200 843
+Not Found: /
+[23/May/2019 07:59:57] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:00:17] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:00:17] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:00:30] "GET / HTTP/1.1" 404 8755
+[23/May/2019 08:00:30] "GET /find-new-people HTTP/1.1" 200 9606
+Not Found: /
+[23/May/2019 08:00:32] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:00:54] "GET / HTTP/1.1" 404 8755
+[23/May/2019 08:00:55] "POST /login HTTP/1.1" 200 117
+[23/May/2019 08:00:55] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 08:00:55] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 5621
+[23/May/2019 08:02:14] "GET /get-book/189 HTTP/1.1" 200 1255
+Not Found: /
+[23/May/2019 08:02:15] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:03:30] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 14905)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 08:05:27] "GET /get-filter-books/naruto HTTP/1.1" 200 2041
+Not Found: /
+[23/May/2019 08:11:30] "GET / HTTP/1.1" 404 8755
+[23/May/2019 08:11:34] "GET /recommended-books/ HTTP/1.1" 200 10222
+[23/May/2019 08:32:14] "POST /login HTTP/1.1" 200 117
+[23/May/2019 08:32:14] "GET /get-user/cristi@email.com HTTP/1.1" 301 0
+[23/May/2019 08:32:15] "GET /get-user/cristi@email.com/ HTTP/1.1" 200 843
+Not Found: /
+[23/May/2019 08:32:17] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:34:32] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:34:33] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.133.74', 10535)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 08:34:44] "GET / HTTP/1.1" 404 8755
+[23/May/2019 08:35:04] "GET /find-new-people HTTP/1.1" 200 9606
+Not Found: /
+[23/May/2019 08:35:04] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:35:04] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.133.74', 5655)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 08:35:08] "GET / HTTP/1.1" 404 8755
+[23/May/2019 08:36:33] "POST /login HTTP/1.1" 200 117
+[23/May/2019 08:36:33] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 08:36:34] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 5621
+[23/May/2019 08:36:37] "GET /find-new-people HTTP/1.1" 200 580
+Not Found: /
+[23/May/2019 08:36:37] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 15010)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 08:36:37] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:36:39] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:36:43] "GET / HTTP/1.1" 404 8755
+[23/May/2019 08:36:47] "GET /get-user-by-firebase/9St3EnYsnYdTlLf6SVsmxUWamKD2 HTTP/1.1" 200 798
+[23/May/2019 08:36:48] "GET /get-user-by-firebase/J49UTdja3ANAEhyejeWoipxBhJC2 HTTP/1.1" 200 3358
+[23/May/2019 08:36:48] "GET /get-user-by-firebase/9St3EnYsnYdTlLf6SVsmxUWamKD2 HTTP/1.1" 200 798
+[23/May/2019 08:36:48] "GET /get-user-by-firebase/9St3EnYsnYdTlLf6SVsmxUWamKD2 HTTP/1.1" 200 798
+Not Found: /
+[23/May/2019 08:36:48] "GET / HTTP/1.1" 404 8755
+[23/May/2019 08:36:48] "GET /get-user-by-firebase/J49UTdja3ANAEhyejeWoipxBhJC2 HTTP/1.1" 200 3358
+Not Found: /
+[23/May/2019 08:36:48] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:36:49] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:36:50] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:36:50] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 9987)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 08:42:17] "POST /login HTTP/1.1" 200 117
+[23/May/2019 08:42:18] "GET /get-user/cristi@email.com HTTP/1.1" 301 0
+[23/May/2019 08:42:18] "GET /get-user/cristi@email.com/ HTTP/1.1" 200 843
+Not Found: /
+[23/May/2019 08:42:20] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.133.74', 6000)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 08:42:24] "GET / HTTP/1.1" 404 8755
+[23/May/2019 08:42:40] "GET /find-new-people HTTP/1.1" 200 9606
+Not Found: /
+[23/May/2019 08:42:40] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:42:41] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.133.74', 12323)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 08:42:44] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.133.74', 12211)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 08:44:31] "POST /login HTTP/1.1" 200 117
+[23/May/2019 08:44:31] "GET /get-user/cristi@email.com HTTP/1.1" 301 0
+[23/May/2019 08:44:32] "GET /get-user/cristi@email.com/ HTTP/1.1" 200 843
+Not Found: /
+[23/May/2019 08:44:34] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('82.137.15.53', 4295)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 08:44:37] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('82.137.15.53', 8724)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 08:45:17] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('82.137.15.53', 15522)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 08:47:41] "POST /login HTTP/1.1" 200 117
+[23/May/2019 08:47:41] "GET /get-user/cristi@email.com HTTP/1.1" 301 0
+[23/May/2019 08:47:42] "GET /get-user/cristi@email.com/ HTTP/1.1" 200 843
+Not Found: /
+[23/May/2019 08:47:42] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('82.137.15.53', 21109)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 08:47:45] "GET / HTTP/1.1" 404 8755
+[23/May/2019 08:57:43] "POST /login HTTP/1.1" 200 117
+[23/May/2019 08:57:43] "GET /get-user/cristi@email.com HTTP/1.1" 301 0
+[23/May/2019 08:57:43] "GET /get-user/cristi@email.com/ HTTP/1.1" 200 843
+Not Found: /
+[23/May/2019 08:57:43] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('82.137.15.53', 3618)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 08:57:45] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('82.137.15.53', 19158)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 08:57:47] "GET /get-user-by-firebase/J49UTdja3ANAEhyejeWoipxBhJC2 HTTP/1.1" 200 3358
+[23/May/2019 08:57:47] "GET /get-user-by-firebase/UVjn7t2hxJhqpAf9mw2aHVQvgFE2 HTTP/1.1" 200 5531
+[23/May/2019 08:57:47] "GET /get-user-by-firebase/J49UTdja3ANAEhyejeWoipxBhJC2 HTTP/1.1" 200 3358
+[23/May/2019 08:57:47] "GET /get-user-by-firebase/J49UTdja3ANAEhyejeWoipxBhJC2 HTTP/1.1" 200 3358
+[23/May/2019 08:57:47] "GET /get-user-by-firebase/UVjn7t2hxJhqpAf9mw2aHVQvgFE2 HTTP/1.1" 200 5531
+Not Found: /
+[23/May/2019 08:57:47] "GET / HTTP/1.1" 404 8755
+[23/May/2019 08:57:52] "GET //data/BookAdvisor/media/eb69745a-7a1a-4494-a27a-2bf5e033686a.jpg HTTP/1.1" 200 7240421
+Not Found: /
+[23/May/2019 08:58:25] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 08:58:25] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('82.137.15.53', 17217)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+----------------------------------------
+Exception happened during processing of request from ('82.137.15.53', 5495)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 08:59:17] "POST /login HTTP/1.1" 200 117
+[23/May/2019 08:59:17] "GET /get-user/eduardpoesina@gmail.com HTTP/1.1" 301 0
+[23/May/2019 08:59:18] "GET /get-user/eduardpoesina@gmail.com/ HTTP/1.1" 200 5621
+Not Found: /
+[23/May/2019 08:59:43] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('82.137.15.53', 1917)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 08:59:47] "GET /get-user-by-firebase/9St3EnYsnYdTlLf6SVsmxUWamKD2 HTTP/1.1" 200 798
+[23/May/2019 08:59:47] "GET /get-user-by-firebase/J49UTdja3ANAEhyejeWoipxBhJC2 HTTP/1.1" 200 3358
+[23/May/2019 08:59:47] "GET /get-user-by-firebase/9St3EnYsnYdTlLf6SVsmxUWamKD2 HTTP/1.1" 200 798
+[23/May/2019 08:59:47] "GET /get-user-by-firebase/9St3EnYsnYdTlLf6SVsmxUWamKD2 HTTP/1.1" 200 798
+[23/May/2019 08:59:47] "GET /get-user-by-firebase/J49UTdja3ANAEhyejeWoipxBhJC2 HTTP/1.1" 200 3358
+Not Found: /
+[23/May/2019 08:59:47] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 10009)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 09:00:08] "GET /find-new-people HTTP/1.1" 200 580
+Not Found: /
+[23/May/2019 09:00:08] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 10010)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 09:00:08] "GET / HTTP/1.1" 404 8755
+[23/May/2019 09:00:14] "GET /get-user-by-firebase/9St3EnYsnYdTlLf6SVsmxUWamKD2 HTTP/1.1" 200 798
+[23/May/2019 09:00:14] "GET /get-user-by-firebase/J49UTdja3ANAEhyejeWoipxBhJC2 HTTP/1.1" 200 3358
+[23/May/2019 09:00:14] "GET /get-user-by-firebase/9St3EnYsnYdTlLf6SVsmxUWamKD2 HTTP/1.1" 200 798
+[23/May/2019 09:00:14] "GET /get-user-by-firebase/9St3EnYsnYdTlLf6SVsmxUWamKD2 HTTP/1.1" 200 798
+[23/May/2019 09:00:14] "GET /get-user-by-firebase/J49UTdja3ANAEhyejeWoipxBhJC2 HTTP/1.1" 200 3358
+Not Found: /
+[23/May/2019 09:00:15] "GET / HTTP/1.1" 404 8755
+[23/May/2019 09:00:58] "POST /register HTTP/1.1" 200 102
+[23/May/2019 09:00:58] "GET /get-user/test123@gmail.com HTTP/1.1" 301 0
+[23/May/2019 09:00:58] "GET /get-user/test123@gmail.com/ HTTP/1.1" 200 576
+Not Found: /
+[23/May/2019 09:00:59] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 09:01:06] "GET / HTTP/1.1" 404 8755
+[23/May/2019 09:01:07] "GET /recommended-books/ HTTP/1.1" 200 10947
+[23/May/2019 09:01:35] "GET /get-book/19 HTTP/1.1" 200 411
+Not Found: /
+[23/May/2019 09:01:35] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 15057)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 09:01:40] "POST /add-review/19 HTTP/1.1" 200 21
+Not Found: /
+[23/May/2019 09:01:40] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 15058)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 09:01:44] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 09:01:48] "GET / HTTP/1.1" 404 8755
+[23/May/2019 09:01:49] "GET /recommended-books/ HTTP/1.1" 200 9107
+Not Found: /
+[23/May/2019 09:02:08] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 15061)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 09:02:25] "GET / HTTP/1.1" 404 8755
+[23/May/2019 09:02:28] "PUT /book/ HTTP/1.1" 200 3367
+[23/May/2019 09:02:29] "GET /get-book/43 HTTP/1.1" 200 452
+Not Found: /
+[23/May/2019 09:02:29] "GET / HTTP/1.1" 404 8755
+Not Found: /
+[23/May/2019 09:02:34] "GET / HTTP/1.1" 404 8755
+[23/May/2019 09:02:45] "GET /get-book/43 HTTP/1.1" 200 452
+Not Found: /
+[23/May/2019 09:02:45] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 10034)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 09:02:49] "GET / HTTP/1.1" 404 8755
+[23/May/2019 09:03:00] "GET /get-categories/ HTTP/1.1" 200 1096
+Not Found: /
+[23/May/2019 09:03:00] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 10036)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 09:03:02] "GET / HTTP/1.1" 404 8755
+[23/May/2019 09:03:02] "GET /get-books-category/Christian HTTP/1.1" 200 10269
+Not Found: /
+[23/May/2019 09:03:07] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 10038)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 09:03:09] "GET / HTTP/1.1" 404 8755
+[23/May/2019 09:03:09] "GET /get-books-category/Crime HTTP/1.1" 200 9699
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 10039)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+Not Found: /
+[23/May/2019 09:03:09] "GET / HTTP/1.1" 404 8755
+[23/May/2019 09:03:13] "GET /get-categories/ HTTP/1.1" 200 1096
+Not Found: /
+[23/May/2019 09:03:13] "GET / HTTP/1.1" 404 8755
+----------------------------------------
+Exception happened during processing of request from ('109.166.130.73', 10042)
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/socketserver.py", line 651, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.6/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.6/socketserver.py", line 721, in __init__
+    self.handle()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 171, in handle
+    self.handle_one_request()
+  File "/data/BookAdvisor/venv/lib/python3.6/site-packages/django/core/servers/basehttp.py", line 179, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+[23/May/2019 09:03:18] "GET /get-filter-books/dickens HTTP/1.1" 200 2
+[23/May/2019 09:03:23] "GET /get-filter-books/charles HTTP/1.1" 200 9515
+[23/May/2019 09:03:35] "GET /get-filter-books/balzac HTTP/1.1" 200 1459
+[23/May/2019 09:03:41] "GET /get-filter-books/rings HTTP/1.1" 200 5463
